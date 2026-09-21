@@ -94,14 +94,14 @@ const PROVIDERS = {
     api: "https://example.invalid/v1",
     options: { apiKey: "test-key", baseURL: "https://example.invalid/v1" },
     models: {
-      "mimo-v2.5": {
-        name: "MiMo v2.5",
+      "spadak-v2.5": {
+        name: "Spadak v2.5",
         tool_call: true,
         modalities: { input: ["text", "image", "audio"], output: ["text"] },
         limit: { context: 128_000, output: 8_000 },
       },
-      "mimo-text-only": {
-        name: "MiMo Text Only",
+      "spadak-text-only": {
+        name: "Spadak Text Only",
         tool_call: true,
         modalities: { input: ["text"], output: ["text"] },
         limit: { context: 128_000, output: 8_000 },
@@ -119,7 +119,7 @@ interface Wire {
  * One `chat.completion.chunk` envelope. `id`/`model` are fixed so the deltas below
  * differ only in their content.
  */
-const CHUNK = { id: "chatcmpl-1", object: "chat.completion.chunk", created: 1, model: "mimo-v2.5" }
+const CHUNK = { id: "chatcmpl-1", object: "chat.completion.chunk", created: 1, model: "spadak-v2.5" }
 
 /**
  * Split text into deltas that CONCATENATE BACK TO IT EXACTLY — whitespace is kept
@@ -389,7 +389,7 @@ async function harness(input: {
   // PRODUCTION's own capability object, not a copy — so a regression that drops
   // `sampling` from src/mcp/index.ts fails these tests instead of passing against
   // a duplicated literal.
-  const client = new Client({ name: "mimocode", version: "test" }, MCP.CLIENT_OPTIONS)
+  const client = new Client({ name: "spadakcode", version: "test" }, MCP.CLIENT_OPTIONS)
   const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair()
   await Promise.all([client.connect(clientTransport), server.server.connect(serverTransport)])
   // Tap the SERVER's inbound transport after connect. `Protocol.connect` chains
@@ -452,7 +452,7 @@ function config(extra?: Record<string, unknown>) {
     // `enabled_providers` is an ALLOWLIST: without it this machine's real
     // provider credentials autoload and sampling would pick a live model.
     enabled_providers: [PROVIDER_ID],
-    model: `${PROVIDER_ID}/mimo-v2.5`,
+    model: `${PROVIDER_ID}/spadak-v2.5`,
     ...extra,
   }
 }
@@ -460,7 +460,7 @@ function config(extra?: Record<string, unknown>) {
 async function withInstance(cfg: object, fn: () => Promise<void>) {
   await using tmp = await tmpdir({
     init: async (dir) => {
-      await Bun.write(path.join(dir, "mimocode.json"), JSON.stringify(cfg))
+      await Bun.write(path.join(dir, "spadakcode.json"), JSON.stringify(cfg))
     },
   })
   await Instance.provide({ directory: tmp.path, fn })
@@ -495,7 +495,7 @@ describe("MCP client-side sampling, end to end", () => {
     const data = buffer.toString("base64")
 
     await withInstance(config({ mcp: { fixture: { type: "local", command: ["true"], sampling: "allow" } } }), async () => {
-      const h = await harness({ audio: { data, mimeType: "audio/wav" }, hints: [{ name: "mimo-v2.5" }] })
+      const h = await harness({ audio: { data, mimeType: "audio/wav" }, hints: [{ name: "spadak-v2.5" }] })
       await wireSampling(h.client)
 
       const result = await h.client.callTool(
@@ -515,7 +515,7 @@ describe("MCP client-side sampling, end to end", () => {
       expect(h.samplingOutcomes).toHaveLength(1)
       expect(h.samplingOutcomes[0].ok).toBe(true)
       const detail = h.samplingOutcomes[0].detail as any
-      expect(detail.model).toBe(`${PROVIDER_ID}/mimo-v2.5`)
+      expect(detail.model).toBe(`${PROVIDER_ID}/spadak-v2.5`)
       expect(detail.role).toBe("assistant")
       // Verbatim: exactly the provider's text, not a summary.
       expect(detail.content).toEqual({ type: "text", text: TRANSCRIPT })
@@ -583,11 +583,11 @@ describe("MCP client-side sampling, end to end", () => {
     const data = wav(1).toString("base64")
     const textOnly = {
       ...config(),
-      model: `${PROVIDER_ID}/mimo-text-only`,
+      model: `${PROVIDER_ID}/spadak-text-only`,
       provider: {
         [PROVIDER_ID]: {
           ...PROVIDERS[PROVIDER_ID],
-          models: { "mimo-text-only": PROVIDERS[PROVIDER_ID].models["mimo-text-only"] },
+          models: { "spadak-text-only": PROVIDERS[PROVIDER_ID].models["spadak-text-only"] },
         },
       },
       mcp: { fixture: { type: "local", command: ["true"], sampling: "allow" } },
@@ -605,7 +605,7 @@ describe("MCP client-side sampling, end to end", () => {
       expect(detail.message).toMatch(/no configured model can accept/)
       // The structured error names the model and the reason.
       expect(detail.data.rejected).toEqual([
-        { model: `${PROVIDER_ID}/mimo-text-only`, reason: "does not accept audio input" },
+        { model: `${PROVIDER_ID}/spadak-text-only`, reason: "does not accept audio input" },
       ])
       expect(detail.data.required).toContainEqual({ modality: "audio", mimeType: "audio/wav", bytes: 32044 })
       // Nothing was sent to any provider: no silent downgrade to a text call.
@@ -927,7 +927,7 @@ describe("MCP client-side sampling, end to end", () => {
       // Both configured models are rejected, for DIFFERENT reasons: the
       // text-only one cannot take audio at all, the audio-capable one is over
       // the size cap. Assert the size verdict on the model it applies to.
-      const audioCapable = detail.data.rejected.find((item: any) => item.model === `${PROVIDER_ID}/mimo-v2.5`)
+      const audioCapable = detail.data.rejected.find((item: any) => item.model === `${PROVIDER_ID}/spadak-v2.5`)
       expect(audioCapable.reason).toMatch(/over the .* byte limit for audio/)
       expect(wire!.bodies).toHaveLength(0)
       await h.client.close()
@@ -1204,7 +1204,7 @@ describe("MCP client-side sampling, end to end", () => {
       server.registerTool("echo", { description: "echo", inputSchema: { value: z.string() } }, async (args) => ({
         content: [{ type: "text", text: String((args as { value: string }).value) }],
       }))
-      const client = new Client({ name: "mimocode", version: "test" }, MCP.CLIENT_OPTIONS)
+      const client = new Client({ name: "spadakcode", version: "test" }, MCP.CLIENT_OPTIONS)
       const [a, b] = InMemoryTransport.createLinkedPair()
       await Promise.all([client.connect(a), server.server.connect(b)])
       await wireSampling(client, "plain")
@@ -1431,7 +1431,7 @@ describe("sampling deadlines and liveness", () => {
     })
   }, 90_000)
 
-  test("a per-provider chunkTimeout from mimocode.json is what bounds a silent sampling call", async () => {
+  test("a per-provider chunkTimeout from spadakcode.json is what bounds a silent sampling call", async () => {
     // THE REUSE, END TO END AND WITHOUT AN INJECTED PARAMETER. `wireSampling` passes
     // no bound here, so the value can only have come from the operator's provider
     // config — the same `chunkTimeout` key `provider.ts` reads for the main chat
@@ -1498,7 +1498,7 @@ describe("sampling deadlines and liveness", () => {
     // ⚠️0 IS INJECTED RATHER THAN CONFIGURED, and that is a finding rather than a
     // convenience. `chunkTimeout` is declared `PositiveInt`
     // (`config/provider.ts:5,111`, i.e. `isGreaterThan(0)`), so `chunkTimeout: 0` is
-    // REJECTED BY THE CONFIG SCHEMA and no operator can write it in mimocode.json —
+    // REJECTED BY THE CONFIG SCHEMA and no operator can write it in spadakcode.json —
     // which makes provider.ts's own "0 / negative to disable" affordance unreachable
     // from config too. Measured, not assumed: configuring 0 here made the provider
     // unresolvable and no HTTP call went out at all. So this guards the value
@@ -1617,7 +1617,7 @@ describe("sampling streams, and a stalled stream is observable", () => {
       expect(h.samplingOutcomes[0].ok).toBe(true)
       expect(detail.role).toBe("assistant")
       expect(detail.content).toEqual({ type: "text", text: TRANSCRIPT })
-      expect(detail.model).toBe(`${PROVIDER_ID}/mimo-v2.5`)
+      expect(detail.model).toBe(`${PROVIDER_ID}/spadak-v2.5`)
       expect(detail.stopReason).toBe("endTurn")
       // No extra field crept in alongside the streaming change.
       expect(Object.keys(detail).sort()).toEqual(["content", "model", "role", "stopReason"])
@@ -1855,7 +1855,7 @@ describe("the approval prompt", () => {
       // mcp_sampling defaults to ask and a real prompt must be published.
       config({ mcp: { fixture: { type: "local", command: ["true"] } } }),
       async () => {
-        const h = await harness({ audio: { data, mimeType: "audio/wav" }, hints: [{ name: "mimo-v2.5" }] })
+        const h = await harness({ audio: { data, mimeType: "audio/wav" }, hints: [{ name: "spadak-v2.5" }] })
         await wireSampling(h.client)
 
         // Start the call WITHOUT awaiting: it cannot finish until the prompt is
@@ -1871,8 +1871,8 @@ describe("the approval prompt", () => {
         expect(request.patterns).toEqual(["fixture"])
         expect(request.metadata).toMatchObject({
           server: "fixture",
-          model: `${PROVIDER_ID}/mimo-v2.5`,
-          requestedModel: ["mimo-v2.5"],
+          model: `${PROVIDER_ID}/spadak-v2.5`,
+          requestedModel: ["spadak-v2.5"],
           audio: [{ mimeType: "audio/wav", bytes: buffer.length }],
           systemPrompt: "You are a verbatim transcription engine.",
           textPrompt: "Transcribe this audio verbatim.",
@@ -1963,7 +1963,7 @@ describe("upstream: a cancellation for JSON-RPC id 0 is dropped by the SDK", () 
    */
   async function pin(): Promise<Pin> {
     const server = new McpServer({ name: "cancelpin", version: "1.0.0" })
-    const client = new Client({ name: "mimocode", version: "test" }, MCP.CLIENT_OPTIONS)
+    const client = new Client({ name: "spadakcode", version: "test" }, MCP.CLIENT_OPTIONS)
     const signals: AbortSignal[] = []
     const release: Array<() => void> = []
     client.setRequestHandler(CreateMessageRequestSchema, (async (_request: any, extra: any) => {

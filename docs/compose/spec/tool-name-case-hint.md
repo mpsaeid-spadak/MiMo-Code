@@ -17,7 +17,7 @@ Models must emit the exact id (`edit`, not `Edit` / `apply-patch` /
 invalid-tool path, where AI SDK already reports
 `Available tools: …`. Parameter-key normalization (`filePath` → `file_path`)
 and the exec raw-source wrap remain, but only after an exact name hit.
-The `MIMOCODE_IGNORE_TOOL_NAME_CASE` flag is gone.
+The `SPADAKCODE_IGNORE_TOOL_NAME_CASE` flag is gone.
 
 **Verification** — From `packages/opencode`:
 - `bun test test/util/tool-compat.test.ts` — PASS (19 tests)

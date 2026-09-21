@@ -35,7 +35,7 @@ describe("tool.skill", () => {
     provideTmpdirInstance(
       (dir) =>
         Effect.gen(function* () {
-          const skill = path.join(dir, ".mimocode", "skill", "tool-skill")
+          const skill = path.join(dir, ".spadakcode", "skill", "tool-skill")
           yield* Effect.promise(() =>
             Bun.write(
               path.join(skill, "SKILL.md"),
@@ -148,7 +148,7 @@ return {
           yield* Effect.promise(() =>
             Promise.all([
               Bun.write(
-                path.join(dir, ".mimocode", "skill", "gated-skill", "SKILL.md"),
+                path.join(dir, ".spadakcode", "skill", "gated-skill", "SKILL.md"),
                 `---
 name: gated-skill
 description: Only the user may start this one.
@@ -161,7 +161,7 @@ GATED_BODY_MARKER
 `,
               ),
               Bun.write(
-                path.join(dir, ".mimocode", "skill", "open-skill", "SKILL.md"),
+                path.join(dir, ".spadakcode", "skill", "open-skill", "SKILL.md"),
                 `---
 name: open-skill
 description: Anyone may start this one.

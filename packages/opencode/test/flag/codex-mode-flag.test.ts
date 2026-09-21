@@ -2,13 +2,13 @@ import { describe, expect, test } from "bun:test"
 
 function read(value?: string) {
   const env = { ...process.env }
-  if (value === undefined) delete env.MIMOCODE_CODEX_MODE
-  else env.MIMOCODE_CODEX_MODE = value
+  if (value === undefined) delete env.SPADAKCODE_CODEX_MODE
+  else env.SPADAKCODE_CODEX_MODE = value
   const result = Bun.spawnSync({
     cmd: [
       process.execPath,
       "-e",
-      'import { Flag } from "./src/flag/flag.ts"; process.stdout.write(String(Flag.MIMOCODE_CODEX_MODE))',
+      'import { Flag } from "./src/flag/flag.ts"; process.stdout.write(String(Flag.SPADAKCODE_CODEX_MODE))',
     ],
     cwd: process.cwd(),
     env,
@@ -17,7 +17,7 @@ function read(value?: string) {
   return result.stdout.toString()
 }
 
-describe("MIMOCODE_CODEX_MODE", () => {
+describe("SPADAKCODE_CODEX_MODE", () => {
   test("uses automatic model inference by default and accepts explicit truthy values", () => {
     expect(read()).toBe("undefined")
     expect(read("true")).toBe("true")

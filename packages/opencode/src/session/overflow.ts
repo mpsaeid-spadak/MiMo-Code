@@ -16,7 +16,7 @@ const OUTPUT_CAP = 20_000
 // the remaining headroom for the summary generation. The default 0.9 keeps the
 // trigger at a flat 90% of the model's context regardless of window size,
 // instead of a fixed token reserve that punishes small windows. Override with
-// MIMOCODE_COMPACTION_TRIGGER_RATIO.
+// SPADAKCODE_COMPACTION_TRIGGER_RATIO.
 
 const log = Log.create({ service: "session.overflow" })
 const warned = new Set<string>()
@@ -41,7 +41,7 @@ function reserves(input: { cfg: Config.Info; model: Provider.Model }) {
 }
 
 function budget(input: { cfg: Config.Info; model: Provider.Model }, hard: number, reserved: number) {
-  const configured = input.cfg.compaction?.max_context ?? Flag.MIMOCODE_COMPACTION_MAX_CONTEXT
+  const configured = input.cfg.compaction?.max_context ?? Flag.SPADAKCODE_COMPACTION_MAX_CONTEXT
   if (configured === undefined) return undefined
   const key = `${input.model.providerID}/${input.model.id}`
   const raw =
@@ -87,7 +87,7 @@ export function contextWindow(input: { cfg: Config.Info; model: Provider.Model }
   return {
     hard,
     effective,
-    usable: Math.floor(effective * Flag.MIMOCODE_COMPACTION_TRIGGER_RATIO),
+    usable: Math.floor(effective * Flag.SPADAKCODE_COMPACTION_TRIGGER_RATIO),
     source: configured === undefined ? "model" : "config",
   }
 }

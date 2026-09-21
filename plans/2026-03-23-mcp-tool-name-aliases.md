@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use compose:subagent (recommended) or compose:execute to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Make MiMo Code accept canonical MCP tool names and both `mcp__server__tool` spellings without changing the declared catalog names.
+**Goal:** Make Spadak Code accept canonical MCP tool names and both `mcp__server__tool` spellings without changing the declared catalog names.
 
 **Architecture:** Extend the existing tool-name compatibility resolver so native tool-call repair and the exec sandbox share one alias rule. Keep registered names canonical; resolve aliases only at dispatch time so permissions, catalog output, and metrics retain current identifiers.
 

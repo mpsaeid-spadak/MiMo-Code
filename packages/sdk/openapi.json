@@ -36,7 +36,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.global.health({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.global.health({\n  ...\n})"
           }
         ]
       }
@@ -61,7 +61,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.global.event({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.global.event({\n  ...\n})"
           }
         ]
       }
@@ -86,7 +86,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.global.config.get({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.global.config.get({\n  ...\n})"
           }
         ]
       },
@@ -128,7 +128,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.global.config.update({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.global.config.update({\n  ...\n})"
           }
         ]
       }
@@ -153,7 +153,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.global.dispose({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.global.dispose({\n  ...\n})"
           }
         ]
       }
@@ -229,7 +229,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.global.upgrade({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.global.upgrade({\n  ...\n})"
           }
         ]
       }
@@ -273,7 +273,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.global.import.scan({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.global.import.scan({\n  ...\n})"
           }
         ]
       }
@@ -282,7 +282,7 @@
       "post": {
         "operationId": "global.import.run",
         "summary": "Import external sessions",
-        "description": "Import sessions from external AI tools (Claude Code, Codex, opencode) into mimocode. Idempotent; pass force to re-sync. Per-source failures are not thrown as HTTP errors — they are collected into the corresponding stats.errors[] while other sources continue.",
+        "description": "Import sessions from external AI tools (Claude Code, Codex, opencode) into spadakcode. Idempotent; pass force to re-sync. Per-source failures are not thrown as HTTP errors — they are collected into the corresponding stats.errors[] while other sources continue.",
         "responses": {
           "200": {
             "description": "Per-source import stats",
@@ -357,7 +357,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.global.import.run({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.global.import.run({\n  ...\n})"
           }
         ]
       }
@@ -411,7 +411,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.auth.set({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.auth.set({\n  ...\n})"
           }
         ]
       },
@@ -454,7 +454,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.auth.remove({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.auth.remove({\n  ...\n})"
           }
         ]
       }
@@ -538,7 +538,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.app.log({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.app.log({\n  ...\n})"
           }
         ]
       }
@@ -594,7 +594,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.workspace.adaptor.list({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.workspace.adaptor.list({\n  ...\n})"
           }
         ]
       }
@@ -682,7 +682,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.workspace.create({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.workspace.create({\n  ...\n})"
           }
         ]
       },
@@ -724,7 +724,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.workspace.list({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.workspace.list({\n  ...\n})"
           }
         ]
       }
@@ -779,7 +779,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.workspace.status({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.workspace.status({\n  ...\n})"
           }
         ]
       }
@@ -839,7 +839,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.workspace.remove({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.workspace.remove({\n  ...\n})"
           }
         ]
       }
@@ -923,7 +923,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.workspace.sessionRestore({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.workspace.sessionRestore({\n  ...\n})"
           }
         ]
       }
@@ -967,7 +967,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.project.list({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.project.list({\n  ...\n})"
           }
         ]
       }
@@ -1008,7 +1008,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.project.current({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.project.current({\n  ...\n})"
           }
         ]
       }
@@ -1049,7 +1049,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.project.initGit({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.project.initGit({\n  ...\n})"
           }
         ]
       }
@@ -1155,7 +1155,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.project.update({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.project.update({\n  ...\n})"
           }
         ]
       }
@@ -1199,7 +1199,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.pty.list({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.pty.list({\n  ...\n})"
           }
         ]
       },
@@ -1283,7 +1283,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.pty.create({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.pty.create({\n  ...\n})"
           }
         ]
       }
@@ -1343,7 +1343,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.pty.get({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.pty.get({\n  ...\n})"
           }
         ]
       },
@@ -1427,7 +1427,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.pty.update({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.pty.update({\n  ...\n})"
           }
         ]
       },
@@ -1485,7 +1485,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.pty.remove({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.pty.remove({\n  ...\n})"
           }
         ]
       }
@@ -1557,7 +1557,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.pty.connectToken({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.pty.connectToken({\n  ...\n})"
           }
         ]
       }
@@ -1617,7 +1617,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.pty.connect({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.pty.connect({\n  ...\n})"
           }
         ]
       }
@@ -1658,7 +1658,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.config.get({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.config.get({\n  ...\n})"
           }
         ]
       },
@@ -1716,7 +1716,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.config.update({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.config.update({\n  ...\n})"
           }
         ]
       }
@@ -1775,7 +1775,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.config.providers({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.config.providers({\n  ...\n})"
           }
         ]
       }
@@ -1816,7 +1816,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.console.get({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.console.get({\n  ...\n})"
           }
         ]
       }
@@ -1887,7 +1887,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.console.listOrgs({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.console.listOrgs({\n  ...\n})"
           }
         ]
       }
@@ -1946,7 +1946,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.console.switchOrg({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.console.switchOrg({\n  ...\n})"
           }
         ]
       }
@@ -1997,7 +1997,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tool.ids({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tool.ids({\n  ...\n})"
           }
         ]
       }
@@ -2064,7 +2064,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tool.list({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tool.list({\n  ...\n})"
           }
         ]
       }
@@ -2124,7 +2124,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.worktree.create({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.worktree.create({\n  ...\n})"
           }
         ]
       },
@@ -2166,7 +2166,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.worktree.list({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.worktree.list({\n  ...\n})"
           }
         ]
       },
@@ -2224,7 +2224,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.worktree.remove({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.worktree.remove({\n  ...\n})"
           }
         ]
       }
@@ -2284,7 +2284,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.worktree.reset({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.worktree.reset({\n  ...\n})"
           }
         ]
       }
@@ -2411,7 +2411,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.title.generate({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.title.generate({\n  ...\n})"
           }
         ]
       }
@@ -2504,7 +2504,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.session.list({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.session.list({\n  ...\n})"
           }
         ]
       }
@@ -2551,7 +2551,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.resource.list({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.experimental.resource.list({\n  ...\n})"
           }
         ]
       }
@@ -2628,7 +2628,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.list({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.list({\n  ...\n})"
           }
         ]
       },
@@ -2710,7 +2710,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.create({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.create({\n  ...\n})"
           }
         ]
       }
@@ -2767,7 +2767,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.status({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.status({\n  ...\n})"
           }
         ]
       }
@@ -2838,7 +2838,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.get({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.get({\n  ...\n})"
           }
         ]
       },
@@ -2906,7 +2906,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.delete({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.delete({\n  ...\n})"
           }
         ]
       },
@@ -2999,7 +2999,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.update({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.update({\n  ...\n})"
           }
         ]
       }
@@ -3081,7 +3081,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.children({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.children({\n  ...\n})"
           }
         ]
       }
@@ -3154,7 +3154,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.todo({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.todo({\n  ...\n})"
           }
         ]
       }
@@ -3264,7 +3264,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.task({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.task({\n  ...\n})"
           }
         ]
       }
@@ -3356,7 +3356,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.init({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.init({\n  ...\n})"
           }
         ]
       }
@@ -3421,7 +3421,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.fork({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.fork({\n  ...\n})"
           }
         ]
       }
@@ -3491,7 +3491,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.abort({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.abort({\n  ...\n})"
           }
         ]
       }
@@ -3561,7 +3561,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.share({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.share({\n  ...\n})"
           }
         ]
       },
@@ -3629,7 +3629,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.unshare({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.unshare({\n  ...\n})"
           }
         ]
       }
@@ -3690,7 +3690,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.diff({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.diff({\n  ...\n})"
           }
         ]
       }
@@ -3782,7 +3782,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.summarize({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.summarize({\n  ...\n})"
           }
         ]
       }
@@ -3880,7 +3880,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.ask({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.ask({\n  ...\n})"
           }
         ]
       }
@@ -3990,7 +3990,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.messages({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.messages({\n  ...\n})"
           }
         ]
       },
@@ -4150,7 +4150,7 @@
                     "enum": ["append", "replace-agent"]
                   },
                   "harness": {
-                    "description": "Harness mode selected by the session's first user query. Later values are ignored. Auto preserves model/process inference and explicit default forces the native tool schema for non-GPT models. MIMOCODE_CODEX_MODE=false forces the default harness for every model, including GPT.",
+                    "description": "Harness mode selected by the session's first user query. Later values are ignored. Auto preserves model/process inference and explicit default forces the native tool schema for non-GPT models. SPADAKCODE_CODEX_MODE=false forces the default harness for every model, including GPT.",
                     "type": "string",
                     "enum": ["auto", "codex", "default"]
                   },
@@ -4186,7 +4186,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.prompt({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.prompt({\n  ...\n})"
           }
         ]
       }
@@ -4277,7 +4277,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.message({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.message({\n  ...\n})"
           }
         ]
       },
@@ -4354,7 +4354,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.deleteMessage({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.deleteMessage({\n  ...\n})"
           }
         ]
       }
@@ -4441,7 +4441,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.part.delete({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.part.delete({\n  ...\n})"
           }
         ]
       },
@@ -4535,7 +4535,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.part.update({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.part.update({\n  ...\n})"
           }
         ]
       }
@@ -4629,7 +4629,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.recovery({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.recovery({\n  ...\n})"
           }
         ]
       }
@@ -4732,7 +4732,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.resume({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.resume({\n  ...\n})"
           }
         ]
       }
@@ -4865,7 +4865,7 @@
                     "enum": ["append", "replace-agent"]
                   },
                   "harness": {
-                    "description": "Harness mode selected by the session's first user query. Later values are ignored. Auto preserves model/process inference and explicit default forces the native tool schema for non-GPT models. MIMOCODE_CODEX_MODE=false forces the default harness for every model, including GPT.",
+                    "description": "Harness mode selected by the session's first user query. Later values are ignored. Auto preserves model/process inference and explicit default forces the native tool schema for non-GPT models. SPADAKCODE_CODEX_MODE=false forces the default harness for every model, including GPT.",
                     "type": "string",
                     "enum": ["auto", "codex", "default"]
                   },
@@ -4901,7 +4901,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.prompt_async({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.prompt_async({\n  ...\n})"
           }
         ]
       }
@@ -5019,7 +5019,7 @@
                     "enum": ["append", "replace-agent"]
                   },
                   "harness": {
-                    "description": "Harness mode selected by the session's first user command. Later values are ignored. Auto preserves model/process inference and explicit default forces the native tool schema for non-GPT models. MIMOCODE_CODEX_MODE=false forces the default harness for every model, including GPT.",
+                    "description": "Harness mode selected by the session's first user command. Later values are ignored. Auto preserves model/process inference and explicit default forces the native tool schema for non-GPT models. SPADAKCODE_CODEX_MODE=false forces the default harness for every model, including GPT.",
                     "type": "string",
                     "enum": ["auto", "codex", "default"]
                   },
@@ -5065,7 +5065,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.command({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.command({\n  ...\n})"
           }
         ]
       }
@@ -5141,7 +5141,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.predict({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.predict({\n  ...\n})"
           }
         ]
       }
@@ -5261,7 +5261,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.shell({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.shell({\n  ...\n})"
           }
         ]
       }
@@ -5351,7 +5351,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.revert({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.revert({\n  ...\n})"
           }
         ]
       }
@@ -5421,7 +5421,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.unrevert({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.unrevert({\n  ...\n})"
           }
         ]
       }
@@ -5517,7 +5517,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.permission.respond({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.permission.respond({\n  ...\n})"
           }
         ]
       }
@@ -5580,7 +5580,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.actors({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.session.actors({\n  ...\n})"
           }
         ]
       }
@@ -5669,7 +5669,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.permission.reply({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.permission.reply({\n  ...\n})"
           }
         ]
       }
@@ -5713,7 +5713,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.permission.list({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.permission.list({\n  ...\n})"
           }
         ]
       }
@@ -5754,7 +5754,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.permission.skipAll({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.permission.skipAll({\n  ...\n})"
           }
         ]
       },
@@ -5819,7 +5819,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.permission.setSkipAll({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.permission.setSkipAll({\n  ...\n})"
           }
         ]
       }
@@ -5844,7 +5844,7 @@
           }
         ],
         "summary": "Get auto-approve-delete state",
-        "description": "Whether irreversible deletes skip the extra bash_delete confirmation. Instance-scoped; defaults to the MIMOCODE_AUTO_APPROVE_DELETE env var.",
+        "description": "Whether irreversible deletes skip the extra bash_delete confirmation. Instance-scoped; defaults to the SPADAKCODE_AUTO_APPROVE_DELETE env var.",
         "responses": {
           "200": {
             "description": "Current auto-approve-delete state",
@@ -5860,7 +5860,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.permission.autoApproveDelete({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.permission.autoApproveDelete({\n  ...\n})"
           }
         ]
       },
@@ -5925,7 +5925,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.permission.setAutoApproveDelete({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.permission.setAutoApproveDelete({\n  ...\n})"
           }
         ]
       }
@@ -5973,7 +5973,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.permission.askTimeout({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.permission.askTimeout({\n  ...\n})"
           }
         ]
       },
@@ -6054,7 +6054,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.permission.setAskTimeout({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.permission.setAskTimeout({\n  ...\n})"
           }
         ]
       }
@@ -6105,7 +6105,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.workflow.list({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.workflow.list({\n  ...\n})"
           }
         ]
       }
@@ -6164,7 +6164,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.workflow.resume({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.workflow.resume({\n  ...\n})"
           }
         ]
       }
@@ -6236,7 +6236,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.workflow.transcript({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.workflow.transcript({\n  ...\n})"
           }
         ]
       }
@@ -6296,7 +6296,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.workflow.structure({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.workflow.structure({\n  ...\n})"
           }
         ]
       }
@@ -6340,7 +6340,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.question.list({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.question.list({\n  ...\n})"
           }
         ]
       }
@@ -6381,7 +6381,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.question.neverAsk({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.question.neverAsk({\n  ...\n})"
           }
         ]
       },
@@ -6446,7 +6446,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.question.setNeverAsk({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.question.setNeverAsk({\n  ...\n})"
           }
         ]
       }
@@ -6535,7 +6535,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.question.reply({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.question.reply({\n  ...\n})"
           }
         ]
       }
@@ -6605,7 +6605,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.question.reject({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.question.reject({\n  ...\n})"
           }
         ]
       }
@@ -6664,7 +6664,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.bash.interactive.list({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.bash.interactive.list({\n  ...\n})"
           }
         ]
       }
@@ -6753,7 +6753,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.bash.interactive.reply({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.bash.interactive.reply({\n  ...\n})"
           }
         ]
       }
@@ -6824,7 +6824,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.provider.list({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.provider.list({\n  ...\n})"
           }
         ]
       }
@@ -6874,7 +6874,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.provider.auth({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.provider.auth({\n  ...\n})"
           }
         ]
       }
@@ -6960,7 +6960,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.provider.oauth.authorize({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.provider.oauth.authorize({\n  ...\n})"
           }
         ]
       }
@@ -7040,7 +7040,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.provider.oauth.callback({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.provider.oauth.callback({\n  ...\n})"
           }
         ]
       }
@@ -7081,7 +7081,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.sync.start({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.sync.start({\n  ...\n})"
           }
         ]
       }
@@ -7184,7 +7184,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.sync.replay({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.sync.replay({\n  ...\n})"
           }
         ]
       }
@@ -7277,7 +7277,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.sync.history.list({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.sync.history.list({\n  ...\n})"
           }
         ]
       }
@@ -7380,7 +7380,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.find.text({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.find.text({\n  ...\n})"
           }
         ]
       }
@@ -7457,7 +7457,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.find.files({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.find.files({\n  ...\n})"
           }
         ]
       }
@@ -7509,7 +7509,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.find.symbols({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.find.symbols({\n  ...\n})"
           }
         ]
       }
@@ -7561,7 +7561,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.file.list({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.file.list({\n  ...\n})"
           }
         ]
       }
@@ -7610,7 +7610,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.file.read({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.file.read({\n  ...\n})"
           }
         ]
       }
@@ -7654,7 +7654,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.file.status({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.file.status({\n  ...\n})"
           }
         ]
       }
@@ -7695,7 +7695,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.event.subscribe({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.event.subscribe({\n  ...\n})"
           }
         ]
       }
@@ -7742,7 +7742,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.mcp.status({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.mcp.status({\n  ...\n})"
           }
         ]
       },
@@ -7822,7 +7822,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.mcp.add({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.mcp.add({\n  ...\n})"
           }
         ]
       }
@@ -7898,7 +7898,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.mcp.auth.start({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.mcp.auth.start({\n  ...\n})"
           }
         ]
       },
@@ -7962,7 +7962,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.mcp.auth.remove({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.mcp.auth.remove({\n  ...\n})"
           }
         ]
       }
@@ -8047,7 +8047,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.mcp.auth.callback({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.mcp.auth.callback({\n  ...\n})"
           }
         ]
       }
@@ -8116,7 +8116,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.mcp.auth.authenticate({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.mcp.auth.authenticate({\n  ...\n})"
           }
         ]
       }
@@ -8164,7 +8164,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.mcp.connect({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.mcp.connect({\n  ...\n})"
           }
         ]
       }
@@ -8212,7 +8212,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.mcp.disconnect({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.mcp.disconnect({\n  ...\n})"
           }
         ]
       }
@@ -8278,7 +8278,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.appendPrompt({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.appendPrompt({\n  ...\n})"
           }
         ]
       }
@@ -8319,7 +8319,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.openHelp({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.openHelp({\n  ...\n})"
           }
         ]
       }
@@ -8360,7 +8360,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.openSessions({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.openSessions({\n  ...\n})"
           }
         ]
       }
@@ -8401,7 +8401,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.openThemes({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.openThemes({\n  ...\n})"
           }
         ]
       }
@@ -8442,7 +8442,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.openModels({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.openModels({\n  ...\n})"
           }
         ]
       }
@@ -8483,7 +8483,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.submitPrompt({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.submitPrompt({\n  ...\n})"
           }
         ]
       }
@@ -8524,7 +8524,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.clearPrompt({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.clearPrompt({\n  ...\n})"
           }
         ]
       }
@@ -8590,7 +8590,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.executeCommand({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.executeCommand({\n  ...\n})"
           }
         ]
       }
@@ -8658,7 +8658,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.showToast({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.showToast({\n  ...\n})"
           }
         ]
       }
@@ -8734,7 +8734,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.publish({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.publish({\n  ...\n})"
           }
         ]
       }
@@ -8812,7 +8812,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.selectSession({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.selectSession({\n  ...\n})"
           }
         ]
       }
@@ -8860,7 +8860,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.control.next({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.control.next({\n  ...\n})"
           }
         ]
       }
@@ -8908,7 +8908,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.control.response({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.tui.control.response({\n  ...\n})"
           }
         ]
       }
@@ -8949,7 +8949,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.instance.dispose({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.instance.dispose({\n  ...\n})"
           }
         ]
       }
@@ -8990,7 +8990,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.path.get({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.path.get({\n  ...\n})"
           }
         ]
       }
@@ -9031,7 +9031,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.vcs.get({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.vcs.get({\n  ...\n})"
           }
         ]
       }
@@ -9084,7 +9084,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.vcs.diff({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.vcs.diff({\n  ...\n})"
           }
         ]
       }
@@ -9128,7 +9128,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.command.list({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.command.list({\n  ...\n})"
           }
         ]
       }
@@ -9172,7 +9172,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.app.agents({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.app.agents({\n  ...\n})"
           }
         ]
       }
@@ -9243,7 +9243,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.app.skills({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.app.skills({\n  ...\n})"
           }
         ]
       }
@@ -9287,7 +9287,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.lsp.status({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.lsp.status({\n  ...\n})"
           }
         ]
       }
@@ -9331,7 +9331,7 @@
         "x-codeSamples": [
           {
             "lang": "js",
-            "source": "import { createOpencodeClient } from \"@mimo-ai/sdk\"\n\nconst client = createOpencodeClient()\nawait client.formatter.status({\n  ...\n})"
+            "source": "import { createOpencodeClient } from \"/sdk\"\n\nconst client = createOpencodeClient()\nawait client.formatter.status({\n  ...\n})"
           }
         ]
       }
@@ -11266,7 +11266,7 @@
             "type": "string"
           },
           "params": {
-            "description": "Template parameters for i18n interpolation (e.g. { plan: '.mimocode/plans/...' })",
+            "description": "Template parameters for i18n interpolation (e.g. { plan: '.spadakcode/plans/...' })",
             "type": "object",
             "propertyNames": {
               "type": "string"
@@ -14416,7 +14416,7 @@
         "enum": ["DEBUG", "INFO", "WARN", "ERROR"]
       },
       "ServerConfig": {
-        "description": "Server configuration for mimo serve and web commands",
+        "description": "Server configuration for spadak serve and web commands",
         "type": "object",
         "properties": {
           "port": {
@@ -14447,7 +14447,7 @@
         }
       },
       "LLMServerConfig": {
-        "description": "Token lifetime defaults for the temporary local LLM server (mimo llm-server)",
+        "description": "Token lifetime defaults for the temporary local LLM server (spadak llm-server)",
         "type": "object",
         "properties": {
           "ttl": {
@@ -15389,7 +15389,7 @@
             "$ref": "#/components/schemas/LLMServerConfig"
           },
           "command": {
-            "description": "Command configuration, see https://mimo.xiaomi.com/mimocode/commands",
+            "description": "Command configuration, see https://spadak.dev/spadakcode/commands",
             "type": "object",
             "propertyNames": {
               "type": "string"
@@ -15590,7 +15590,7 @@
             }
           },
           "agent": {
-            "description": "Agent configuration, see https://mimo.xiaomi.com/mimocode/agents",
+            "description": "Agent configuration, see https://spadak.dev/spadakcode/agents",
             "type": "object",
             "properties": {
               "plan": {
@@ -16352,7 +16352,7 @@
                 "type": "boolean"
               },
               "cc_index": {
-                "description": "Index Claude Code memory (~/.claude/projects/<slug>/memory) and expose under scope='cc'. Default: false. Note: when enabled, every mimocode agent (build/explore/subagents) can search these memories via the builtin `memory` tool — including CC's `type: user` (your role/preferences) and `type: feedback` (your guidance) categories. CC originally writes them for future CC sessions; flipping this on widens the consumer set to mimocode agents on the same machine. Leave disabled (default) if you don't want personal context recallable from a prompt-injection-vulnerable agent.",
+                "description": "Index Claude Code memory (~/.claude/projects/<slug>/memory) and expose under scope='cc'. Default: false. Note: when enabled, every spadakcode agent (build/explore/subagents) can search these memories via the builtin `memory` tool — including CC's `type: user` (your role/preferences) and `type: feedback` (your guidance) categories. CC originally writes them for future CC sessions; flipping this on widens the consumer set to spadakcode agents on the same machine. Leave disabled (default) if you don't want personal context recallable from a prompt-injection-vulnerable agent.",
                 "type": "boolean"
               }
             }
@@ -16406,11 +16406,11 @@
             "type": "object",
             "properties": {
               "asr_model": {
-                "description": "Model to use for voice ASR transcription in provider/model format. Defaults to xiaomi/mimo-v2.5-asr.",
+                "description": "Model to use for voice ASR transcription in provider/model format. Defaults to xiaomi/spadak-v2.5-asr.",
                 "type": "string"
               },
               "control_model": {
-                "description": "Model to use for voice control (multimodal) in provider/model format. Defaults to xiaomi/mimo-v2.5.",
+                "description": "Model to use for voice control (multimodal) in provider/model format. Defaults to xiaomi/spadak-v2.5.",
                 "type": "string"
               }
             }

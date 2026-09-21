@@ -372,7 +372,7 @@ test("generate accepts valid offline input without fetching and writes an import
     await symlink(path.resolve("node_modules"), path.join(root, "node_modules"), "dir")
     await writeFile(cache, JSON.stringify(baseline))
     const child = Bun.spawn(["bun", output], {
-      env: { ...Bun.env, MODELS_DEV_API_JSON: cache, MIMOCODE_MODELS_URL: "http://127.0.0.1:1" },
+      env: { ...Bun.env, MODELS_DEV_API_JSON: cache, SPADAKCODE_MODELS_URL: "http://127.0.0.1:1" },
       stdout: "pipe", stderr: "pipe",
     })
     expect(await child.exited).toBe(0)

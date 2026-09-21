@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import { createOpencodeClient, genTitle, type GenTitleInput } from "@mimo-ai/sdk/v2/client"
+import { createOpencodeClient, genTitle, type GenTitleInput } from "@spadak/sdk/v2/client"
 
 for (const model of [undefined, { providerID: "title-test", modelID: "source" }]) {
   test(`SDK genTitle forwards text, parts and locale${model ? " with source model" : " without model"}`, async () => {

@@ -6,7 +6,7 @@ import { LocalContext } from "../util"
 import { lazy } from "../util/lazy"
 import { Global } from "../global"
 import { Log } from "../util"
-import { NamedError } from "@mimo-ai/shared/util/error"
+import { NamedError } from "@spadak/shared/util/error"
 import z from "zod"
 import path from "path"
 import { readFileSync, readdirSync, existsSync } from "fs"
@@ -29,16 +29,16 @@ export const NotFoundError = NamedError.create(
 const log = Log.create({ service: "db" })
 
 export function getChannelPath() {
-  if (["latest", "beta", "prod"].includes(InstallationChannel) || Flag.MIMOCODE_DISABLE_CHANNEL_DB)
-    return path.join(Global.Path.data, "mimocode.db")
+  if (["latest", "beta", "prod"].includes(InstallationChannel) || Flag.SPADAKCODE_DISABLE_CHANNEL_DB)
+    return path.join(Global.Path.data, "spadakcode.db")
   const safe = InstallationChannel.replace(/[^a-zA-Z0-9._-]/g, "-")
-  return path.join(Global.Path.data, `mimocode-${safe}.db`)
+  return path.join(Global.Path.data, `spadakcode-${safe}.db`)
 }
 
 export const Path = iife(() => {
-  if (Flag.MIMOCODE_DB) {
-    if (Flag.MIMOCODE_DB === ":memory:" || path.isAbsolute(Flag.MIMOCODE_DB)) return Flag.MIMOCODE_DB
-    return path.join(Global.Path.data, Flag.MIMOCODE_DB)
+  if (Flag.SPADAKCODE_DB) {
+    if (Flag.SPADAKCODE_DB === ":memory:" || path.isAbsolute(Flag.SPADAKCODE_DB)) return Flag.SPADAKCODE_DB
+    return path.join(Global.Path.data, Flag.SPADAKCODE_DB)
   }
   return getChannelPath()
 })
@@ -106,7 +106,7 @@ export const Client = lazy(() => {
       count: entries.length,
       mode: typeof OPENCODE_MIGRATIONS !== "undefined" ? "bundled" : "dev",
     })
-    if (Flag.MIMOCODE_SKIP_MIGRATIONS) {
+    if (Flag.SPADAKCODE_SKIP_MIGRATIONS) {
       for (const item of entries) {
         item.sql = "select 1;"
       }
@@ -114,7 +114,7 @@ export const Client = lazy(() => {
     migrate(db, entries)
   }
 
-  if (!Flag.MIMOCODE_SKIP_MIGRATIONS) startIndexMigration(db)
+  if (!Flag.SPADAKCODE_SKIP_MIGRATIONS) startIndexMigration(db)
   return db
 })
 

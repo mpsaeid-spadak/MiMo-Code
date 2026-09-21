@@ -4,13 +4,13 @@ import type { SessionID } from "../session/schema"
 
 const VALID_SCOPES = ["global", "projects", "sessions"] as const
 
-/** Agents that may write memory or the project's `.mimocode/` directory. The
+/** Agents that may write memory or the project's `.spadakcode/` directory. The
  *  checkpoint writer has a stricter memory-only policy below. */
 const WRITE_SANDBOXED_AGENTS: ReadonlySet<string> = new Set(["dream", "distill"])
 
 /**
  * Hard write-boundary for sandboxed system agents. checkpoint-writer is
- * memory-only; dream/distill may also write under `<worktree>/.mimocode/`.
+ * memory-only; dream/distill may also write under `<worktree>/.spadakcode/`.
  * Pure — does not touch the filesystem.
  *
  * This is enforced in the single write gate (assertWriteAllowed), so it cannot
@@ -28,7 +28,7 @@ export function assertAgentWriteSandbox(input: {
 }): void {
   // Resolve here rather than trusting the caller: write.ts/edit.ts pass an
   // absolute file_path THROUGH unnormalized, so a target like
-  // `<worktree>/.mimocode/../src/x.ts` would string-prefix-match `.mimocode`
+  // `<worktree>/.spadakcode/../src/x.ts` would string-prefix-match `.spadakcode`
   // yet land in src/. path.resolve folds `..` before comparison, closing that
   // escape. (apply_patch already resolves; this makes the guard robust for all
   // callers.) The roots are resolved too so the comparison is apples-to-apples.
@@ -45,7 +45,7 @@ export function assertAgentWriteSandbox(input: {
 
   if (!WRITE_SANDBOXED_AGENTS.has(input.agentName)) return
 
-  const dotDir = path.resolve(input.worktree, ".mimocode")
+  const dotDir = path.resolve(input.worktree, ".spadakcode")
   if (pathContains(memoryRoot, target) || pathContains(dotDir, target)) return
 
   throw new Error(

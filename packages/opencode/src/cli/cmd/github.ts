@@ -425,7 +425,7 @@ jobs:
   },
 })
 
-export const GITHUB_PROMPT_PROVENANCE = { machine: "mimocode-github" } as const
+export const GITHUB_PROMPT_PROVENANCE = { machine: "spadakcode-github" } as const
 
 export const GithubRunCommand = cmd({
   command: "run",
@@ -575,7 +575,7 @@ export const GithubRunCommand = cmd({
           await AppRuntime.runPromise(SessionShare.Service.use((svc) => svc.share(session.id)))
           return session.id.slice(-8)
         })()
-        console.log("mimocode session", session.id)
+        console.log("spadakcode session", session.id)
 
         // Handle event types:
         // REPO_EVENTS (schedule, workflow_dispatch): no issue/PR context, output to logs/PR only
@@ -943,7 +943,7 @@ export const GithubRunCommand = cmd({
       }
 
       async function chat(message: string, files: PromptFiles = []) {
-        console.log("Sending message to mimocode...")
+        console.log("Sending message to spadakcode...")
 
         return AppRuntime.runPromise(
           Effect.gen(function* () {

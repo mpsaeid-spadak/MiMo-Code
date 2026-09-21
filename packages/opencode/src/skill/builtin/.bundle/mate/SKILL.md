@@ -1,11 +1,11 @@
 ---
 name: mate
-description: "Create custom desktop pet (Mate) characters with spritesheet and manifest. Use when the user asks to 'create a pet', 'make a desktop companion', 'design a mate character', 'generate a spritesheet for my pet', or wants to customize their desktop buddy. Generates a WebP spritesheet + manifest.json that can be loaded by MiMo Desktop's Mate system."
+description: "Create custom desktop pet (Mate) characters with spritesheet and manifest. Use when the user asks to 'create a pet', 'make a desktop companion', 'design a mate character', 'generate a spritesheet for my pet', or wants to customize their desktop buddy. Generates a WebP spritesheet + manifest.json that can be loaded by Spadak Desktop's Mate system."
 ---
 
 # Mate Pet Creator
 
-Create animated desktop pet characters for MiMo Desktop's Mate (桌面伙伴) system.
+Create animated desktop pet characters for Spadak Desktop's Mate (桌面伙伴) system.
 
 ## Output Structure
 
@@ -17,7 +17,7 @@ A valid custom pet lives in a folder with this structure:
 └── spritesheet.webp  # Required — all animation frames in a grid
 ```
 
-The user places this folder in their MiMo Desktop custom pets directory (`userData/pets/<pet-id>/`), then clicks "Refresh" in Settings → Mate to load it.
+The user places this folder in their Spadak Desktop custom pets directory (`userData/pets/<pet-id>/`), then clicks "Refresh" in Settings → Mate to load it.
 
 ## Manifest Schema
 
@@ -145,7 +145,7 @@ Generate `manifest.json` with correct dimensions matching the actual spritesheet
 ### Step 4: Deliver
 
 Write both files to the current working directory under a folder named with the pet ID. Tell the user to:
-1. Copy the folder to their MiMo Desktop pets directory (Settings → Mate → click "Open Folder" to find it)
+1. Copy the folder to their Spadak Desktop pets directory (Settings → Mate → click "Open Folder" to find it)
 2. Click "Refresh" in Settings → Mate
 3. Select their new pet from the list
 

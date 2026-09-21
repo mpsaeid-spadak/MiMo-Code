@@ -1,13 +1,13 @@
 /**
  * How to invoke THIS CLI again, without assuming anything is on PATH.
  *
- * `mimo` is frequently not a command. It may have been launched through `npx`, from
+ * `spadak` is frequently not a command. It may have been launched through `npx`, from
  * a `node_modules/.bin` shim, from a source checkout with `bun run dev`, or from
- * inside a host application's bundle. Printing "run `mimo ...`" in that situation
+ * inside a host application's bundle. Printing "run `spadak ...`" in that situation
  * is advice the caller cannot follow.
  *
  * The reliable signal is the running process itself. Every SHIPPED path ends up
- * executing the compiled single-file binary — `bin/mimo` is only a Node shim that
+ * executing the compiled single-file binary — `bin/spadak` is only a Node shim that
  * `spawnSync`s it — so `process.execPath` is already a complete, absolute,
  * PATH-independent invocation. Verified empirically: a `bun build --compile` binary
  * reports `execPath` as its own real path from any working directory, while
@@ -38,9 +38,9 @@ export function compiled() {
  * `commandLine`, since it needs no unquoting.
  */
 export function argv(...args: string[]): string[] {
-  // Honours the same override `bin/mimo` reads, so a host that pins a specific
+  // Honours the same override `bin/spadak` reads, so a host that pins a specific
   // binary keeps control of which one a re-invocation reaches.
-  const pinned = process.env["MIMOCODE_BIN_PATH"]
+  const pinned = process.env["SPADAKCODE_BIN_PATH"]
   if (pinned) return [pinned, ...args]
   if (compiled()) return [process.execPath, ...args]
   return [process.execPath, Bun.main, ...args]

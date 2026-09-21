@@ -68,7 +68,7 @@ describe("sandbox non-deterministic mode", () => {
 
 const runtime = ManagedRuntime.make(Layer.mergeAll(Truncate.defaultLayer, Agent.defaultLayer))
 
-const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "mimocode-test-toolscript-"))
+const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "spadakcode-test-toolscript-"))
 afterAll(async () => {
   await Instance.disposeAll()
   await fs.rm(tmp, { recursive: true, force: true })
@@ -1104,7 +1104,7 @@ describe("exec MCP dispatch", () => {
     const mcp = {
       srv_progress: fakeMcpTool(async (_args: any, options: any) => {
         await options.experimental_context.onMcpToolProgress({
-          "mimo/toolSurface": { kind: "browserUse", browserId: "iab" },
+          "spadak/toolSurface": { kind: "browserUse", browserId: "iab" },
         })
         return { output: "done", metadata: {}, attachments: [] }
       }),
@@ -1117,7 +1117,7 @@ describe("exec MCP dispatch", () => {
     )
     const subparts = result.metadata.sub_parts as ExecSubPartSnapshot[]
     expect(subparts[0]?.state.metadata).toEqual({
-      mcp: { _meta: { "mimo/toolSurface": { kind: "browserUse", browserId: "iab" } } },
+      mcp: { _meta: { "spadak/toolSurface": { kind: "browserUse", browserId: "iab" } } },
     })
   })
 

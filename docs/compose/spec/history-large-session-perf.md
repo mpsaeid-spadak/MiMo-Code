@@ -12,7 +12,7 @@ commits: e93a49cd97954df8cedbeff71d5f7230f6f8cc1d..0aa1d29f87810a24a142199dc4513
 
 **What was built** — history search/around 返回有界摘要、原始 part_id 与省略提示。get 通过 part_id 定点读取原始详情，以 UTF-16 游标连续分页；媒体默认列出定位符，显式单选后通过既有附件通道返回，遵守模型能力与文件权限边界。派生全文索引移除明确 data URL 载荷，原始数据不变；新增迁移让旧派生索引在后台重新构建，期间搜索可能暂时不完整。
 
-工作区为 `/Users/mi/projects/mi/mimocode/.worktrees/history-large-session-perf`，分支 `fix/history-large-session-perf`，基线和当前 HEAD 均为 `e93a49cd97954df8cedbeff71d5f7230f6f8cc1d`。用户确认不自动提交；上述 commits 字段仅记录基线，实际审查范围为 `git diff HEAD` 加全部新增实现、测试及迁移文件，未提交、未推送、未合并。独立审查及复审完成，规格、正确性和代码库一致性均 PASS，无剩余 critical。
+工作区为 `/Users/mi/projects/mi/spadakcode/.worktrees/history-large-session-perf`，分支 `fix/history-large-session-perf`，基线和当前 HEAD 均为 `e93a49cd97954df8cedbeff71d5f7230f6f8cc1d`。用户确认不自动提交；上述 commits 字段仅记录基线，实际审查范围为 `git diff HEAD` 加全部新增实现、测试及迁移文件，未提交、未推送、未合并。独立审查及复审完成，规格、正确性和代码库一致性均 PASS，无剩余 critical。
 
 **Verification** — 命令在 `packages/opencode` 下执行：
 

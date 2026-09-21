@@ -5,5 +5,5 @@ export function isFreeApiSunset(now = Date.now()) {
 }
 
 export function isFreeApiModel(model: { providerID: string; modelID: string } | undefined) {
-  return model?.providerID === "mimo" && model.modelID === "mimo-auto"
+  return model?.providerID === "spadak" && model.modelID === "spadak-auto"
 }

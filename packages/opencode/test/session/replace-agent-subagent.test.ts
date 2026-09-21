@@ -155,7 +155,7 @@ describe("session.llm replace-agent — actor scope [TP-R1-08]", () => {
 
     await using tmp = await tmpdir({
       init: async (dir) => {
-        await Bun.write(path.join(dir, "mimocode.json"), tmpConfig(providerID, `${server.url.origin}/v1`))
+        await Bun.write(path.join(dir, "spadakcode.json"), tmpConfig(providerID, `${server.url.origin}/v1`))
       },
     })
 
@@ -241,7 +241,7 @@ describe("session.llm replace-agent — actor scope [TP-R1-08]", () => {
 
     await using tmp = await tmpdir({
       init: async (dir) => {
-        await Bun.write(path.join(dir, "mimocode.json"), tmpConfig(providerID, `${server.url.origin}/v1`))
+        await Bun.write(path.join(dir, "spadakcode.json"), tmpConfig(providerID, `${server.url.origin}/v1`))
       },
     })
 

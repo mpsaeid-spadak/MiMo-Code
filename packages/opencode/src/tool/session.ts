@@ -335,7 +335,7 @@ export const SessionTitleTool = Tool.define<typeof titleParameters, Metadata, Se
 const parameters = z.strictObject({
   // .meta({ type: "object" }) is REQUIRED — without it, the emitted JSON
   // schema's `operation` node has only `anyOf`, no `type`. Some models
-  // (notably mimo-v2.5-pro) then stringify the entire envelope, producing
+  // (notably spadak-v2.5-pro) then stringify the entire envelope, producing
   // {"operation":"{\"action\":\"create\",...}"} which fails zod validation.
   // See research-tool-call-schema/REPORT.md §2.5 "success-nested" warning.
   operation: z
@@ -399,7 +399,7 @@ export function recoverSessionArgs(rawArgs: unknown): SessionOperation | undefin
   }
   if (obj.operation && typeof obj.operation === "object" && !Array.isArray(obj.operation))
     return { operation: obj.operation } as SessionOperation
-  // FLATTENED shape, repeatedly observed from mimo-v2.5:
+  // FLATTENED shape, repeatedly observed from spadak-v2.5:
   //   {"operation":"send","sessionID":"ses_…","task":"…"}
   // The discriminator sits at the TOP level — either as a bare `operation` verb
   // that survived the JSON.parse above, or as `action` — with the operands as its

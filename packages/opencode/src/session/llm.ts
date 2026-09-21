@@ -94,7 +94,7 @@ type Result = Awaited<ReturnType<typeof streamText>>
  * - ECONNRESET / EPIPE / ETIMEDOUT — network errors typically caused by
  *   stale keep-alive sockets or upstream proxy timeouts
  * - "SSE read timed out" — `provider.ts:wrapSSE` chunk-timeout fired
- *   (configured per-provider via `chunkTimeout` in mimocode.json). This
+ *   (configured per-provider via `chunkTimeout` in spadakcode.json). This
  *   is HTTP-byte-level: keep-alive comments still count as activity, so
  *   the error only fires when the underlying TCP stream is genuinely dead.
  *
@@ -112,7 +112,7 @@ export function isTransientCapacityError(error: unknown): boolean {
  * Memory-system instructions appended to the main agent's system prompt.
  *
  * Always injected for main/peer actors (`servesCheckpoint`); memory ownership
- * is not gated on checkpoint. `MIMOCODE_DISABLE_CHECKPOINT` only drops the
+ * is not gated on checkpoint. `SPADAKCODE_DISABLE_CHECKPOINT` only drops the
  * checkpoint-write subsections:
  * - Always: project MEMORY.md + when the agent may Edit; global MEMORY.md;
  *   session notes.md scratchpad; subagent return format; search-first /
@@ -128,7 +128,7 @@ function buildMemoryInstructions(projectID: ProjectID, memoryRoot: string): stri
   const sessionMemoryDir = path.join(memoryRoot, "sessions", "current_session_id")
   const globalMemoryFile = path.join(memoryRoot, "global", "MEMORY.md")
   const notesFile = path.join(sessionMemoryDir, "notes.md")
-  const checkpointEnabled = !Flag.MIMOCODE_DISABLE_CHECKPOINT
+  const checkpointEnabled = !Flag.SPADAKCODE_DISABLE_CHECKPOINT
 
   const files = [
     `- Project memory at \`${memoryFile}\` — persistent across all sessions in this project. Contains: project context, rules, architecture decisions, durable cross-task knowledge.`,
@@ -811,7 +811,7 @@ const live: Layer.Layer<
           ...(!input.ephemeral && input.parentSessionID ? { "x-parent-session-id": input.parentSessionID } : {}),
           ...input.model.headers,
           ...headers,
-          "User-Agent": `mimocode/${InstallationVersion}`,
+          "User-Agent": `spadakcode/${InstallationVersion}`,
         },
         // Keep one SDK-level retry for a failure before response headers. The
         // processor owns the persistent stream retry budget below this layer.

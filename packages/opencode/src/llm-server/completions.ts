@@ -188,7 +188,7 @@ export async function start(input: {
   const tools = input.req.tools?.length ? ProviderTransform.tools(toolSet(input.req.tools), model) : undefined
 
   // THE HOOKS ARE NOT OPTIONAL POLISH — they are how some providers get authenticated at
-  // all. `src/plugin/mimo.ts` supplies its provider's headers from `chat.headers`, and a
+  // all. `src/plugin/spadak.ts` supplies its provider's headers from `chat.headers`, and a
   // request path that skips the hook cannot reach such a provider no matter which process
   // it runs in. `session/llm.ts:508` does the same two triggers for the agent's own path;
   // this mirrors it so both paths reach a provider the same way.

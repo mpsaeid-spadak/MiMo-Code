@@ -37,7 +37,7 @@ const sse = (model: string) => {
 }
 
 describe("tool.websearch", () => {
-  test("xiaomi sidecar uses the session model's API id, not a hardcoded model", async () => {
+  test("spadak sidecar uses the session model's API id, not a hardcoded model", async () => {
     let requested: string | undefined
     using server = Bun.serve({
       port: 0,
@@ -51,10 +51,10 @@ describe("tool.websearch", () => {
     })
 
     const model = ProviderTest.model({
-      id: ModelID.make("catalog-mimo-pro"),
-      providerID: ProviderID.make("xiaomi"),
+      id: ModelID.make("catalog-spadak-pro"),
+      providerID: ProviderID.make("spadak"),
       api: {
-        id: "mimo-v2.5-pro",
+        id: "spadak-v2.5-pro",
         url: server.url.origin,
         npm: "@ai-sdk/openai-compatible",
       },
@@ -62,7 +62,7 @@ describe("tool.websearch", () => {
 
     const fakeAuth = Layer.mock(Auth.Service)({
       get: (providerID: string) =>
-        Effect.succeed(providerID === "xiaomi" ? new Auth.Api({ type: "api", key: "test-key" }) : undefined),
+        Effect.succeed(providerID === "spadak" ? new Auth.Api({ type: "api", key: "test-key" }) : undefined),
     })
 
     await Instance.provide({
@@ -72,7 +72,7 @@ describe("tool.websearch", () => {
           Effect.flatMap((info) => info.init()),
           Effect.flatMap((tool) =>
             tool.execute(
-              { query: "latest mimo release" },
+              { query: "latest spadak release" },
               {
                 sessionID: SessionID.make("ses_test"),
                 messageID: MessageID.make("message"),
@@ -92,7 +92,7 @@ describe("tool.websearch", () => {
           Effect.runPromise,
         )
 
-        expect(requested).toBe("mimo-v2.5-pro")
+        expect(requested).toBe("spadak-v2.5-pro")
         expect(result.output).toContain("https://example.com/result")
       },
     })

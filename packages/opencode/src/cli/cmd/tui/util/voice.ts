@@ -7,8 +7,8 @@ import type { TextPlacement } from "./voice-edit"
 
 const log = Log.create({ service: "tui.voice" })
 
-const DEFAULT_ASR_MODEL = "xiaomi/mimo-v2.5-asr"
-const DEFAULT_CONTROL_MODEL = "xiaomi/mimo-v2.5"
+const DEFAULT_ASR_MODEL = "xiaomi/spadak-v2.5-asr"
+const DEFAULT_CONTROL_MODEL = "xiaomi/spadak-v2.5"
 
 export type VoiceProviderConfig = {
   providerID: string
@@ -28,7 +28,7 @@ export function resolveCredentials(
   if (!apiKey) return { error: "no_key", providerID: config.providerID, model: config.model }
   const baseUrl = (provider.options?.baseURL as string)
     || Object.values(provider.models)[0]?.api?.url
-    || (config.providerID === "xiaomi" ? "https://api.xiaomimimo.com/v1" : undefined)
+    || (config.providerID === "spadak" ? "https://api.spadak.dev/v1" : undefined)
   if (!baseUrl) return { error: "no_url", providerID: config.providerID, model: config.model }
   return { apiKey, baseUrl }
 }
@@ -47,7 +47,7 @@ export function resolveVoiceConfig(voiceConfig?: { asr_model?: string; control_m
 
 function parseModelID(modelID: string): VoiceProviderConfig {
   const slashIndex = modelID.indexOf("/")
-  if (slashIndex < 1) return { providerID: "xiaomi", model: modelID }
+  if (slashIndex < 1) return { providerID: "spadak", model: modelID }
   return { providerID: modelID.slice(0, slashIndex), model: modelID.slice(slashIndex + 1) }
 }
 
@@ -198,14 +198,14 @@ export async function stopStreaming(handle: StreamingHandle) {
   log.info("recording stopped", { duration: Date.now() - handle.startTime })
 }
 
-// Xiaomi ASR uses a proprietary data-URL audio format and asr_options field, not the standard OpenAI input_audio schema.
+// Spadak ASR uses a proprietary data-URL audio format and asr_options field, not the standard OpenAI input_audio schema.
 export async function transcribeAudio(opts: {
   audio: Int16Array
   apiKey: string
   baseUrl: string
   model?: string
 }): Promise<string | null> {
-  const model = opts.model || "mimo-v2.5-asr"
+  const model = opts.model || "spadak-v2.5-asr"
   const samples = opts.audio.length
   log.debug("transcribe request", { model, samples })
   const wavBuffer = encodeWav(opts.audio)
@@ -220,7 +220,7 @@ export async function transcribeAudio(opts: {
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${opts.apiKey}`,
-      "X-Mimo-Source": "mimocode-cli",
+      "X-Mimo-Source": "spadakcode-cli",
     },
     body: JSON.stringify({
       model,
@@ -501,7 +501,7 @@ export async function processVoiceControl(opts: {
   contextText: string | TextPlacement
   sendEnabled?: boolean
 }): Promise<VoiceControlResult> {
-  const model = opts.model || "mimo-v2.5"
+  const model = opts.model || "spadak-v2.5"
   log.debug("voice control request", { model, samples: opts.audio.length })
   const wavBuffer = encodeWav(opts.audio)
   const base64 = Buffer.from(wavBuffer).toString("base64")
@@ -509,7 +509,7 @@ export async function processVoiceControl(opts: {
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${opts.apiKey}`,
-    "X-Mimo-Source": "mimocode-cli",
+    "X-Mimo-Source": "spadakcode-cli",
   }
 
   let body = buildVoiceControlBody({

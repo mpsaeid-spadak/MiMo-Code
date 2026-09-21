@@ -1,16 +1,16 @@
 import semver from "semver"
 
 declare global {
-  const MIMOCODE_VERSION: string
-  const MIMOCODE_CHANNEL: string
+  const SPADAKCODE_VERSION: string
+  const SPADAKCODE_CHANNEL: string
 }
 
-export const InstallationVersion = typeof MIMOCODE_VERSION === "string" ? MIMOCODE_VERSION : "local"
-export const InstallationChannel = typeof MIMOCODE_CHANNEL === "string" ? MIMOCODE_CHANNEL : "local"
+export const InstallationVersion = typeof SPADAKCODE_VERSION === "string" ? SPADAKCODE_VERSION : "local"
+export const InstallationChannel = typeof SPADAKCODE_CHANNEL === "string" ? SPADAKCODE_CHANNEL : "local"
 export const InstallationLocal = InstallationChannel === "local"
 
 // InstallationVersion is an install identity (local / desktop-<hash> / release semver),
-// not an npm dist-tag. @mimo-ai/plugin installs only pin when that identity is a valid
+// not an npm dist-tag. /plugin installs only pin when that identity is a valid
 // semver string; otherwise omit the version so npm resolves latest.
 export function pluginSdkNpmVersion(version: string, local: boolean): string | undefined {
   if (local) return undefined

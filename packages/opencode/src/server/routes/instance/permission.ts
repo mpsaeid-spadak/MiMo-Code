@@ -126,7 +126,7 @@ export const PermissionRoutes = lazy(() =>
       describeRoute({
         summary: "Get auto-approve-delete state",
         description:
-          "Whether irreversible deletes skip the extra bash_delete confirmation. Instance-scoped; defaults to the MIMOCODE_AUTO_APPROVE_DELETE env var.",
+          "Whether irreversible deletes skip the extra bash_delete confirmation. Instance-scoped; defaults to the SPADAKCODE_AUTO_APPROVE_DELETE env var.",
         operationId: "permission.autoApproveDelete",
         responses: {
           200: {

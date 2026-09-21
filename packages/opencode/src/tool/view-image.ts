@@ -1,7 +1,7 @@
 import path from "path"
 import z from "zod"
 import { Effect } from "effect"
-import { AppFileSystem } from "@mimo-ai/shared/filesystem"
+import { AppFileSystem } from "@spadak/shared/filesystem"
 import type { Provider } from "@/provider"
 import { Instance } from "@/project/instance"
 import { isImageAttachment, sniffAttachmentMime } from "@/util/media"

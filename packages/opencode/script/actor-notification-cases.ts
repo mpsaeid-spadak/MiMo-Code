@@ -13,14 +13,14 @@ const env = {
   XDG_CONFIG_HOME: path.join(root, "config"),
   XDG_CACHE_HOME: path.join(root, "cache"),
   XDG_STATE_HOME: path.join(root, "state"),
-  MIMOCODE_DB: path.join(root, "cases.db"),
-  MIMOCODE_TEST_MANAGED_CONFIG_DIR: path.join(root, "managed"),
-  MIMOCODE_MODELS_PATH: path.resolve(import.meta.dir, "../test/tool/fixtures/models-api.json"),
-  MIMOCODE_DISABLE_DEFAULT_PLUGINS: "true",
-  MIMOCODE_EXPERIMENTAL_ORCHESTRATOR: "true",
+  SPADAKCODE_DB: path.join(root, "cases.db"),
+  SPADAKCODE_TEST_MANAGED_CONFIG_DIR: path.join(root, "managed"),
+  SPADAKCODE_MODELS_PATH: path.resolve(import.meta.dir, "../test/tool/fixtures/models-api.json"),
+  SPADAKCODE_DISABLE_DEFAULT_PLUGINS: "true",
+  SPADAKCODE_EXPERIMENTAL_ORCHESTRATOR: "true",
 }
 Object.assign(process.env, env)
-delete process.env.MIMOCODE_HOME
+delete process.env.SPADAKCODE_HOME
 await fs.mkdir(env.HOME, { recursive: true })
 const { Instance } = await import("../src/project/instance")
 const { Session } = await import("../src/session")
@@ -45,7 +45,7 @@ for (const scenario of ["warning", "failure"] as const) {
   ])
   const hook = path.join(directory, "hook.ts")
   await fs.writeFile(hook, `export default async () => ({ 'actor.${scenario === "warning" ? "postStop" : "preStop"}': async (input, output) => { if (input.iteration === 0) { output.continue = true; output.reason = 'deterministic local failure probe'; } } });`)
-  await fs.writeFile(path.join(directory, "mimocode.json"), JSON.stringify({
+  await fs.writeFile(path.join(directory, "spadakcode.json"), JSON.stringify({
     plugin: [pathToFileURL(hook).href],
     enabled_providers: ["alibaba"],
     provider: { alibaba: { options: { apiKey: "test-key", baseURL: `${server.origin}/v1` } } },

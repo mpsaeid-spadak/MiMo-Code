@@ -9,12 +9,12 @@ import { testEffect } from "../lib/effect"
 import { withEnv } from "../lib/env"
 
 withEnv({
-  MIMOCODE_DISABLE_AGENTS_SKILLS: "true",
-  MIMOCODE_ENABLE_CLAUDE_CODE_SKILLS: undefined,
-  MIMOCODE_ENABLE_CODEX_SKILLS: undefined,
-  MIMOCODE_ENABLE_OPENCODE_SKILLS: undefined,
-  MIMOCODE_DISABLE_BUILTIN_SKILLS: undefined,
-  MIMOCODE_DISABLE_COMPOSE_SKILLS: undefined,
+  SPADAKCODE_DISABLE_AGENTS_SKILLS: "true",
+  SPADAKCODE_ENABLE_CLAUDE_CODE_SKILLS: undefined,
+  SPADAKCODE_ENABLE_CODEX_SKILLS: undefined,
+  SPADAKCODE_ENABLE_OPENCODE_SKILLS: undefined,
+  SPADAKCODE_DISABLE_BUILTIN_SKILLS: undefined,
+  SPADAKCODE_DISABLE_COMPOSE_SKILLS: undefined,
 })
 
 const it = testEffect(Layer.mergeAll(Skill.defaultLayer, CrossSpawnSpawner.defaultLayer))
@@ -32,7 +32,7 @@ describe("bundled skill discovery", () => {
           expect(names.has("grok-build")).toBe(true)
           expect(names.has("product-design")).toBe(true)
           expect(names.has("sales")).toBe(true)
-          expect(names.has("drive-mimo")).toBe(false)
+          expect(names.has("drive-spadak")).toBe(false)
           expect(
             list.filter((item) => item.bundled && item.location.includes(`${path.sep}workflows${path.sep}`)),
           ).toEqual([])

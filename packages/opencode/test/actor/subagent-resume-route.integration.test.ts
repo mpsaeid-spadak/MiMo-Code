@@ -25,7 +25,7 @@ type WithId = { id: string }
 
 async function seedProject(dir: string, origin: string) {
   await fs.writeFile(
-    path.join(dir, "mimocode.json"),
+    path.join(dir, "spadakcode.json"),
     JSON.stringify(
       {
         enabled_providers: ["alibaba"],

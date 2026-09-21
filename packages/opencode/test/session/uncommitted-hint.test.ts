@@ -295,7 +295,7 @@ describe("decideUncommittedHint — product vs anti-loop", () => {
     expect(
       hookNonTextRequiresProvenance({
         source: "hook",
-        provenance: { machine: "mimocode-github" },
+        provenance: { machine: "spadakcode-github" },
         parts: [{ type: "file" }],
       }),
     ).toBe(false)

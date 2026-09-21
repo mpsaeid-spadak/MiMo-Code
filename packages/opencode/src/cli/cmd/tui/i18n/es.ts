@@ -30,7 +30,7 @@ export const dict = {
   "tui.home.placeholder.example.todo": "Corregir un TODO en el código",
   "tui.home.placeholder.example.stack": "¿Cuál es el stack técnico del proyecto?",
   "tui.home.placeholder.example.tests": "Arreglar las pruebas fallidas",
-  "tui.home.agreement.prefix": "Al usar MiMoCode, aceptas nuestros ",
+  "tui.home.agreement.prefix": "Al usar SpadakCode, aceptas nuestros ",
   "tui.home.agreement.terms": "Términos de servicio",
   "tui.home.agreement.separator": " y la ",
   "tui.home.agreement.privacy": "Política de privacidad",
@@ -60,7 +60,7 @@ export const dict = {
   "tui.tips.doc": "Ejecuta {highlight}/doc{/highlight} para abrir la documentación de usuario",
   "tui.tips.free_models": "Modelos gratuitos disponibles por tiempo limitado — ¡pruébalos ahora!",
   "tui.tips.free_api_sunset":
-    "El servicio de API gratuita ha finalizado. Ejecuta {highlight}/login{/highlight} para iniciar sesión. Suscríbete a MiMo Token Plan o configura una API de terceros para usar MiMo Code.",
+    "El servicio de API gratuita ha finalizado. Ejecuta {highlight}/login{/highlight} para iniciar sesión. Suscríbete a Spadak Token Plan o configura una API de terceros para usar Spadak Code.",
   "tui.tips.multi_skills":
     "Combina varios {highlight}/skill-name{/highlight} en un mismo mensaje para usar varias Skills a la vez",
   "tui.tips.ask_slash_commands":
@@ -124,9 +124,9 @@ export const dict = {
   "tui.tips.cycle_sessions":
     "Pulsa {highlight}Ctrl+X Right/Left{/highlight} para alternar entre sesiones padre e hija",
   "tui.tips.config_files":
-    "Crea {highlight}mimocode.json{/highlight} para la configuración del servidor y {highlight}tui.json{/highlight} para la TUI",
+    "Crea {highlight}spadakcode.json{/highlight} para la configuración del servidor y {highlight}tui.json{/highlight} para la TUI",
   "tui.tips.global_config":
-    "Coloca la configuración de TUI en {highlight}~/.config/mimocode/tui.json{/highlight} como configuración global",
+    "Coloca la configuración de TUI en {highlight}~/.config/spadakcode/tui.json{/highlight} como configuración global",
   "tui.tips.schema":
     "Añade {highlight}$schema{/highlight} a tu configuración para autocompletado en el editor",
   "tui.tips.default_model":
@@ -138,15 +138,15 @@ export const dict = {
   "tui.tips.mcp_config":
     "Configura servidores MCP locales o remotos en la sección {highlight}mcp{/highlight}",
   "tui.tips.mcp_oauth":
-    "MiMoCode gestiona automáticamente OAuth para servidores MCP remotos que requieran autenticación",
+    "SpadakCode gestiona automáticamente OAuth para servidores MCP remotos que requieran autenticación",
   "tui.tips.custom_command":
-    "Añade archivos {highlight}.md{/highlight} en {highlight}.mimocode/command/{/highlight} para definir indicaciones personalizadas reutilizables",
+    "Añade archivos {highlight}.md{/highlight} en {highlight}.spadakcode/command/{/highlight} para definir indicaciones personalizadas reutilizables",
   "tui.tips.command_args":
     "Usa {highlight}$ARGUMENTS{/highlight}, {highlight}$1{/highlight}, {highlight}$2{/highlight} en comandos personalizados para entradas dinámicas",
   "tui.tips.command_backticks":
     "Usa comillas invertidas en los comandos para inyectar la salida del shell (p. ej. {highlight}`git status`{/highlight})",
   "tui.tips.custom_agent":
-    "Añade archivos {highlight}.md{/highlight} en {highlight}.mimocode/agent/{/highlight} para personajes de IA especializados",
+    "Añade archivos {highlight}.md{/highlight} en {highlight}.spadakcode/agent/{/highlight} para personajes de IA especializados",
   "tui.tips.agent_perms":
     "Configura por agente los permisos de las herramientas {highlight}edit{/highlight}, {highlight}bash{/highlight} y {highlight}webfetch{/highlight}",
   "tui.tips.bash_allow":
@@ -155,48 +155,48 @@ export const dict = {
     'Define {highlight}"rm -rf *": "deny"{/highlight} para bloquear comandos destructivos',
   "tui.tips.bash_ask":
     'Configura {highlight}"git push": "ask"{/highlight} para exigir confirmación antes de hacer push',
-  "tui.tips.formatter": "MiMoCode formatea archivos automáticamente con prettier, gofmt, ruff y más",
+  "tui.tips.formatter": "SpadakCode formatea archivos automáticamente con prettier, gofmt, ruff y más",
   "tui.tips.disable_formatter":
     'Define {highlight}"formatter": false{/highlight} en la config para desactivar el formato automático',
   "tui.tips.custom_formatter":
     "Define comandos de formateo personalizados por extensión de archivo en la configuración",
-  "tui.tips.lsp": "MiMoCode usa servidores LSP para análisis inteligente de código",
+  "tui.tips.lsp": "SpadakCode usa servidores LSP para análisis inteligente de código",
   "tui.tips.custom_tool":
-    "Crea archivos {highlight}.ts{/highlight} en {highlight}.mimocode/tools/{/highlight} para definir nuevas herramientas LLM",
+    "Crea archivos {highlight}.ts{/highlight} en {highlight}.spadakcode/tools/{/highlight} para definir nuevas herramientas LLM",
   "tui.tips.tool_scripts":
     "Las definiciones de herramientas pueden invocar scripts en Python, Go, etc.",
   "tui.tips.plugins":
-    "Añade archivos {highlight}.ts{/highlight} en {highlight}.mimocode/plugin/{/highlight} para enganchar eventos",
+    "Añade archivos {highlight}.ts{/highlight} en {highlight}.spadakcode/plugin/{/highlight} para enganchar eventos",
   "tui.tips.plugin_notify":
     "Usa plugins para enviar notificaciones del sistema cuando termine una sesión",
   "tui.tips.plugin_protect":
-    "Crea un plugin que impida a MiMoCode leer archivos sensibles",
+    "Crea un plugin que impida a SpadakCode leer archivos sensibles",
   "tui.tips.run":
-    "Usa {highlight}mimo run{/highlight} para scripting no interactivo",
+    "Usa {highlight}spadak run{/highlight} para scripting no interactivo",
   "tui.tips.continue":
-    "Usa {highlight}mimo --continue{/highlight} para retomar la última sesión",
+    "Usa {highlight}spadak --continue{/highlight} para retomar la última sesión",
   "tui.tips.attach_cli":
-    "Usa {highlight}mimo run -f file.ts{/highlight} para adjuntar archivos vía CLI",
+    "Usa {highlight}spadak run -f file.ts{/highlight} para adjuntar archivos vía CLI",
   "tui.tips.format_json":
     "Usa {highlight}--format json{/highlight} para obtener salida legible por máquina en scripts",
   "tui.tips.serve":
-    "Ejecuta {highlight}mimo serve{/highlight} para acceso headless a la API de MiMoCode",
+    "Ejecuta {highlight}spadak serve{/highlight} para acceso headless a la API de SpadakCode",
   "tui.tips.attach_server":
-    "Usa {highlight}mimo run --attach{/highlight} para conectarte a un servidor en ejecución",
+    "Usa {highlight}spadak run --attach{/highlight} para conectarte a un servidor en ejecución",
   "tui.tips.upgrade":
-    "Ejecuta {highlight}mimo upgrade{/highlight} para actualizar a la última versión",
+    "Ejecuta {highlight}spadak upgrade{/highlight} para actualizar a la última versión",
   "tui.tips.auth_list":
-    "Ejecuta {highlight}mimo auth list{/highlight} para ver todos los proveedores configurados",
+    "Ejecuta {highlight}spadak auth list{/highlight} para ver todos los proveedores configurados",
   "tui.tips.agent_create":
-    "Ejecuta {highlight}mimo agent create{/highlight} para crear un agente con asistente guiado",
+    "Ejecuta {highlight}spadak agent create{/highlight} para crear un agente con asistente guiado",
   "tui.tips.github_install":
-    "Ejecuta {highlight}mimo github install{/highlight} para configurar el workflow de GitHub",
+    "Ejecuta {highlight}spadak github install{/highlight} para configurar el workflow de GitHub",
   "tui.tips.github_oc":
     "Comenta {highlight}/oc{/highlight} en líneas de código de un PR para revisiones puntuales",
   "tui.tips.theme_system":
     'Usa {highlight}"theme": "system"{/highlight} para seguir los colores de tu terminal',
   "tui.tips.theme_files":
-    "Crea archivos JSON de tema en el directorio {highlight}.mimocode/themes/{/highlight}",
+    "Crea archivos JSON de tema en el directorio {highlight}.spadakcode/themes/{/highlight}",
   "tui.tips.theme_variants": "Los temas admiten variantes claras/oscuras para ambos modos",
   "tui.tips.theme_ansi": "Referencia colores ANSI 0-255 en temas personalizados",
   "tui.tips.env_var":
@@ -226,7 +226,7 @@ export const dict = {
   "tui.tips.external_dir":
     "El permiso {highlight}external_directory{/highlight} protege archivos fuera del proyecto",
   "tui.tips.debug_config":
-    "Ejecuta {highlight}mimo debug config{/highlight} para diagnosticar problemas de configuración",
+    "Ejecuta {highlight}spadak debug config{/highlight} para diagnosticar problemas de configuración",
   "tui.tips.print_logs":
     "Usa la opción {highlight}--print-logs{/highlight} para ver logs detallados en stderr",
   "tui.tips.timeline":
@@ -240,7 +240,7 @@ export const dict = {
   "tui.tips.username_toggle":
     "Activa/desactiva la visualización del nombre de usuario desde la paleta de comandos ({highlight}Ctrl+P{/highlight})",
   "tui.tips.zen":
-    "Usa {highlight}/connect{/highlight} con MiMo Code para modelos seleccionados y probados",
+    "Usa {highlight}/connect{/highlight} con Spadak Code para modelos seleccionados y probados",
   "tui.tips.agents_md":
     "Sube el {highlight}AGENTS.md{/highlight} de tu proyecto a Git para compartirlo con el equipo",
   "tui.tips.review":
@@ -284,7 +284,7 @@ export const dict = {
   "tui.skill.xlsx-official.description": "Crear, editar y leer libros de Microsoft Excel (.xlsx)",
   "tui.skill.pdf-official.description": "Crear, editar, transformar y leer archivos PDF",
   "tui.skill.pptx-official.description": "Crear, editar y leer presentaciones de Microsoft PowerPoint (.pptx)",
-  "tui.skill.mimocode.description": "Autodocumentación de funciones, configuración y comandos de MiMoCode",
+  "tui.skill.spadakcode.description": "Autodocumentación de funciones, configuración y comandos de SpadakCode",
   "tui.skill.evolve.description": "Reescribe cualquier capa de ti mismo — herramientas, hooks, conocimiento, workflows, incluso la UI",
   "tui.skill.loop.description": "Programar un prompt para ejecutarse en un intervalo recurrente",
   "tui.skill.html-to-video-pipeline.description": "El arma definitiva para vídeos cortos — crea vídeos cortos con HTML",
@@ -404,18 +404,18 @@ export const dict = {
   "tui.dialog.agreement.confirm": "Aceptar y continuar",
   "tui.dialog.free_api_sunset.title": "El servicio de API gratuita ha finalizado",
   "tui.dialog.free_api_sunset.message":
-    "Ejecuta /login para iniciar sesión. Suscríbete a MiMo Token Plan o configura una API de terceros para usar MiMo Code.",
+    "Ejecuta /login para iniciar sesión. Suscríbete a Spadak Token Plan o configura una API de terceros para usar Spadak Code.",
   "tui.command.consent.revoke.title": "Revocar el acuerdo de modelo gratuito",
   "tui.consent.revoked": "Acuerdo de modelo gratuito revocado: se te pedirá aceptarlo de nuevo",
   "tui.dialog.select.placeholder": "Buscar",
   "tui.dialog.model.login_hint": "Consejo: ejecuta /login para iniciar sesión antes de cambiar de modelo",
-  "tui.model.mimo_auto.name": "MiMo Auto (MiMo-V2.5 gratis hasta el 26 de julio, 18:00 · UTC+8)",
-  "tui.model.mimo_auto.sunset_name": "MiMo Auto (MiMo-V2.5)",
+  "tui.model.spadak_auto.name": "Spadak Auto (Spadak-V2.5 gratis hasta el 26 de julio, 18:00 · UTC+8)",
+  "tui.model.spadak_auto.sunset_name": "Spadak Auto (Spadak-V2.5)",
   "tui.dialog.token_plan.title": "Suscríbete a un Token Plan o espera en la cola",
   "tui.dialog.token_plan.line1":
     "En el modo gratuito, las solicitudes están en cola. Para un servicio estable y de calidad,",
   "tui.dialog.token_plan.subscribe": "suscríbete a ",
-  "tui.dialog.token_plan.link": "MiMo Token Plan",
+  "tui.dialog.token_plan.link": "Spadak Token Plan",
   "tui.dialog.token_plan.link_suffix": ".",
   "tui.dialog.token_plan.line3": "También puedes ejecutar /login para configurar tu propia clave API.",
   "tui.dialog.token_plan.confirm": "Entendido",
@@ -456,7 +456,7 @@ export const dict = {
   "tui.dialog.try_best.action.verify": "verificación",
   "tui.dialog.try_best.action.same_kind": "la misma clase",
   "tui.dialog.try_best.handoff.title": "Transferir a {{target}}",
-  "tui.dialog.try_best.handoff.description": "Pedir a MiMo que delegue el trabajo pendiente en este entorno",
+  "tui.dialog.try_best.handoff.description": "Pedir a Spadak que delegue el trabajo pendiente en este entorno",
   "tui.dialog.try_best.continue.title": "Continuar con {{model}}",
   "tui.dialog.try_best.continue.description": "Pedir al modelo actual que abandone este enfoque y vuelva a planificar",
   "tui.toast.instructions_loaded": "Cargado {{files}}",
@@ -464,7 +464,7 @@ export const dict = {
   "tui.toast.update_available.confirm": "La nueva versión v{{version}} está disponible. ¿Desea actualizar ahora?",
   "tui.toast.update_available.updating": "Actualizando a v{{version}}...",
   "tui.toast.update_available.failed": "La actualización falló",
-  "tui.toast.update_available.success": "Se actualizó a MiMoCode v{{version}}. Por favor reinicie la aplicación.",
+  "tui.toast.update_available.success": "Se actualizó a SpadakCode v{{version}}. Por favor reinicie la aplicación.",
   "tui.toast.updated.title": "Actualizado automáticamente",
   "tui.toast.updated.message": "Parche aplicado automáticamente: v{{version}}. Reinicie para usar la nueva versión. Desactive con autoupdate: false en la configuración.",
   "tui.toast.native_installer_tip": "Consejo: se recomienda el instalador nativo (curl/PowerShell) para una mejor experiencia.",
@@ -553,7 +553,7 @@ export const dict = {
   "tui.command.voice.control.title": "Alternar edición inteligente / entrada rápida",
   "tui.command.voice.control.title_on": "Edición inteligente: ON — clic para entrada rápida",
   "tui.command.voice.control.title_off": "Entrada rápida: ON — clic para edición inteligente",
-  "tui.voice.error.no_auth": "Usa /connect para conectar tu cuenta MiMo, o configura voice.asr_model para otro proveedor",
+  "tui.voice.error.no_auth": "Usa /connect para conectar tu cuenta Spadak, o configura voice.asr_model para otro proveedor",
   "tui.voice.error.no_auth_provider": "El proveedor de voz \"{{provider}}\" no está autenticado, revisa su apiKey",
   "tui.voice.error.provider_not_found": "Proveedor \"{{provider}}\" no disponible — /connect para autenticarte, o declara models en la config para endpoints personalizados",
   "tui.voice.error.no_url": "El proveedor \"{{provider}}\" no tiene baseURL configurada — configura options.baseURL",
@@ -589,7 +589,7 @@ export const dict = {
   // Workspace trust
   "trust.title": "Accediendo al espacio de trabajo:",
   "trust.safety_check": "Verificación rápida: ¿Es este un proyecto que creaste o en el que confías? (Tu propio código, un proyecto open source conocido o trabajo de tu equipo). Si no, tómate un momento para revisar el contenido de esta carpeta.",
-  "trust.capabilities": "MiMo Code podrá leer, editar y ejecutar archivos aquí.",
+  "trust.capabilities": "Spadak Code podrá leer, editar y ejecutar archivos aquí.",
   "trust.plugin_warn": "Si existen plugins maliciosos en este directorio, pueden ejecutar código arbitrario, leer, modificar o exfiltrar tus archivos.",
   "trust.option.yes": "Sí, confío en esta carpeta",
   "trust.option.no": "No, salir",
@@ -601,7 +601,7 @@ export const dict = {
   "trust.dangerous.advice_root": "A menos que tengas una razón muy específica, NO confíes en la raíz del sistema de archivos.",
   "trust.dangerous.option.yes": "Entiendo los riesgos, confiar solo esta sesión",
   "trust.dangerous.option.no": "Salir (recomendado)",
-  "tui.dialog.login.flow.title": "Inicio de sesión MiMo",
+  "tui.dialog.login.flow.title": "Inicio de sesión Spadak",
   "tui.dialog.login.flow.placeholder": "Pega el código (o espera la devolución del navegador)",
   "tui.dialog.login.flow.busy": "Iniciando sesión...",
   "tui.dialog.login.flow.manual_hint": "¿El navegador no se abrió? Haz clic en el enlace para copiar:",

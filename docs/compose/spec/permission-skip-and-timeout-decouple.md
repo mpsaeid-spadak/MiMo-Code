@@ -18,7 +18,7 @@ commits: 9d54ad3c..HEAD
 
 ## [S1] Problem
 
-The `skipAll` runtime toggle bundles two orthogonal concerns: (1) auto-allowing all normal permission asks, and (2) timing out forced-ask permissions (e.g. `bash_delete`). The timeout logic is hardcoded inside the skipAll branch of `ask()` (`permission/index.ts:489-510`), with duration controlled by the `MIMOCODE_SKIP_ALL_FORCED_ASK_TIMEOUT_MS` environment variable (default 60s).
+The `skipAll` runtime toggle bundles two orthogonal concerns: (1) auto-allowing all normal permission asks, and (2) timing out forced-ask permissions (e.g. `bash_delete`). The timeout logic is hardcoded inside the skipAll branch of `ask()` (`permission/index.ts:489-510`), with duration controlled by the `SPADAKCODE_SKIP_ALL_FORCED_ASK_TIMEOUT_MS` environment variable (default 60s).
 
 This means:
 - Users cannot enable ask-timeout without also skipping all normal permissions.
@@ -51,7 +51,7 @@ The two are orthogonal:
 
 ### 2.3 Environment variable backward compat
 
-`MIMOCODE_SKIP_ALL_FORCED_ASK_TIMEOUT_MS` maps to the initial `permissionAskTimeoutMs` value when set to a positive integer. When unset or 0, `permissionAskTimeoutMs` initializes to `null`.
+`SPADAKCODE_SKIP_ALL_FORCED_ASK_TIMEOUT_MS` maps to the initial `permissionAskTimeoutMs` value when set to a positive integer. When unset or 0, `permissionAskTimeoutMs` initializes to `null`.
 
 ### 2.4 Service interface change
 
@@ -115,7 +115,7 @@ New keys across all 7 languages (en/zh/zht/ru/ja/fr/es):
 ## Tasks
 
 - [x] T1: Service layer split — add `permissionAskTimeout` / `setPermissionAskTimeout` to Interface and State; generalize `ask()` timeout from `skipAll && forced` to `permissionAskTimeoutMs != null`. acceptance: unit tests cover 4 combinations (skipAll on/off × timeout on/off) (covers: S2.1, S2.2, S2.4, S2.5)
-- [x] T2: Env var compat — `MIMOCODE_SKIP_ALL_FORCED_ASK_TIMEOUT_MS` maps to `permissionAskTimeoutMs` initial value. acceptance: new Instance's `permissionAskTimeout()` returns the env-derived value (covers: S2.3)
+- [x] T2: Env var compat — `SPADAKCODE_SKIP_ALL_FORCED_ASK_TIMEOUT_MS` maps to `permissionAskTimeoutMs` initial value. acceptance: new Instance's `permissionAskTimeout()` returns the env-derived value (covers: S2.3)
 - [x] T3: Server API — add GET/POST `/instance/permission/ask-timeout` endpoints. acceptance: HTTP calls can read and write the timeout setting (covers: S2.7)
 - [x] T4: TUI command — add `/permission-timeout` slash command with modal selector (Never/30s/1min/2min/5min/10min). acceptance: executing the command toggles the timeout and shows a toast (covers: S2.6)
 - [x] T5: i18n — add translations for all 7 languages (en/zh/zht/ru/ja/fr/es). acceptance: labels display correctly when switching language (covers: S2.8)

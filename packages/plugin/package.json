@@ -1,20 +1,20 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@mimo-ai/plugin",
+  "name": "@spadak/plugin",
   "version": "0.1.14",
-  "description": "Plugin SDK for extending MiMoCode",
-  "keywords": ["mimo", "mimocode", "ai", "plugin", "coding-assistant"],
+  "description": "Plugin SDK for extending SpadakCode",
+  "keywords": ["spadak", "spadakcode", "ai", "plugin", "coding-assistant"],
   "type": "module",
   "license": "MIT",
-  "author": "Xiaomi MiMo Team",
-  "homepage": "https://mimo.xiaomi.com/coder",
+  "author": "Spadak Team",
+  "homepage": "https://spadak.dev/coder",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XiaomiMiMo/MiMo-Code.git",
+    "url": "git+https://github.com/spadak/Spadak-Code.git",
     "directory": "packages/plugin"
   },
   "bugs": {
-    "url": "https://github.com/XiaomiMiMo/MiMo-Code/issues"
+    "url": "https://github.com/spadak/Spadak-Code/issues"
   },
   "publishConfig": {
     "access": "public"
@@ -32,7 +32,7 @@
     "dist"
   ],
   "dependencies": {
-    "@mimo-ai/sdk": "workspace:*",
+    @spadak/sdk: "workspace:*",
     "effect": "catalog:",
     "zod": "catalog:"
   },

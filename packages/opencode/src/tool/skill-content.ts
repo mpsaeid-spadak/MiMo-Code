@@ -15,7 +15,7 @@ export const renderSkillContent = Effect.fn("SkillContent.render")(function* (
   const files = yield* rg.files({ cwd: dir, follow: false, hidden: true, signal }).pipe(
     Stream.filter((file) => !file.includes("SKILL.md")),
     Stream.map((file) => path.resolve(dir, file)),
-    Stream.take(Flag.MIMOCODE_SKILL_SEARCH_FILE_SAMPLE_LIMIT),
+    Stream.take(Flag.SPADAKCODE_SKILL_SEARCH_FILE_SAMPLE_LIMIT),
     Stream.runCollect,
     Effect.map((chunk) => [...chunk].map((file) => `<file>${file}</file>`).join("\n")),
   )

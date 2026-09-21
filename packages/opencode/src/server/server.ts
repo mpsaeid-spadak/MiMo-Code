@@ -46,10 +46,10 @@ function create(opts: { cors?: string[] }) {
 
   const runtime = adapter.create(app)
 
-  if (Flag.MIMOCODE_WORKSPACE_ID) {
+  if (Flag.SPADAKCODE_WORKSPACE_ID) {
     return {
       app: app
-        .use(InstanceMiddleware(Flag.MIMOCODE_WORKSPACE_ID ? WorkspaceID.make(Flag.MIMOCODE_WORKSPACE_ID) : undefined))
+        .use(InstanceMiddleware(Flag.SPADAKCODE_WORKSPACE_ID ? WorkspaceID.make(Flag.SPADAKCODE_WORKSPACE_ID) : undefined))
         .use(FenceMiddleware)
         .route("/", InstanceRoutes(runtime.upgradeWebSocket)),
       runtime,
@@ -104,7 +104,7 @@ export async function listen(opts: {
   childEnv?: NodeJS.ProcessEnv
   /**
    * Advertise this listener in the llm-server address registry so
-   * `mimo llm-server issue` can resolve `base_url`. Defaults to true.
+   * `spadak llm-server issue` can resolve `base_url`. Defaults to true.
    * Embedders that only need an in-process app can pass false.
    */
   advertise?: boolean
@@ -112,9 +112,9 @@ export async function listen(opts: {
   if (opts.childEnv) setChildProcessEnv(opts.childEnv)
   const isLoopback =
     opts.hostname === "127.0.0.1" || opts.hostname === "localhost" || opts.hostname === "::1"
-  if (!isLoopback && !Flag.MIMOCODE_SERVER_PASSWORD && !opts.noAuth) {
+  if (!isLoopback && !Flag.SPADAKCODE_SERVER_PASSWORD && !opts.noAuth) {
     throw new Error(
-      "Refusing to bind to non-loopback address without MIMOCODE_SERVER_PASSWORD. " +
+      "Refusing to bind to non-loopback address without SPADAKCODE_SERVER_PASSWORD. " +
         "Set the environment variable or pass noAuth to explicitly allow unauthenticated access.",
     )
   }

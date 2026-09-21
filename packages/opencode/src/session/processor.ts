@@ -260,7 +260,7 @@ export const layer: Layer.Layer<
         })
 
       const tryBestConfig = (yield* config.get()).experimental?.try_best
-      const tryBest = Flag.MIMOCODE_ENABLE_TRY_BEST_HANDOFF
+      const tryBest = Flag.SPADAKCODE_ENABLE_TRY_BEST_HANDOFF
         ? tryBestMonitor(input.sessionID, input.assistantMessage.agentID, tryBestConfig)
         : undefined
 

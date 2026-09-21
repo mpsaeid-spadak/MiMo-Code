@@ -3,7 +3,7 @@
  * A deliberately dumb consumer of an OpenAI-compatible endpoint.
  *
  * It exists to prove one thing end to end: something that knows NOTHING about
- * MiMoCode — no provider config, no auth store, no SDK — can do real model work
+ * SpadakCode — no provider config, no auth store, no SDK — can do real model work
  * given only two environment variables. Everything it is allowed to know arrives
  * through `OPENAI_BASE_URL` and `OPENAI_API_KEY`.
  *

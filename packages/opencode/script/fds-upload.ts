@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Xiaomi FDS upload for release artifacts. Galaxy-V2 signing reimplemented with
+// Spadak FDS upload for release artifacts. Galaxy-V2 signing reimplemented with
 // Node's built-in crypto (no Python/SDK), matching galaxy-fds-sdk's
 // fds/auth/signature/signer.py. Pure signing logic is unit-testable; HTTP PUT is
 // the IO shell.
@@ -8,17 +8,17 @@
 // (CDN, bucket already in the subdomain). install reads from the CDN host.
 //
 // Env:
-//   MIMO_FDS_AK / MIMO_FDS_SK            credentials (required to upload)
-//   MIMO_FDS_ENDPOINT                    upload+signing host (default cnbj1 prod)
-//   MIMO_FDS_BUCKET / MIMO_FDS_PREFIX    object layout (default mimocode/mimocode)
+//   SPADAK_FDS_AK / SPADAK_FDS_SK            credentials (required to upload)
+//   SPADAK_FDS_ENDPOINT                    upload+signing host (default cnbj1 prod)
+//   SPADAK_FDS_BUCKET / SPADAK_FDS_PREFIX    object layout (default spadakcode/spadakcode)
 //
 // CLI: bun script/fds-upload.ts <localFile> <objectSubPath> [--content-type=...]
 //   objectSubPath is relative to "<bucket>/<prefix>/", e.g. "releases/latest".
 import crypto from "node:crypto"
 
-export const FDS_ENDPOINT = process.env.MIMO_FDS_ENDPOINT || "cnbj1-fds.api.xiaomi.net"
-export const FDS_BUCKET = process.env.MIMO_FDS_BUCKET || "mimocode"
-export const FDS_PREFIX = process.env.MIMO_FDS_PREFIX || "mimocode"
+export const FDS_ENDPOINT = process.env.SPADAK_FDS_ENDPOINT || "cnbj1-fds.api.spadak.dev"
+export const FDS_BUCKET = process.env.SPADAK_FDS_BUCKET || "spadakcode"
+export const FDS_PREFIX = process.env.SPADAK_FDS_PREFIX || "spadakcode"
 
 // signer.py SubResource.get_all_subresource: only these query keys are signed.
 const SUBRESOURCES = new Set(["acl", "quota", "uploads", "partNumber", "uploadId", "storageAccessToken", "metadata"])
@@ -74,7 +74,7 @@ function publicReadAclBody(accessKey: string) {
   }
 }
 
-// Full object name under the bucket, e.g. "mimocode/releases/latest".
+// Full object name under the bucket, e.g. "spadakcode/releases/latest".
 export function objectName(subPath: string) {
   return `${FDS_PREFIX}/${subPath.replace(/^\/+/, "")}`
 }
@@ -143,9 +143,9 @@ function contentTypeFor(file: string) {
 
 // Upload a local file to "<prefix>/<subPath>". Returns the object name.
 export async function uploadFile(localFile: string, subPath: string, contentType?: string) {
-  const accessKey = process.env.MIMO_FDS_AK
-  const secret = process.env.MIMO_FDS_SK
-  if (!accessKey || !secret) throw new Error("MIMO_FDS_AK / MIMO_FDS_SK must be set to upload to FDS")
+  const accessKey = process.env.SPADAK_FDS_AK
+  const secret = process.env.SPADAK_FDS_SK
+  if (!accessKey || !secret) throw new Error("SPADAK_FDS_AK / SPADAK_FDS_SK must be set to upload to FDS")
   const name = objectName(subPath)
   await putObject({
     accessKey,

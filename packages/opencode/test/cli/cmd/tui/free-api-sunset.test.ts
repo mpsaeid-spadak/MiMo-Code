@@ -20,25 +20,25 @@ describe("free API sunset", () => {
     expect(isFreeApiSunset(FREE_API_SUNSET_AT + 1)).toBe(true)
   })
 
-  test("only identifies the anonymous MiMo free channel", () => {
-    expect(isFreeApiModel({ providerID: "mimo", modelID: "mimo-auto" })).toBe(true)
-    expect(isFreeApiModel({ providerID: "xiaomi", modelID: "mimo-auto" })).toBe(false)
-    expect(isFreeApiModel({ providerID: "third-party", modelID: "mimo-auto" })).toBe(false)
-    expect(isFreeApiModel({ providerID: "mimo", modelID: "mimo-free" })).toBe(false)
+  test("only identifies the anonymous Spadak free channel", () => {
+    expect(isFreeApiModel({ providerID: "spadak", modelID: "spadak-auto" })).toBe(true)
+    expect(isFreeApiModel({ providerID: "spadak", modelID: "spadak-auto" })).toBe(false)
+    expect(isFreeApiModel({ providerID: "third-party", modelID: "spadak-auto" })).toBe(false)
+    expect(isFreeApiModel({ providerID: "spadak", modelID: "spadak-free" })).toBe(false)
   })
 
   test("blocks model-backed requests after sunset", () => {
-    const model = { providerID: "mimo", modelID: "mimo-auto" }
+    const model = { providerID: "spadak", modelID: "spadak-auto" }
     expect(shouldBlockFreeApiRequest(model, { sunset: false })).toBe(false)
     expect(shouldBlockFreeApiRequest(model, { sunset: true })).toBe(true)
     expect(shouldBlockFreeApiRequest(model, { sunset: true, localOnly: true })).toBe(false)
     expect(shouldBlockFreeApiRequest(model, { sunset: true, shell: true })).toBe(false)
-    expect(shouldBlockFreeApiRequest({ providerID: "xiaomi", modelID: "mimo-auto" }, { sunset: true })).toBe(false)
+    expect(shouldBlockFreeApiRequest({ providerID: "spadak", modelID: "spadak-auto" }, { sunset: true })).toBe(false)
   })
 
   test("switches the model display key at sunset", () => {
-    expect(freeApiModelNameKey(false)).toBe("tui.model.mimo_auto.name")
-    expect(freeApiModelNameKey(true)).toBe("tui.model.mimo_auto.sunset_name")
+    expect(freeApiModelNameKey(false)).toBe("tui.model.spadak_auto.name")
+    expect(freeApiModelNameKey(true)).toBe("tui.model.spadak_auto.sunset_name")
   })
 
   test("schedules one reactive switch before the threshold", () => {

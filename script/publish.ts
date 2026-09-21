@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 
-import { Script } from "@mimo-ai/script"
+import { Script } from "@spadak/script"
 import { $ } from "bun"
 import { fileURLToPath } from "url"
 

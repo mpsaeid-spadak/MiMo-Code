@@ -1,7 +1,7 @@
 import { onCleanup, onMount, Show } from "solid-js"
 import { createStore } from "solid-js/store"
-import { InlineInput } from "@mimo-ai/ui/inline-input"
-import { Button } from "@mimo-ai/ui/button"
+import { InlineInput } from "@spadak/ui/inline-input"
+import { Button } from "@spadak/ui/button"
 import { titleConflict, unchangedTitle, type TitleSnapshot } from "./title-editor-state"
 
 export function TitleEditor(props: {

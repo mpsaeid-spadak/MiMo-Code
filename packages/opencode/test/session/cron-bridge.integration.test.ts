@@ -96,8 +96,8 @@ const freshDir = () => mkdtempSync(join(tmpdir(), "cron-bridge-"))
 beforeEach(() => {
   clearAllLoopStates()
   removeSessionCronTasks(getSessionCronTasks().map((t) => t.id))
-  delete process.env.MIMOCODE_DISABLE_CRON
-  process.env.MIMOCODE_EXPERIMENTAL_CRON = "1"
+  delete process.env.SPADAKCODE_DISABLE_CRON
+  process.env.SPADAKCODE_EXPERIMENTAL_CRON = "1"
 })
 
 const sid = SessionID.make("ses_cronbridge_test")
@@ -180,16 +180,16 @@ test("cron-bridge start wires Scheduler with isLoading + isKilled + onFire", asy
         expect(list.length).toBe(1)
         expect(list[0]!.id).toBe(created.id)
 
-        // isKilled honors process.env.MIMOCODE_DISABLE_CRON live (verified by
+        // isKilled honors process.env.SPADAKCODE_DISABLE_CRON live (verified by
         // forcing it and observing armLoop refuse to schedule).
-        process.env.MIMOCODE_DISABLE_CRON = "1"
+        process.env.SPADAKCODE_DISABLE_CRON = "1"
         const arm = yield* scheduler.armLoop({
           prompt: "k",
           delay_seconds: 120,
           reason_length: 0,
         })
         expect(arm).toBe(null)
-        delete process.env.MIMOCODE_DISABLE_CRON
+        delete process.env.SPADAKCODE_DISABLE_CRON
 
         yield* bridge.stop()
       }),
@@ -199,10 +199,10 @@ test("cron-bridge start wires Scheduler with isLoading + isKilled + onFire", asy
   }
 })
 
-test("cron-bridge is a no-op when MIMOCODE_EXPERIMENTAL_CRON is explicitly disabled", async () => {
+test("cron-bridge is a no-op when SPADAKCODE_EXPERIMENTAL_CRON is explicitly disabled", async () => {
   const captured: { value: CapturedPrompt[] } = { value: [] }
-  const originalFlag = Flag.MIMOCODE_EXPERIMENTAL_CRON
-  ;(Flag as { MIMOCODE_EXPERIMENTAL_CRON: boolean }).MIMOCODE_EXPERIMENTAL_CRON = false
+  const originalFlag = Flag.SPADAKCODE_EXPERIMENTAL_CRON
+  ;(Flag as { SPADAKCODE_EXPERIMENTAL_CRON: boolean }).SPADAKCODE_EXPERIMENTAL_CRON = false
   const dir = freshDir()
   try {
     await harness(captured, ({ bridge, scheduler }) =>
@@ -220,7 +220,7 @@ test("cron-bridge is a no-op when MIMOCODE_EXPERIMENTAL_CRON is explicitly disab
       }),
     )
   } finally {
-    ;(Flag as { MIMOCODE_EXPERIMENTAL_CRON: boolean }).MIMOCODE_EXPERIMENTAL_CRON = originalFlag
+    ;(Flag as { SPADAKCODE_EXPERIMENTAL_CRON: boolean }).SPADAKCODE_EXPERIMENTAL_CRON = originalFlag
     rmSync(dir, { recursive: true, force: true })
   }
 })
@@ -288,8 +288,8 @@ test("cron-bridge resets sentinel cache on main-agent Compacted, ignores subagen
     // Set up loop.md so the sentinel expansion is exercisable.
     const mkdirSync2 = (await import("fs")).mkdirSync
     const writeFileSync2 = (await import("fs")).writeFileSync
-    mkdirSync2(join(wsDir, ".mimocode"), { recursive: true })
-    writeFileSync2(join(wsDir, ".mimocode", "loop.md"), "cached body")
+    mkdirSync2(join(wsDir, ".spadakcode"), { recursive: true })
+    writeFileSync2(join(wsDir, ".spadakcode", "loop.md"), "cached body")
 
     const capture = makeCaptureLayer(captured)
     const base = Layer.mergeAll(SchedulerDefaultLayer, SessionStatus.defaultLayer, Bus.layer, capture)

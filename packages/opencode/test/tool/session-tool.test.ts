@@ -987,8 +987,8 @@ describe("recoverSessionArgs", () => {
     }
   })
 
-  test("reconstructs the FLATTENED send that mimo-v2.5 actually emits", () => {
-    // Observed verbatim from mimo-v2.5: the discriminator is hoisted to the top
+  test("reconstructs the FLATTENED send that spadak-v2.5 actually emits", () => {
+    // Observed verbatim from spadak-v2.5: the discriminator is hoisted to the top
     // level and the operands become its siblings.
     expect(recoverSessionArgs({ operation: "send", sessionID: "ses_abc", task: "continue the refactor" })).toEqual({
       operation: { action: "send", sessionID: "ses_abc", task: "continue the refactor" },
@@ -1061,7 +1061,7 @@ import { Env } from "../../src/env"
 import { Question } from "../../src/question"
 import { Todo } from "../../src/session/todo"
 import { LLM } from "../../src/session/llm"
-import { AppFileSystem } from "@mimo-ai/shared/filesystem"
+import { AppFileSystem } from "@spadak/shared/filesystem"
 import { SessionPrune } from "../../src/session/prune"
 import { SessionSummary } from "../../src/session/summary"
 import { Instruction } from "../../src/session/instruction"

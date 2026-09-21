@@ -4,7 +4,7 @@
 
 ## 快速开始
 
-获取 API Key 等准备工作，请参考 [首次调用API](https://mimo.mi.com/#/docs/quick-start/first-api-call)。
+获取 API Key 等准备工作，请参考 [首次调用API](https://spadak.mi.com/#/docs/quick-start/first-api-call)。
 
 通过音频 URL 方式传入模型快速体验音频理解效果，示例代码如下。
 
@@ -13,16 +13,16 @@ import os
 from openai import OpenAI
 
 client = OpenAI(
-    api_key=os.environ.get("MIMO_API_KEY"),
-    base_url="https://api.xiaomimimo.com/v1"
+    api_key=os.environ.get("SPADAK_API_KEY"),
+    base_url="https://api.spadak.dev/v1"
 )
 
 completion = client.chat.completions.create(
-    model="mimo-v2.5",
+    model="spadak-v2.5",
     messages=[
         {
             "role": "system",
-            "content": "You are MiMo, an AI assistant developed by Xiaomi. Today is date: Tuesday, December 16, 2025. Your knowledge cutoff date is December 2024."
+            "content": "You are Spadak, an AI assistant developed by Spadak. Today is date: Tuesday, December 16, 2025. Your knowledge cutoff date is December 2024."
         },
         {
             "role": "user",
@@ -64,7 +64,7 @@ print(completion.model_dump_json())
         }
     ],
     "created": 1776850627,
-    "model": "mimo-v2.5",
+    "model": "spadak-v2.5",
     "object": "chat.completion",
     "usage": {
         "completion_tokens": 17,
@@ -83,7 +83,7 @@ print(completion.model_dump_json())
 
 ## 支持的模型列表
 
-当前仅支持 `mimo-v2.5` 模型。
+当前仅支持 `spadak-v2.5` 模型。
 
 ## 音频传入方式
 
@@ -103,16 +103,16 @@ import os
 from openai import OpenAI
 
 client = OpenAI(
-    api_key=os.environ.get("MIMO_API_KEY"),
-    base_url="https://api.xiaomimimo.com/v1"
+    api_key=os.environ.get("SPADAK_API_KEY"),
+    base_url="https://api.spadak.dev/v1"
 )
 
 completion = client.chat.completions.create(
-    model="mimo-v2.5",
+    model="spadak-v2.5",
     messages=[
         {
             "role": "system",
-            "content": "You are MiMo, an AI assistant developed by Xiaomi. Today is date: Tuesday, December 16, 2025. Your knowledge cutoff date is December 2024."
+            "content": "You are Spadak, an AI assistant developed by Spadak. Today is date: Tuesday, December 16, 2025. Your knowledge cutoff date is December 2024."
         },
         {
             "role": "user",
@@ -154,16 +154,16 @@ import os
 from openai import OpenAI
 
 client = OpenAI(
-    api_key=os.environ.get("MIMO_API_KEY"),
-    base_url="https://api.xiaomimimo.com/v1"
+    api_key=os.environ.get("SPADAK_API_KEY"),
+    base_url="https://api.spadak.dev/v1"
 )
 
 completion = client.chat.completions.create(
-    model="mimo-v2.5",
+    model="spadak-v2.5",
     messages=[
         {
             "role": "system",
-            "content": "You are MiMo, an AI assistant developed by Xiaomi. Today is date: Tuesday, December 16, 2025. Your knowledge cutoff date is December 2024."
+            "content": "You are Spadak, an AI assistant developed by Spadak. Today is date: Tuesday, December 16, 2025. Your knowledge cutoff date is December 2024."
         },
         {
             "role": "user",
@@ -202,7 +202,7 @@ print(completion.model_dump_json())
 * 音频数量：传入多个音频时，音频数量受模型上下文长度限制，所有音频和文本的总 Token 数必须小于模型的上下文长度。
     
 
-> 注：计算音频的 Token 请参考 [音频 Token 用量说明](https://mimo.mi.com/#/docs/usage-guide/multimodal-understanding/audio-understanding?target=%E9%9F%B3%E9%A2%91-token-%E7%94%A8%E9%87%8F%E8%AF%B4%E6%98%8E)。模型上下文长度请参考 [定价与限速](https://mimo.mi.com/#/docs/pricing)。
+> 注：计算音频的 Token 请参考 [音频 Token 用量说明](https://spadak.mi.com/#/docs/usage-guide/multimodal-understanding/audio-understanding?target=%E9%9F%B3%E9%A2%91-token-%E7%94%A8%E9%87%8F%E8%AF%B4%E6%98%8E)。模型上下文长度请参考 [定价与限速](https://spadak.mi.com/#/docs/pricing)。
 
 音频的 Token 转化请参考以下代码。估算结果仅供参考，实际用量以 API 响应为准。
 
@@ -212,17 +212,17 @@ print(completion.model_dump_json())
 
 ## 计费说明
 
-* 计费：总费用根据输入、输入（命中缓存）和输出 Token 数计算；价格请参考 [定价与限速](https://mimo.mi.com/#/docs/pricing)。
+* 计费：总费用根据输入、输入（命中缓存）和输出 Token 数计算；价格请参考 [定价与限速](https://spadak.mi.com/#/docs/pricing)。
     
-    * 可通过 [音频 Token 用量说明](https://mimo.mi.com/#/docs/usage-guide/multimodal-understanding/audio-understanding?target=%E9%9F%B3%E9%A2%91-token-%E7%94%A8%E9%87%8F%E8%AF%B4%E6%98%8E) 计算音频的 Token 消耗。估算结果仅供参考，实际用量以 API 响应为准。
-* 查看账单：您可以在控制台的 [账单明细](https://platform.xiaomimimo.com/#/console/usage) 页面查看账单及用量。
+    * 可通过 [音频 Token 用量说明](https://spadak.mi.com/#/docs/usage-guide/multimodal-understanding/audio-understanding?target=%E9%9F%B3%E9%A2%91-token-%E7%94%A8%E9%87%8F%E8%AF%B4%E6%98%8E) 计算音频的 Token 消耗。估算结果仅供参考，实际用量以 API 响应为准。
+* 查看账单：您可以在控制台的 [账单明细](https://platform.spadak.dev/#/console/usage) 页面查看账单及用量。
     
 
 ## 常见问题
 
 ### 是否支持本地文件上传？
 
-`mimo-v2.5` 模型暂不支持音频本地文件上传。支持的上传方式请参考 [音频传入方式](https://mimo.mi.com/#/docs/usage-guide/multimodal-understanding/audio-understanding?target=%E9%9F%B3%E9%A2%91%E4%BC%A0%E5%85%A5%E6%96%B9%E5%BC%8F)。
+`spadak-v2.5` 模型暂不支持音频本地文件上传。支持的上传方式请参考 [音频传入方式](https://spadak.mi.com/#/docs/usage-guide/multimodal-understanding/audio-understanding?target=%E9%9F%B3%E9%A2%91%E4%BC%A0%E5%85%A5%E6%96%B9%E5%BC%8F)。
 
 ## 视频理解
 
@@ -230,7 +230,7 @@ print(completion.model_dump_json())
 
 ## 快速开始
 
-获取 API Key 等准备工作，请参考 [首次调用API](https://mimo.mi.com/#/docs/quick-start/first-api-call)。
+获取 API Key 等准备工作，请参考 [首次调用API](https://spadak.mi.com/#/docs/quick-start/first-api-call)。
 
 通过视频 URL 方式传入模型快速体验视频理解效果，示例代码如下。
 
@@ -239,16 +239,16 @@ import os
 from openai import OpenAI
 
 client = OpenAI(
-    api_key=os.environ.get("MIMO_API_KEY"),
-    base_url="https://api.xiaomimimo.com/v1"
+    api_key=os.environ.get("SPADAK_API_KEY"),
+    base_url="https://api.spadak.dev/v1"
 )
 
 completion = client.chat.completions.create(
-    model="mimo-v2.5",
+    model="spadak-v2.5",
     messages=[
         {
             "role": "system",
-            "content": "You are MiMo, an AI assistant developed by Xiaomi. Today is date: Tuesday, December 16, 2025. Your knowledge cutoff date is December 2024."
+            "content": "You are Spadak, an AI assistant developed by Spadak. Today is date: Tuesday, December 16, 2025. Your knowledge cutoff date is December 2024."
         },
         {
             "role": "user",
@@ -292,7 +292,7 @@ print(completion.model_dump_json())
         }
     ],
     "created": 1776850708,
-    "model": "mimo-v2.5",
+    "model": "spadak-v2.5",
     "object": "chat.completion",
     "usage": {
         "completion_tokens": 849,
@@ -312,7 +312,7 @@ print(completion.model_dump_json())
 
 ## 支持的模型列表
 
-当前仅支持 `mimo-v2.5` 模型。
+当前仅支持 `spadak-v2.5` 模型。
 
 ## 视频传入方式
 
@@ -332,16 +332,16 @@ import os
 from openai import OpenAI
 
 client = OpenAI(
-    api_key=os.environ.get("MIMO_API_KEY"),
-    base_url="https://api.xiaomimimo.com/v1"
+    api_key=os.environ.get("SPADAK_API_KEY"),
+    base_url="https://api.spadak.dev/v1"
 )
 
 completion = client.chat.completions.create(
-    model="mimo-v2.5",
+    model="spadak-v2.5",
     messages=[
         {
             "role": "system",
-            "content": "You are MiMo, an AI assistant developed by Xiaomi. Today is date: Tuesday, December 16, 2025. Your knowledge cutoff date is December 2024."
+            "content": "You are Spadak, an AI assistant developed by Spadak. Today is date: Tuesday, December 16, 2025. Your knowledge cutoff date is December 2024."
         },
         {
             "role": "user",
@@ -385,16 +385,16 @@ import os
 from openai import OpenAI
 
 client = OpenAI(
-    api_key=os.environ.get("MIMO_API_KEY"),
-    base_url="https://api.xiaomimimo.com/v1"
+    api_key=os.environ.get("SPADAK_API_KEY"),
+    base_url="https://api.spadak.dev/v1"
 )
 
 completion = client.chat.completions.create(
-    model="mimo-v2.5",
+    model="spadak-v2.5",
     messages=[
         {
             "role": "system",
-            "content": "You are MiMo, an AI assistant developed by Xiaomi. Today is date: Tuesday, December 16, 2025. Your knowledge cutoff date is December 2024."
+            "content": "You are Spadak, an AI assistant developed by Spadak. Today is date: Tuesday, December 16, 2025. Your knowledge cutoff date is December 2024."
         },
         {
             "role": "user",
@@ -437,7 +437,7 @@ print(completion.model_dump_json())
 * 视频数量：传入多个视频时，视频数量受模型上下文长度限制，所有视频和文本的总 Token 数必须小于模型的上下文长度。
     
 
-> 注：计算视频的 Token 请参考 [视频 Token 用量说明](https://mimo.mi.com/#/docs/usage-guide/multimodal-understanding/video-understanding?target=%E8%A7%86%E9%A2%91-token-%E7%94%A8%E9%87%8F%E8%AF%B4%E6%98%8E)。模型上下文长度请参考 [定价与限速](https://mimo.mi.com/#/docs/pricing)。
+> 注：计算视频的 Token 请参考 [视频 Token 用量说明](https://spadak.mi.com/#/docs/usage-guide/multimodal-understanding/video-understanding?target=%E8%A7%86%E9%A2%91-token-%E7%94%A8%E9%87%8F%E8%AF%B4%E6%98%8E)。模型上下文长度请参考 [定价与限速](https://spadak.mi.com/#/docs/pricing)。
 
 ### 控制视频理解的精细度
 
@@ -574,14 +574,14 @@ print(completion.model_dump_json())
 
 ## 计费说明
 
-* 计费：总费用根据输入、输入（命中缓存）和输出 Token 数计算；价格请参考 [定价与限速](https://mimo.mi.com/#/docs/pricing)。
+* 计费：总费用根据输入、输入（命中缓存）和输出 Token 数计算；价格请参考 [定价与限速](https://spadak.mi.com/#/docs/pricing)。
     
-    * 可通过 [视频 Token 用量说明](https://mimo.mi.com/#/docs/usage-guide/multimodal-understanding/video-understanding?target=%E8%A7%86%E9%A2%91-token-%E7%94%A8%E9%87%8F%E8%AF%B4%E6%98%8E) 计算视频的 Token 消耗。估算结果仅供参考，实际用量以 API 响应为准。
-* 查看账单：您可以在控制台的 [账单明细](https://platform.xiaomimimo.com/#/console/usage) 页面查看账单及用量。
+    * 可通过 [视频 Token 用量说明](https://spadak.mi.com/#/docs/usage-guide/multimodal-understanding/video-understanding?target=%E8%A7%86%E9%A2%91-token-%E7%94%A8%E9%87%8F%E8%AF%B4%E6%98%8E) 计算视频的 Token 消耗。估算结果仅供参考，实际用量以 API 响应为准。
+* 查看账单：您可以在控制台的 [账单明细](https://platform.spadak.dev/#/console/usage) 页面查看账单及用量。
     
 
 ## 常见问题
 
 ### 是否支持本地文件上传？
 
-`mimo-v2.5` 模型暂不支持视频本地文件上传。支持的上传方式请参考 [视频传入方式](https://mimo.mi.com/#/docs/usage-guide/multimodal-understanding/video-understanding?target=%E8%A7%86%E9%A2%91%E4%BC%A0%E5%85%A5%E6%96%B9%E5%BC%8F)。
+`spadak-v2.5` 模型暂不支持视频本地文件上传。支持的上传方式请参考 [视频传入方式](https://spadak.mi.com/#/docs/usage-guide/multimodal-understanding/video-understanding?target=%E8%A7%86%E9%A2%91%E4%BC%A0%E5%85%A5%E6%96%B9%E5%BC%8F)。

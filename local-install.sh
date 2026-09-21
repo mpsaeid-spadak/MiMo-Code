@@ -4,7 +4,7 @@ set -euo pipefail
 
 repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 package_dir="$repo_dir/packages/opencode"
-install_dir="${MIMOCODE_INSTALL_DIR:-$HOME/.mimocode/bin}"
+install_dir="${SPADAKCODE_INSTALL_DIR:-$HOME/.spadakcode/bin}"
 
 if ! command -v bun >/dev/null 2>&1; then
   echo "bun is required but was not found in PATH" >&2
@@ -44,21 +44,21 @@ esac
   # PATH that has every ancestor node_modules/.bin prepended, so a stray bun
   # installed above this checkout would hijack the build and embed its own
   # (possibly broken) runtime into the compiled binary.
-  MIMOCODE_CHANNEL=local MIMOCODE_VERSION=local bun run script/build.ts --single
+  SPADAKCODE_CHANNEL=local SPADAKCODE_VERSION=local bun run script/build.ts --single
 )
 
-binary="$package_dir/dist/mimocode-$platform-$arch/bin/mimo"
+binary="$package_dir/dist/spadakcode-$platform-$arch/bin/spadak"
 if [[ ! -f "$binary" ]]; then
   echo "Built binary not found: $binary" >&2
   exit 1
 fi
 
 mkdir -p "$install_dir"
-temporary="$install_dir/.mimo.$$"
+temporary="$install_dir/.spadak.$$"
 trap 'rm -f "$temporary"' EXIT
 install -m 755 "$binary" "$temporary"
-mv -f "$temporary" "$install_dir/mimo"
+mv -f "$temporary" "$install_dir/spadak"
 trap - EXIT
 
-echo "Installed mimo to $install_dir/mimo"
-"$install_dir/mimo" --version
+echo "Installed spadak to $install_dir/spadak"
+"$install_dir/spadak" --version

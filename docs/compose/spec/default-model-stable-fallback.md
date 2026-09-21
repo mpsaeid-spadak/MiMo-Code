@@ -25,7 +25,7 @@ Its final fallback previously did:
 1. pick the first allowed provider
 2. run `sort()` over that provider's models (`priority` substrings `gpt-5` / `claude-sonnet-4` / `gemini-3-pro`, then `latest`, then id desc)
 
-That sort was written for TUI menu ranking, not as a product default. On MiMo Desktop:
+That sort was written for TUI menu ranking, not as a product default. On Spadak Desktop:
 
 - `cfg.model` is not injected
 - TUI-only `state/model.json` `recent` is almost always empty

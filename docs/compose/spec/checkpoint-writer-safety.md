@@ -10,7 +10,7 @@ commits: 0cb81dba827e27549bde6fba794e27509ef1bf65..25f175dd
 
 ## Report
 
-**What was built** - The checkpoint writer is now confined to normal paths under the memory tree at the unified write gate; the existing precise memory allowlist remains authoritative inside that tree. Dream/distill retain their prior memory-or-`.mimocode/` behavior, while ordinary agents retain normal source writes. The gate now obtains its worktree from `InstanceState.context`, so InstanceRef-bound actor fibers cannot skip the sandbox.
+**What was built** - The checkpoint writer is now confined to normal paths under the memory tree at the unified write gate; the existing precise memory allowlist remains authoritative inside that tree. Dream/distill retain their prior memory-or-`.spadakcode/` behavior, while ordinary agents retain normal source writes. The gate now obtains its worktree from `InstanceState.context`, so InstanceRef-bound actor fibers cannot skip the sandbox.
 
 Invalid-output recovery now selects an explicit role policy. Primary turns keep the user-facing reminder, ordinary actors receive a parent-facing reminder, and checkpoint writers receive a scoped recovery instruction that either finishes authorized memory edits or returns `CHECKPOINT_COMPLETE`. System-agent policy coverage is exhaustive. Terminal assistant errors now fail actor outcomes, so exhausted checkpoint recovery leaves the watermark unchanged through the existing transactional settlement path.
 
@@ -40,8 +40,8 @@ The unified write gate must enforce a checkpoint-writer-specific sandbox before 
 
 - `checkpoint-writer` may target only files under the resolved memory root.
 - Within the memory root, `assertMemoryWriteAllowed` remains authoritative for canonical `MEMORY.md`, `checkpoint.md`, `notes.md`, permitted spillovers, and permitted task narratives.
-- `checkpoint-writer` must not write project source, repository configuration, any worktree path, or `.mimocode/`.
-- `dream` and `distill` retain their existing memory-root or worktree `.mimocode/` sandbox.
+- `checkpoint-writer` must not write project source, repository configuration, any worktree path, or `.spadakcode/`.
+- `dream` and `distill` retain their existing memory-root or worktree `.spadakcode/` sandbox.
 - Primary and ordinary agents retain their existing source-write behavior.
 - Every file-mutating tool that uses `assertWriteAllowed`, including `write`, `edit`, `apply_patch`, and `notebook_edit`, receives the same boundary. `apply_patch` must enforce it for add, update, delete, and both sides of move operations.
 
@@ -81,7 +81,7 @@ For checkpoint writers, exhausting invalid-output recovery therefore produces a 
 
 Tests must cover the real boundaries rather than prompt text alone:
 
-- checkpoint-writer source and `.mimocode/` writes fail through the unified gate;
+- checkpoint-writer source and `.spadakcode/` writes fail through the unified gate;
 - valid checkpoint and project-memory writes continue to pass;
 - unauthorized memory-tree paths continue to fail;
 - `apply_patch` cannot mutate source as checkpoint-writer;
@@ -104,7 +104,7 @@ Tests must cover the real boundaries rather than prompt text alone:
 
 ## Tasks
 
-- [x] T1: Enforce the checkpoint-writer memory-only sandbox in the unified write gate - acceptance: checkpoint-writer source and `.mimocode/` targets are rejected while valid memory targets, dream/distill behavior, and normal-agent source writes pass (covers: S2.1, S2.5)
+- [x] T1: Enforce the checkpoint-writer memory-only sandbox in the unified write gate - acceptance: checkpoint-writer source and `.spadakcode/` targets are rejected while valid memory targets, dream/distill behavior, and normal-agent source writes pass (covers: S2.1, S2.5)
 - [x] T2: Add centralized role-specific invalid-output policy selection and checkpoint completion-marker retry - acceptance: primary, ordinary actor, checkpoint-writer, dream, and distill receive their specified prompts, the checkpoint path converges on `CHECKPOINT_COMPLETE`, and system-agent policy coverage is exhaustive (covers: S2.2, S2.3, S2.5)
 - [x] T3: Propagate terminal assistant errors as actor failures - acceptance: an actor whose prompt terminates with `assistant.error` resolves failure, while successful text and structured actor results remain successful (covers: S2.4, S2.5)
 - [x] T4: Add apply-patch and checkpoint outcome regressions - acceptance: checkpoint-writer `apply_patch` cannot mutate source, valid checkpoint and project-memory mutations succeed, exhausted checkpoint recovery resolves actor failure, failed writer settlement leaves the watermark unchanged, and primary recovery remains unchanged (covers: S2.1, S2.3, S2.4, S2.5; depends: T1, T2, T3)

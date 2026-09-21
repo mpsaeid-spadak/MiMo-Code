@@ -33,24 +33,24 @@ function getNetworkIPs() {
 export const WebCommand = cmd({
   command: "web",
   builder: (yargs) => withNetworkOptions(yargs),
-  describe: "start mimocode server and open web interface",
+  describe: "start spadakcode server and open web interface",
   handler: async (args) => {
     const opts = await resolveNetworkOptions(args)
     const isLoopback = opts.hostname === "127.0.0.1" || opts.hostname === "localhost" || opts.hostname === "::1"
 
-    if (!isLoopback && !Flag.MIMOCODE_SERVER_PASSWORD && !opts.noAuth) {
+    if (!isLoopback && !Flag.SPADAKCODE_SERVER_PASSWORD && !opts.noAuth) {
       UI.println(
         UI.Style.TEXT_DANGER_BOLD +
-          "ERROR: Binding to non-loopback address without MIMOCODE_SERVER_PASSWORD is not allowed.",
+          "ERROR: Binding to non-loopback address without SPADAKCODE_SERVER_PASSWORD is not allowed.",
       )
       UI.println(
-        UI.Style.TEXT_DANGER_BOLD + "Set MIMOCODE_SERVER_PASSWORD or pass --no-auth to override (DANGEROUS).",
+        UI.Style.TEXT_DANGER_BOLD + "Set SPADAKCODE_SERVER_PASSWORD or pass --no-auth to override (DANGEROUS).",
       )
       await Log.exit(1)
     }
 
-    if (!Flag.MIMOCODE_SERVER_PASSWORD) {
-      UI.println(UI.Style.TEXT_WARNING_BOLD + "!  MIMOCODE_SERVER_PASSWORD is not set; server is unsecured.")
+    if (!Flag.SPADAKCODE_SERVER_PASSWORD) {
+      UI.println(UI.Style.TEXT_WARNING_BOLD + "!  SPADAKCODE_SERVER_PASSWORD is not set; server is unsecured.")
     }
 
     const server = await Server.listen({ ...opts, advertise: false })

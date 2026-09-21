@@ -3,30 +3,30 @@ import fs from "fs/promises"
 import path from "path"
 import { Global } from "../../src/global"
 import { Log } from "../../src/util"
-import { MIMOCODE_PROCESS_ROLE } from "../../src/util/mimo-process"
+import { SPADAKCODE_PROCESS_ROLE } from "../../src/util/spadak-process"
 import { tmpdir } from "../fixture/fixture"
 
 const log = Global.Path.log
-const role = process.env[MIMOCODE_PROCESS_ROLE]
+const role = process.env[SPADAKCODE_PROCESS_ROLE]
 const mb = 1024 * 1024
 
 afterEach(async () => {
   await Log.shutdown()
   Global.Path.log = log
-  if (role === undefined) delete process.env[MIMOCODE_PROCESS_ROLE]
-  else process.env[MIMOCODE_PROCESS_ROLE] = role
+  if (role === undefined) delete process.env[SPADAKCODE_PROCESS_ROLE]
+  else process.env[SPADAKCODE_PROCESS_ROLE] = role
 })
 
 test("reinitialization gives each logger context a unique active file", async () => {
   await using tmp = await tmpdir()
   Global.Path.log = tmp.path
-  process.env[MIMOCODE_PROCESS_ROLE] = "main"
+  process.env[SPADAKCODE_PROCESS_ROLE] = "main"
 
   await Log.init({ print: false, dev: true })
   const main = Log.file()
   Log.Default.info("from main")
 
-  process.env[MIMOCODE_PROCESS_ROLE] = "worker"
+  process.env[SPADAKCODE_PROCESS_ROLE] = "worker"
   await Log.init({ print: false, dev: true })
   const worker = Log.file()
 
@@ -52,7 +52,7 @@ test("concurrent initialization serializes ownership without leaking active file
 test("cleanup preserves another live context and keeps the newest ten archives", async () => {
   await using tmp = await tmpdir()
   Global.Path.log = tmp.path
-  process.env[MIMOCODE_PROCESS_ROLE] = "worker"
+  process.env[SPADAKCODE_PROCESS_ROLE] = "worker"
   const active = `1999-01-01T000000-main-${process.pid}-deadbeef.active.log`
   const archives = Array.from(
     { length: 12 },
@@ -99,7 +99,7 @@ test("cleanup recovers an active file left by an exited process", async () => {
 test("worker initialization recovers a stale same-process worker file", async () => {
   await using tmp = await tmpdir()
   Global.Path.log = tmp.path
-  process.env[MIMOCODE_PROCESS_ROLE] = "worker"
+  process.env[SPADAKCODE_PROCESS_ROLE] = "worker"
   const active = `2000-01-01T000000-worker-${process.pid}-deadbeef.active.log`
   await fs.writeFile(path.join(tmp.path, active), "orphaned worker")
 
@@ -262,7 +262,7 @@ async function isolate(body: string, dir: string) {
         body,
       ].join("\n"),
     ],
-    { stdout: "pipe", stderr: "pipe", env: { ...process.env, [MIMOCODE_PROCESS_ROLE]: "worker" } },
+    { stdout: "pipe", stderr: "pipe", env: { ...process.env, [SPADAKCODE_PROCESS_ROLE]: "worker" } },
   )
   const [stdout, stderr] = await Promise.all([new Response(child.stdout).text(), new Response(child.stderr).text()])
   expect(await child.exited).toBe(0)

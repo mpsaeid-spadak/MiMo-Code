@@ -9,7 +9,7 @@ function codexHarnessOverride(harness?: HarnessMode): boolean | undefined {
 }
 
 function usesCodexMode(harness: HarnessMode | undefined, ...modelIDs: Array<string | undefined>) {
-  const mode = Flag.MIMOCODE_CODEX_MODE
+  const mode = Flag.SPADAKCODE_CODEX_MODE
   if (mode === false) return false
   if (isGPTModel(...modelIDs)) return true
   return codexHarnessOverride(harness) ?? mode ?? false

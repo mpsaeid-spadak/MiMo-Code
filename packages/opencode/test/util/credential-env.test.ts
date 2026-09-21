@@ -60,6 +60,6 @@ test("no spawn site hands the inherited environment over without scrubbing crede
 // so it is a full copy of the environment. That is legitimate for the TUI worker — itself an engine
 // process that needs the credentials — so the function stays; this pins down who else may use it.
 test("sanitizedProcessEnv is only used where the child is an engine process, or scrubbed at the call site", async () => {
-  const unscrubbed = await scan(/sanitizedProcessEnv\(/, new Set(["util/mimo-process.ts", "cli/cmd/tui/thread.ts"]))
+  const unscrubbed = await scan(/sanitizedProcessEnv\(/, new Set(["util/spadak-process.ts", "cli/cmd/tui/thread.ts"]))
   expect(unscrubbed).toEqual([])
 })

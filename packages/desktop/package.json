@@ -1,12 +1,12 @@
 {
-  "name": "@mimo-ai/desktop",
+  "name": "@spadak/desktop",
   "private": true,
   "version": "0.1.14",
   "type": "module",
   "license": "MIT",
   "homepage": "https://opencode.ai",
   "author": {
-    "name": "OpenCode",
+    "name": "SpadakCode",
     "email": "hello@opencode.ai"
   },
   "scripts": {
@@ -35,8 +35,8 @@
   },
   "devDependencies": {
     "@lydell/node-pty": "catalog:",
-    "@mimo-ai/app": "workspace:*",
-    "@mimo-ai/ui": "workspace:*",
+    @spadak/app: "workspace:*",
+    @spadak/ui: "workspace:*",
     "@solid-primitives/i18n": "2.2.1",
     "@solid-primitives/storage": "catalog:",
     "@solidjs/meta": "catalog:",

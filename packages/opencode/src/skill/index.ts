@@ -3,17 +3,17 @@ import path from "path"
 import { pathToFileURL } from "url"
 import z from "zod"
 import { Duration, Effect, Layer, Context } from "effect"
-import { NamedError } from "@mimo-ai/shared/util/error"
+import { NamedError } from "@spadak/shared/util/error"
 import type { Agent } from "@/agent/agent"
 import { Bus } from "@/bus"
 import { InstanceState } from "@/effect"
 import { Flag } from "@/flag/flag"
 import { Global } from "@/global"
 import { Permission } from "@/permission"
-import { AppFileSystem } from "@mimo-ai/shared/filesystem"
+import { AppFileSystem } from "@spadak/shared/filesystem"
 import { Config } from "../config"
 import { ConfigMarkdown } from "../config"
-import { Glob } from "@mimo-ai/shared/util/glob"
+import { Glob } from "@spadak/shared/util/glob"
 import { Log } from "../util"
 import { Discovery } from "./discovery"
 import { extractComposeBundle } from "./compose/extract"
@@ -22,21 +22,21 @@ import { extractBuiltinBundle, OFFICIAL_SKILL_NAMES } from "./builtin/extract"
 const log = Log.create({ service: "skill" })
 // Scan order is load order: later roots win same-name collisions against earlier
 // non-bundled skills. Open-standard .agents sits last among brand roots;
-// .mimocode config dirs load after these.
+// .spadakcode config dirs load after these.
 const EXTERNAL_DIRS = [".claude", ".codex", ".opencode", ".agents"]
 const EXTERNAL_SKILL_PATTERN = "skills/**/SKILL.md"
-const MIMOCODE_SKILL_PATTERN = "{skill,skills}/**/SKILL.md"
+const SPADAKCODE_SKILL_PATTERN = "{skill,skills}/**/SKILL.md"
 const SKILL_PATTERN = "**/SKILL.md"
 const BUILTIN_SKILL_PATTERN = "skills/*/SKILL.md"
 
-// Brand roots opt in via MIMOCODE_ENABLE_*_SKILLS; .agents stays on unless
-// MIMOCODE_DISABLE_AGENTS_SKILLS is set.
+// Brand roots opt in via SPADAKCODE_ENABLE_*_SKILLS; .agents stays on unless
+// SPADAKCODE_DISABLE_AGENTS_SKILLS is set.
 const externalSkillDirs = () =>
   EXTERNAL_DIRS.filter((dir) => {
-    if (dir === ".agents") return !Flag.MIMOCODE_DISABLE_AGENTS_SKILLS
-    if (dir === ".claude") return Flag.MIMOCODE_ENABLE_CLAUDE_CODE_SKILLS
-    if (dir === ".codex") return Flag.MIMOCODE_ENABLE_CODEX_SKILLS
-    if (dir === ".opencode") return Flag.MIMOCODE_ENABLE_OPENCODE_SKILLS
+    if (dir === ".agents") return !Flag.SPADAKCODE_DISABLE_AGENTS_SKILLS
+    if (dir === ".claude") return Flag.SPADAKCODE_ENABLE_CLAUDE_CODE_SKILLS
+    if (dir === ".codex") return Flag.SPADAKCODE_ENABLE_CODEX_SKILLS
+    if (dir === ".opencode") return Flag.SPADAKCODE_ENABLE_OPENCODE_SKILLS
     return true
   })
 
@@ -194,14 +194,14 @@ const discoverStableSkills = Effect.fnUntraced(function* (
   const bundledRoots: string[] = []
 
   // Extract builtin skills to disk first (user skills with same name override)
-  if (!Flag.MIMOCODE_DISABLE_BUILTIN_SKILLS) {
+  if (!Flag.SPADAKCODE_DISABLE_BUILTIN_SKILLS) {
     const builtinSkillRoot = yield* extractBuiltinBundle(fsys).pipe(
       Effect.catch(() => Effect.succeed(undefined)),
     )
     if (builtinSkillRoot && (yield* fsys.isDir(builtinSkillRoot))) {
       bundledRoots.push(builtinSkillRoot)
       yield* scan(state, builtinSkillRoot, BUILTIN_SKILL_PATTERN, { scope: "builtin" })
-      if (Flag.MIMOCODE_DISABLE_OFFICIAL_SKILLS) {
+      if (Flag.SPADAKCODE_DISABLE_OFFICIAL_SKILLS) {
         const skillsRoot = path.join(builtinSkillRoot, "skills")
         for (const name of OFFICIAL_SKILL_NAMES) {
           const prefix = path.join(skillsRoot, name) + path.sep
@@ -217,7 +217,7 @@ const discoverStableSkills = Effect.fnUntraced(function* (
   }
 
   // Extract compose skills to disk (user skills with same name override)
-  if (!Flag.MIMOCODE_DISABLE_COMPOSE_SKILLS) {
+  if (!Flag.SPADAKCODE_DISABLE_COMPOSE_SKILLS) {
     const composeSkillRoot = yield* extractComposeBundle(fsys).pipe(
       Effect.catch(() => Effect.succeed(undefined)),
     )
@@ -263,7 +263,7 @@ const discoverSkills = Effect.fnUntraced(function* (
 
   const configDirs = yield* config.directories()
   for (const dir of configDirs) {
-    yield* scan(state, dir, MIMOCODE_SKILL_PATTERN)
+    yield* scan(state, dir, SPADAKCODE_SKILL_PATTERN)
   }
 
   const cfg = yield* config.get()

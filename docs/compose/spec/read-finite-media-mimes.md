@@ -23,14 +23,14 @@ Tool description is aligned in a second pass: static `read.txt` stays model-inde
 **Journey log** —
 - Root cause: `mime-types` extension lookup, not content sniffing — `.ts` → `video/mp2t` is a known IANA collision with TypeScript.
 - Feature lineage: audio/video attach landed 2026-09-12 (`049fe862`, `cca753c0`); image/PDF earlier; sniffing `7fa302e3` (2026-09-07).
-- User chose a stricter-than-MiMo allowlist (no BMP/FLAC/M4A/OGG/MOV/AVI/WMV) over a `modality` tool parameter.
+- User chose a stricter-than-Spadak allowlist (no BMP/FLAC/M4A/OGG/MOV/AVI/WMV) over a `modality` tool parameter.
 - BMP was previously attached for transform transcode; it is now refused under the finite image list.
 - Prefix helpers (`isMedia`, `looksLikeMediaMime`) remain for messaging only — they must never gate a successful attach.
 - Static desc must keep PDF caveated, not model-gated; dynamic desc owns capability-specific format lists. Change either string set and update the other + tests.
 
 ## [S1] Problem
 
-The `read` tool decided media modality with prefix checks on a MIME from `sniffAttachmentMime(sample, AppFileSystem.mimeType(filepath))`. `mime-types` maps `.ts`/`.mts` to `video/mp2t`, so TypeScript source entered the video branch and was refused. Prefix rules would attach any future `audio/*`/`video/*` lookup even when MiMo cannot take it.
+The `read` tool decided media modality with prefix checks on a MIME from `sniffAttachmentMime(sample, AppFileSystem.mimeType(filepath))`. `mime-types` maps `.ts`/`.mts` to `video/mp2t`, so TypeScript source entered the video branch and was refused. Prefix rules would attach any future `audio/*`/`video/*` lookup even when Spadak cannot take it.
 
 Audio/video attachment was added on 2026-09-12 (`049fe862`, `cca753c0`). Image/PDF attachment predates that; content sniffing landed earlier (`7fa302e3`, 2026-09-07).
 
@@ -45,7 +45,7 @@ Audio/video attachment was added on 2026-09-12 (`049fe862`, `cca753c0`). Image/P
 | audio | `audio/wav`, `audio/x-wav`, `audio/mp3`, `audio/mpeg` |
 | video | `video/mp4` |
 
-Official MiMo also lists BMP/FLAC/M4A/OGG/MOV/AVI/WMV; `read` will not attach those. GIF stays (explicitly allowed).
+Official Spadak also lists BMP/FLAC/M4A/OGG/MOV/AVI/WMV; `read` will not attach those. GIF stays (explicitly allowed).
 
 Helpers: `isReadImageMime`, `isReadPdfMime`, `isReadAudioMime`, `isReadVideoMime`, `isReadAttachmentMime`.
 

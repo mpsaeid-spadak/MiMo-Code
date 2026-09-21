@@ -24,7 +24,7 @@ const Query = Schema.Struct({
 
 const Headers = Schema.Struct({
   authorization: Schema.optional(Schema.String),
-  "x-mimocode-directory": Schema.optional(Schema.String),
+  "x-spadakcode-directory": Schema.optional(Schema.String),
 })
 
 function decode(input: string) {
@@ -71,13 +71,13 @@ const auth = Layer.succeed(
   Authorization.of({
     basic: (effect, { credential }) =>
       Effect.gen(function* () {
-        if (!Flag.MIMOCODE_SERVER_PASSWORD) return yield* effect
+        if (!Flag.SPADAKCODE_SERVER_PASSWORD) return yield* effect
 
-        const user = Flag.MIMOCODE_SERVER_USERNAME ?? "mimocode"
+        const user = Flag.SPADAKCODE_SERVER_USERNAME ?? "spadakcode"
         if (credential.username !== user) {
           return yield* new Unauthorized({ message: "Unauthorized" })
         }
-        if (Redacted.value(credential.password) !== Flag.MIMOCODE_SERVER_PASSWORD) {
+        if (Redacted.value(credential.password) !== Flag.SPADAKCODE_SERVER_PASSWORD) {
           return yield* new Unauthorized({ message: "Unauthorized" })
         }
         return yield* effect
@@ -97,14 +97,14 @@ const instance = HttpRouter.middleware()(
       Effect.gen(function* () {
         const query = yield* HttpServerRequest.schemaSearchParams(Query)
         const headers = yield* HttpServerRequest.schemaHeaders(Headers)
-        const raw = query.directory || headers["x-mimocode-directory"] || process.cwd()
+        const raw = query.directory || headers["x-spadakcode-directory"] || process.cwd()
         const workspace = query.workspace || undefined
         const directory = Filesystem.resolve(decode(raw))
 
         // Same rule as `routes/instance/middleware.ts`, keyed the same way: only an
         // operator-supplied password buys the right to serve directories outside cwd. A
         // password generated for a listener nobody asked for must not widen access.
-        if (!Flag.MIMOCODE_SERVER_PASSWORD_SUPPLIED) {
+        if (!Flag.SPADAKCODE_SERVER_PASSWORD_SUPPLIED) {
           const cwd = Filesystem.resolve(process.cwd())
           if (!Filesystem.contains(cwd, directory)) {
             return yield* new DirectoryAccessDenied({

@@ -10,7 +10,7 @@ commits: 17c9cdcb70b27116456f742f2b0d384b76f79108..0d3d0dcadf999cd05cb5ea0ae22e5
 
 ## Report
 
-**What was built** — MiMoCode now owns a process-level, replaceable child environment baseline. Embedding hosts can set it at startup through `Server.listen({ childEnv })` or refresh it later through the Node entry's `ChildProcessEnv.set(env)`. Hosts that never set a baseline retain existing behavior and read the current `process.env` for each spawn.
+**What was built** — SpadakCode now owns a process-level, replaceable child environment baseline. Embedding hosts can set it at startup through `Server.listen({ childEnv })` or refresh it later through the Node entry's `ChildProcessEnv.set(env)`. Hosts that never set a baseline retain existing behavior and read the current `process.env` for each spawn.
 
 All inherited external process paths now resolve through the same boundary, including direct and Effect process wrappers, Bash, PTY, LSP, MCP, ripgrep and remaining native `child_process` calls. Inherited credentials are still scrubbed before explicit per-child environment overrides are applied.
 
@@ -26,7 +26,7 @@ All inherited external process paths now resolve through the same boundary, incl
 
 ## [S1] Problem
 
-MiMoCode runs in-process inside MiMo Desktop. Desktop adds engine control variables to the Electron process environment, and external tools currently derive their environment directly from that global state. Bash, PTY, LSP, MCP and shared process spawners can therefore observe Desktop-only values such as engine credentials, permission controls and `NODE_ENV=production` injected by electron-vite.
+SpadakCode runs in-process inside Spadak Desktop. Desktop adds engine control variables to the Electron process environment, and external tools currently derive their environment directly from that global state. Bash, PTY, LSP, MCP and shared process spawners can therefore observe Desktop-only values such as engine credentials, permission controls and `NODE_ENV=production` injected by electron-vite.
 
 The existing `Env.Service` is mutable, instance-scoped configuration state, not a child-process boundary: several spawn paths run outside its Effect context and still read `process.env` directly. Session permission is unrelated and must remain persisted session state; this feature does not change permission semantics.
 
@@ -43,7 +43,7 @@ The Node embedding entry exports the host-facing setter as `ChildProcessEnv.set(
 
 `setChildProcessEnv` copies the supplied values and atomically replaces the process-wide baseline. Future child processes use the new snapshot immediately; already-running children keep the environment they were spawned with. The baseline is not tied to a project instance or listener and is not reset when a listener stops. If no host sets a baseline, `childProcessEnv` reads the current `process.env` on each call, preserving existing CLI/TUI/ACP/run behavior when those surfaces intentionally mutate their own process environment.
 
-MiMoCode adds an optional `childEnv?: NodeJS.ProcessEnv` field to the public `Server.listen` module contract only as an embedding adapter. `listen` sets `childEnv` before creating the HTTP runtime or initializing any project instance. Desktop supplies the option; ordinary CLI/TUI/ACP/serve callers omit it. Headless `mimo run`, which does not call `Server.listen`, naturally uses the default current `process.env`. A future Desktop environment-sync action can call the same process foundation setter without changing tool or session contracts.
+SpadakCode adds an optional `childEnv?: NodeJS.ProcessEnv` field to the public `Server.listen` module contract only as an embedding adapter. `listen` sets `childEnv` before creating the HTTP runtime or initializing any project instance. Desktop supplies the option; ordinary CLI/TUI/ACP/serve callers omit it. Headless `spadak run`, which does not call `Server.listen`, naturally uses the default current `process.env`. A future Desktop environment-sync action can call the same process foundation setter without changing tool or session contracts.
 
 All external process paths use one helper, `childProcessEnv(explicitEnv?)`, with this order:
 
@@ -54,25 +54,25 @@ configured childEnv (or current process.env when no host set one)
   -> spawn
 ```
 
-The foundation does not infer or reconstruct variables. The host-provided baseline is authoritative. Existing cleartext credential protection remains on the inherited half (`MIMOCODE_AUTH_CONTENT` and `MIMOCODE_CONFIG_CONTENT`); explicit per-child environment remains authoritative, so an MCP definition, LSP configuration, plugin hook, or future tool caller can intentionally override any value. `NODE_ENV`, user `MIMO_*` values, proxy variables and bundled runtime variables follow the baseline unchanged.
+The foundation does not infer or reconstruct variables. The host-provided baseline is authoritative. Existing cleartext credential protection remains on the inherited half (`SPADAKCODE_AUTH_CONTENT` and `SPADAKCODE_CONFIG_CONTENT`); explicit per-child environment remains authoritative, so an MCP definition, LSP configuration, plugin hook, or future tool caller can intentionally override any value. `NODE_ENV`, user `SPADAK_*` values, proxy variables and bundled runtime variables follow the baseline unchanged.
 
 Every path that currently builds inherited child environment from `process.env` must call `childProcessEnv`: the direct process wrapper, Effect `ChildProcessSpawner`, Bash, PTY, LSP, MCP and ripgrep. Tool-local additions keep their existing order after the baseline, including plugin `shell.env`, Git identity floors, UTF-8 fixes and MCP/LSP explicit env.
 
-MiMo Desktop obtains a complete environment snapshot from the same clean login-shell mechanism used to establish the user's terminal environment, adds bundled runtime variables, and passes the result as `childEnv` to `Server.listen({ childEnv })`. The snapshot is independent from Electron's mutated `process.env`, so Desktop/engine controls added later are absent by construction rather than removed heuristically. `NODE_ENV` is not synthesized or deleted: if the user's clean terminal environment contains it, it remains; if not, Desktop does not add it. Desktop continues to inject `MIMOCODE_PERMISSION` into the engine process; this feature does not move permissions into session storage or change cross-client behavior.
+Spadak Desktop obtains a complete environment snapshot from the same clean login-shell mechanism used to establish the user's terminal environment, adds bundled runtime variables, and passes the result as `childEnv` to `Server.listen({ childEnv })`. The snapshot is independent from Electron's mutated `process.env`, so Desktop/engine controls added later are absent by construction rather than removed heuristically. `NODE_ENV` is not synthesized or deleted: if the user's clean terminal environment contains it, it remains; if not, Desktop does not add it. Desktop continues to inject `SPADAKCODE_PERMISSION` into the engine process; this feature does not move permissions into session storage or change cross-client behavior.
 
-The engine module declaration in Desktop is expanded only for the `childEnv` option. The Desktop engine spec and bundled-runtimes spec remain the source of truth for the baseline construction and public `MIMO_*` runtime variables.
+The engine module declaration in Desktop is expanded only for the `childEnv` option. The Desktop engine spec and bundled-runtimes spec remain the source of truth for the baseline construction and public `SPADAK_*` runtime variables.
 
 ## [S3] Out of Scope
 
-- Changing `MIMOCODE_PERMISSION`, session permission persistence, or permission precedence.
+- Changing `SPADAKCODE_PERMISSION`, session permission persistence, or permission precedence.
 - Adding an HTTP endpoint for arbitrary environment mutation.
 - Guessing or overriding `NODE_ENV`; child processes follow the clean terminal environment exactly, including its presence or absence of `NODE_ENV`.
 - Adding model-visible per-call environment controls to the Bash schema.
 - Reusing `Env.Service` for child-process inheritance or making child environment project-instance mutable.
-- Constructing Desktop's clean-terminal environment, updating Desktop's virtual module declaration, adding Desktop E2E coverage, or bumping Desktop's engine pin. Those are downstream consumer work after this MiMoCode foundation lands.
+- Constructing Desktop's clean-terminal environment, updating Desktop's virtual module declaration, adding Desktop E2E coverage, or bumping Desktop's engine pin. Those are downstream consumer work after this SpadakCode foundation lands.
 
 ## Tasks
 
 - [x] T1: Add the process-owned replaceable child environment foundation and `Server.listen({ childEnv })` adapter — acceptance: each set replaces the snapshot for future spawns, existing children are unaffected, listener stop does not reset, and no-set callers keep current process.env behavior (covers: S2)
 - [x] T2: Route all inherited external process environments through `childProcessEnv(explicit)` — acceptance: direct and Effect spawners plus Bash/PTY/LSP/MCP/ripgrep use the same baseline and explicit env still overrides (covers: S2; depends: T1)
-- [x] T3: Add MiMoCode unit and structural regression tests — acceptance: baseline fidelity, credential scrub, replacement lifecycle and all spawn funnels are covered (covers: S2; depends: T2)
+- [x] T3: Add SpadakCode unit and structural regression tests — acceptance: baseline fidelity, credential scrub, replacement lifecycle and all spawn funnels are covered (covers: S2; depends: T2)

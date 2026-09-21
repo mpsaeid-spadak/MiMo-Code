@@ -26,7 +26,7 @@ never enter the module graph and nothing can attempt to parse them.
 The counts rise by one because the test that previously failed to load now runs.
 `bun run build:local` compiles; `bun build --target=bun src/workflow/builtin.ts` shows the macro
 call site replaced by an object literal, so the development fallback below is unreachable in a
-bundle; `mimo debug agent build` from the compiled binary, run in an empty directory, loads the
+bundle; `spadak debug agent build` from the compiled binary, run in an empty directory, loads the
 workflow registry. `bun.lock` is unmodified.
 
 **Journey log**

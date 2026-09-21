@@ -145,7 +145,7 @@ describe("compaction projection", () => {
     expect(message).toContain("Complete API rounds")
     expect(message).toContain("## Goal")
     expect(message).not.toContain("transcript-path")
-    expect(message).not.toContain("mimocode.db")
+    expect(message).not.toContain("spadakcode.db")
   })
 })
 

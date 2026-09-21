@@ -273,7 +273,7 @@ function withInstance(
     await using tmp = await tmpdir({
       init: async (dir) => {
         await Bun.write(
-          `${dir}/mimocode.json`,
+          `${dir}/spadakcode.json`,
           JSON.stringify({
             $schema: "https://opencode.ai/config.json",
             mcp: config,
@@ -344,7 +344,7 @@ test(
           capabilities: {
             sampling: {},
             experimental: {
-              "com.xiaomi.mimo/turn-lifecycle": { version: 1 },
+              "com.xiaomi.spadak/turn-lifecycle": { version: 1 },
             },
           },
         },
@@ -385,7 +385,7 @@ test(
       lastCreatedClientName = "lifecycle-server"
       const serverState = getOrCreateClientState("lifecycle-server")
       serverState.serverCapabilities = {
-        experimental: { "com.xiaomi.mimo/turn-lifecycle": { version: 1 } },
+        experimental: { "com.xiaomi.spadak/turn-lifecycle": { version: 1 } },
       }
       yield* mcp.add("lifecycle-server", {
         type: "local",
@@ -411,12 +411,12 @@ test(
         {
           name: "test_tool",
           arguments: { index: 1 },
-          _meta: { "com.xiaomi.mimo/turn-lifecycle": context },
+          _meta: { "com.xiaomi.spadak/turn-lifecycle": context },
         },
         {
           name: "test_tool",
           arguments: { index: 2 },
-          _meta: { "com.xiaomi.mimo/turn-lifecycle": context },
+          _meta: { "com.xiaomi.spadak/turn-lifecycle": context },
         },
       ])
     }),
@@ -430,7 +430,7 @@ test(
       lastCreatedClientName = "lifecycle-server"
       const serverState = getOrCreateClientState("lifecycle-server")
       serverState.serverCapabilities = {
-        experimental: { "com.xiaomi.mimo/turn-lifecycle": { version: 1 } },
+        experimental: { "com.xiaomi.spadak/turn-lifecycle": { version: 1 } },
       }
       serverState.toolCallHangs = true
       yield* mcp.add("lifecycle-server", {
@@ -464,7 +464,7 @@ test(
       yield* MCP.notifyTurnLifecycle(yield* mcp.clients(), context, "cancelled")
       expect(serverState.notifications).toEqual([
         {
-          method: "notifications/com.xiaomi.mimo/turn-lifecycle",
+          method: "notifications/com.xiaomi.spadak/turn-lifecycle",
           params: { ...context, status: "cancelled" },
         },
       ])
@@ -479,7 +479,7 @@ test(
       lastCreatedClientName = "lifecycle-server"
       const serverState = getOrCreateClientState("lifecycle-server")
       serverState.serverCapabilities = {
-        experimental: { "com.xiaomi.mimo/turn-lifecycle": { version: 1 } },
+        experimental: { "com.xiaomi.spadak/turn-lifecycle": { version: 1 } },
       }
       yield* mcp.add("lifecycle-server", {
         type: "local",
@@ -494,7 +494,7 @@ test(
 
       expect(serverState.notifications).toEqual(
         ["completed", "cancelled", "error"].map((status) => ({
-          method: "notifications/com.xiaomi.mimo/turn-lifecycle",
+          method: "notifications/com.xiaomi.spadak/turn-lifecycle",
           params: { ...context, status },
         })),
       )
@@ -509,7 +509,7 @@ test(
       lastCreatedClientName = "legacy-server"
       const serverState = getOrCreateClientState("legacy-server")
       serverState.serverCapabilities = {
-        experimental: { "com.xiaomi.mimo/turn-lifecycle": { version: "1" } },
+        experimental: { "com.xiaomi.spadak/turn-lifecycle": { version: "1" } },
       }
       yield* mcp.add("legacy-server", {
         type: "local",
@@ -530,7 +530,7 @@ test(
       lastCreatedClientName = "failing-server"
       const failingState = getOrCreateClientState("failing-server")
       failingState.serverCapabilities = {
-        experimental: { "com.xiaomi.mimo/turn-lifecycle": { version: 1 } },
+        experimental: { "com.xiaomi.spadak/turn-lifecycle": { version: 1 } },
       }
       failingState.notificationError = "closed"
       yield* mcp.add("failing-server", { type: "local", command: ["echo", "test"] })
@@ -538,7 +538,7 @@ test(
       lastCreatedClientName = "healthy-server"
       const healthyState = getOrCreateClientState("healthy-server")
       healthyState.serverCapabilities = {
-        experimental: { "com.xiaomi.mimo/turn-lifecycle": { version: 1 } },
+        experimental: { "com.xiaomi.spadak/turn-lifecycle": { version: 1 } },
       }
       yield* mcp.add("healthy-server", { type: "local", command: ["echo", "test"] })
 
@@ -557,7 +557,7 @@ test(
       lastCreatedClientName = "lifecycle-server"
       const serverState = getOrCreateClientState("lifecycle-server")
       serverState.serverCapabilities = {
-        experimental: { "com.xiaomi.mimo/turn-lifecycle": { version: 1 } },
+        experimental: { "com.xiaomi.spadak/turn-lifecycle": { version: 1 } },
       }
       serverState.notificationHangs = true
       yield* mcp.add("lifecycle-server", { type: "local", command: ["echo", "test"] })
@@ -600,7 +600,7 @@ test(
       lastCreatedClientName = "hanging-server"
       const hangingState = getOrCreateClientState("hanging-server")
       hangingState.serverCapabilities = {
-        experimental: { "com.xiaomi.mimo/turn-lifecycle": { version: 1 } },
+        experimental: { "com.xiaomi.spadak/turn-lifecycle": { version: 1 } },
       }
       hangingState.notificationHangs = true
       yield* mcp.add("hanging-server", { type: "local", command: ["echo", "test"] })
@@ -608,7 +608,7 @@ test(
       lastCreatedClientName = "healthy-server"
       const healthyState = getOrCreateClientState("healthy-server")
       healthyState.serverCapabilities = {
-        experimental: { "com.xiaomi.mimo/turn-lifecycle": { version: 1 } },
+        experimental: { "com.xiaomi.spadak/turn-lifecycle": { version: 1 } },
       }
       yield* mcp.add("healthy-server", { type: "local", command: ["echo", "test"] })
 
@@ -667,7 +667,7 @@ test(
       lastCreatedClientName = "lifecycle-server"
       const serverState = getOrCreateClientState("lifecycle-server")
       serverState.serverCapabilities = {
-        experimental: { "com.xiaomi.mimo/turn-lifecycle": { version: 1 } },
+        experimental: { "com.xiaomi.spadak/turn-lifecycle": { version: 1 } },
       }
       serverState.notificationError = "closed"
       yield* mcp.add("lifecycle-server", { type: "local", command: ["echo", "test"] })
@@ -693,7 +693,7 @@ test(
       lastCreatedClientName = "replacement-old"
       const oldState = getOrCreateClientState("replacement-old")
       oldState.serverCapabilities = {
-        experimental: { "com.xiaomi.mimo/turn-lifecycle": { version: 1 } },
+        experimental: { "com.xiaomi.spadak/turn-lifecycle": { version: 1 } },
       }
       oldState.notificationHangs = true
       yield* mcp.add("replace-server", { type: "local", command: ["echo", "test"] })
@@ -709,7 +709,7 @@ test(
       lastCreatedClientName = "replacement-new"
       const newState = getOrCreateClientState("replacement-new")
       newState.serverCapabilities = {
-        experimental: { "com.xiaomi.mimo/turn-lifecycle": { version: 1 } },
+        experimental: { "com.xiaomi.spadak/turn-lifecycle": { version: 1 } },
       }
       yield* mcp.add("replace-server", { type: "local", command: ["echo", "test"] })
       yield* MCP.notifyTurnLifecycle(yield* mcp.clients(), { sessionId: "ses_2", turnId: "turn_2" }, "completed")
@@ -735,7 +735,7 @@ test(
       lastCreatedClientName = "stuck-server"
       const stuckState = getOrCreateClientState("stuck-server")
       stuckState.serverCapabilities = {
-        experimental: { "com.xiaomi.mimo/turn-lifecycle": { version: 1 } },
+        experimental: { "com.xiaomi.spadak/turn-lifecycle": { version: 1 } },
       }
       stuckState.notificationHangs = true
       yield* mcp.add("stuck-server", { type: "local", command: ["echo", "test"] })

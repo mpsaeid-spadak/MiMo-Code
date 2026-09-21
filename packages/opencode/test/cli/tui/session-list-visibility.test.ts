@@ -85,7 +85,7 @@ const scaffold = Effect.gen(function* () {
 
   const plain = yield* sessions.create({
     parentID: root.id as SessionID,
-    title: "build: 在 mimocode 引擎侧实现「memory 写入开关」",
+    title: "build: 在 spadakcode 引擎侧实现「memory 写入开关」",
   })
   yield* registerPeer(plain.id)
 

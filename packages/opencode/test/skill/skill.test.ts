@@ -12,11 +12,11 @@ import fs from "fs/promises"
 // existing .claude/.codex discovery cases stay meaningful; default-surface and
 // dotted-dir negatives live in skill-external-roots.test.ts.
 withEnv({
-  MIMOCODE_DISABLE_COMPOSE_SKILLS: "true",
-  MIMOCODE_DISABLE_BUILTIN_SKILLS: "true",
-  MIMOCODE_ENABLE_CLAUDE_CODE_SKILLS: "true",
-  MIMOCODE_ENABLE_CODEX_SKILLS: "true",
-  MIMOCODE_ENABLE_OPENCODE_SKILLS: "true",
+  SPADAKCODE_DISABLE_COMPOSE_SKILLS: "true",
+  SPADAKCODE_DISABLE_BUILTIN_SKILLS: "true",
+  SPADAKCODE_ENABLE_CLAUDE_CODE_SKILLS: "true",
+  SPADAKCODE_ENABLE_CODEX_SKILLS: "true",
+  SPADAKCODE_ENABLE_OPENCODE_SKILLS: "true",
 })
 
 const node = CrossSpawnSpawner.defaultLayer
@@ -71,13 +71,13 @@ const withHome = <A, E, R>(home: string, self: Effect.Effect<A, E, R>) =>
   )
 
 describe("skill", () => {
-  it.live("discovers skills from .mimocode/skill/ directory", () =>
+  it.live("discovers skills from .spadakcode/skill/ directory", () =>
     provideTmpdirInstance(
       (dir) =>
         Effect.gen(function* () {
           yield* Effect.promise(() =>
             Bun.write(
-              path.join(dir, ".mimocode", "skill", "test-skill", "SKILL.md"),
+              path.join(dir, ".spadakcode", "skill", "test-skill", "SKILL.md"),
               `---
 name: test-skill
 description: A test skill for verification.
@@ -108,7 +108,7 @@ Instructions here.
         Effect.gen(function* () {
           yield* Effect.promise(() =>
             Bun.write(
-              path.join(dir, ".mimocode", "skills", "repository-skill", "SKILL.md"),
+              path.join(dir, ".spadakcode", "skills", "repository-skill", "SKILL.md"),
               `---
 name: repository-skill
 description: A repository-level skill for verification.
@@ -123,7 +123,7 @@ description: A repository-level skill for verification.
           const item = (yield* skill.all())[0]
           expect(item?.name).toBe("repository-skill")
           expect(item?.bundled).toBeUndefined()
-          expect(item?.location).toContain(path.join(".mimocode", "skills", "repository-skill", "SKILL.md"))
+          expect(item?.location).toContain(path.join(".spadakcode", "skills", "repository-skill", "SKILL.md"))
         }),
       { git: true },
     ),
@@ -137,7 +137,7 @@ description: A repository-level skill for verification.
           Effect.gen(function* () {
             yield* Effect.promise(() =>
               Bun.write(
-                path.join(dir, ".mimocode", "skill", "dir-skill", "SKILL.md"),
+                path.join(dir, ".spadakcode", "skill", "dir-skill", "SKILL.md"),
                 `---
 name: dir-skill
 description: Skill for dirs test.
@@ -150,7 +150,7 @@ description: Skill for dirs test.
 
             const skill = yield* Skill.Service
             const dirs = yield* skill.dirs()
-            expect(dirs).toContain(path.join(dir, ".mimocode", "skill", "dir-skill"))
+            expect(dirs).toContain(path.join(dir, ".spadakcode", "skill", "dir-skill"))
             expect(dirs.length).toBe(1)
           }),
         ),
@@ -158,14 +158,14 @@ description: Skill for dirs test.
     ),
   )
 
-  it.live("discovers multiple skills from .mimocode/skill/ directory", () =>
+  it.live("discovers multiple skills from .spadakcode/skill/ directory", () =>
     provideTmpdirInstance(
       (dir) =>
         Effect.gen(function* () {
           yield* Effect.promise(() =>
             Promise.all([
               Bun.write(
-                path.join(dir, ".mimocode", "skill", "skill-one", "SKILL.md"),
+                path.join(dir, ".spadakcode", "skill", "skill-one", "SKILL.md"),
                 `---
 name: skill-one
 description: First test skill.
@@ -175,7 +175,7 @@ description: First test skill.
 `,
               ),
               Bun.write(
-                path.join(dir, ".mimocode", "skill", "skill-two", "SKILL.md"),
+                path.join(dir, ".spadakcode", "skill", "skill-two", "SKILL.md"),
                 `---
 name: skill-two
 description: Second test skill.
@@ -203,7 +203,7 @@ description: Second test skill.
         Effect.gen(function* () {
           yield* Effect.promise(() =>
             Bun.write(
-              path.join(dir, ".mimocode", "skill", "no-frontmatter", "SKILL.md"),
+              path.join(dir, ".spadakcode", "skill", "no-frontmatter", "SKILL.md"),
               `# No Frontmatter
 
 Just some content without YAML frontmatter.
@@ -553,20 +553,20 @@ description: A skill in the .agents/skills directory.
 `,
               ),
               Bun.write(
-                path.join(dir, ".mimocode", "skill", "agent-skill", "SKILL.md"),
+                path.join(dir, ".spadakcode", "skill", "agent-skill", "SKILL.md"),
                 `---
 name: opencode-skill
-description: A skill in the .mimocode/skill directory.
+description: A skill in the .spadakcode/skill directory.
 ---
 
 # OpenCode Skill
 `,
               ),
               Bun.write(
-                path.join(dir, ".mimocode", "skills", "agent-skill", "SKILL.md"),
+                path.join(dir, ".spadakcode", "skills", "agent-skill", "SKILL.md"),
                 `---
 name: opencode-skill
-description: A skill in the .mimocode/skills directory.
+description: A skill in the .spadakcode/skills directory.
 ---
 
 # OpenCode Skill
@@ -592,7 +592,7 @@ description: A skill in the .mimocode/skills directory.
           yield* Effect.promise(() =>
             Promise.all([
               Bun.write(
-                path.join(dir, ".mimocode", "skill", "gated-skill", "SKILL.md"),
+                path.join(dir, ".spadakcode", "skill", "gated-skill", "SKILL.md"),
                 `---
 name: gated-skill
 description: Only the user may start this one.
@@ -603,7 +603,7 @@ disable-model-invocation: true
 `,
               ),
               Bun.write(
-                path.join(dir, ".mimocode", "skill", "open-skill", "SKILL.md"),
+                path.join(dir, ".spadakcode", "skill", "open-skill", "SKILL.md"),
                 `---
 name: open-skill
 description: Anyone may start this one.

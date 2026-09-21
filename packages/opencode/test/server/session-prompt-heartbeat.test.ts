@@ -27,12 +27,12 @@ it.live(
   () =>
     provideTmpdirServer(
       Effect.fnUntraced(function* ({ dir, llm }) {
-        const prev = process.env["MIMOCODE_PROMPT_HEARTBEAT_INTERVAL_MS"]
-        process.env["MIMOCODE_PROMPT_HEARTBEAT_INTERVAL_MS"] = "50"
+        const prev = process.env["SPADAKCODE_PROMPT_HEARTBEAT_INTERVAL_MS"]
+        process.env["SPADAKCODE_PROMPT_HEARTBEAT_INTERVAL_MS"] = "50"
         yield* Effect.addFinalizer(() =>
           Effect.sync(() => {
-            if (prev === undefined) delete process.env["MIMOCODE_PROMPT_HEARTBEAT_INTERVAL_MS"]
-            else process.env["MIMOCODE_PROMPT_HEARTBEAT_INTERVAL_MS"] = prev
+            if (prev === undefined) delete process.env["SPADAKCODE_PROMPT_HEARTBEAT_INTERVAL_MS"]
+            else process.env["SPADAKCODE_PROMPT_HEARTBEAT_INTERVAL_MS"] = prev
           }),
         )
 

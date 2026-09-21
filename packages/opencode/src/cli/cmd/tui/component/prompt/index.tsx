@@ -30,7 +30,7 @@ import * as Voice from "@tui/util/voice"
 import * as VoiceEdit from "@tui/util/voice-edit"
 import { useExit } from "../../context/exit"
 import * as Clipboard from "../../util/clipboard"
-import type { AssistantMessage, FilePart, UserMessage } from "@mimo-ai/sdk/v2"
+import type { AssistantMessage, FilePart, UserMessage } from "@spadak/sdk/v2"
 import { TuiEvent } from "../../event"
 import { iife } from "@/util/iife"
 import { Locale } from "@/util"
@@ -1854,8 +1854,8 @@ export function Prompt(props: PromptProps) {
                           >
                             {local.model.parsed().model}
                           </text>
-                          {/* Hide provider label for mimo-auto since model name already contains "MiMo" */}
-                          <Show when={!(local.model.current()?.providerID === "mimo" && local.model.current()?.modelID === "mimo-auto")}>
+                          {/* Hide provider label for spadak-auto since model name already contains "Spadak" */}
+                          <Show when={!(local.model.current()?.providerID === "spadak" && local.model.current()?.modelID === "spadak-auto")}>
                             <text fg={fadeColor(theme.textMuted, modelMetaAlpha())}>
                               {currentProviderLabel()}
                             </text>

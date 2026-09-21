@@ -18,12 +18,12 @@ void Log.init({ print: false })
 // the real mechanism: `Flag` reads the env var to tell an operator-supplied password
 // apart from one an implicit listener generated for itself.
 const TEST_PASSWORD = "init-git-test"
-const authHeader = `Basic ${Buffer.from(`mimocode:${TEST_PASSWORD}`).toString("base64")}`
+const authHeader = `Basic ${Buffer.from(`spadakcode:${TEST_PASSWORD}`).toString("base64")}`
 
 describe("project.initGit endpoint", () => {
   test("initializes git and reloads immediately", async () => {
-    const prevFlag = process.env["MIMOCODE_SERVER_PASSWORD"]
-    process.env["MIMOCODE_SERVER_PASSWORD"] = TEST_PASSWORD
+    const prevFlag = process.env["SPADAKCODE_SERVER_PASSWORD"]
+    process.env["SPADAKCODE_SERVER_PASSWORD"] = TEST_PASSWORD
     try {
       await using tmp = await tmpdir({ outsideGit: true })
       const app = Server.Default().app
@@ -39,7 +39,7 @@ describe("project.initGit endpoint", () => {
         const init = await app.request("/project/git/init", {
           method: "POST",
           headers: {
-            "x-mimocode-directory": tmp.path,
+            "x-spadakcode-directory": tmp.path,
             "authorization": authHeader,
           },
         })
@@ -55,11 +55,11 @@ describe("project.initGit endpoint", () => {
         expect(seen.some((evt) => evt.directory === tmp.path && evt.payload.type === "server.instance.disposed")).toBe(
           true,
         )
-        expect(await Filesystem.exists(path.join(tmp.path, ".git", "mimocode"))).toBe(false)
+        expect(await Filesystem.exists(path.join(tmp.path, ".git", "spadakcode"))).toBe(false)
 
         const current = await app.request("/project/current", {
           headers: {
-            "x-mimocode-directory": tmp.path,
+            "x-spadakcode-directory": tmp.path,
             "authorization": authHeader,
           },
         })
@@ -83,8 +83,8 @@ describe("project.initGit endpoint", () => {
         GlobalBus.off("event", fn)
       }
     } finally {
-      if (prevFlag === undefined) delete process.env["MIMOCODE_SERVER_PASSWORD"]
-      else process.env["MIMOCODE_SERVER_PASSWORD"] = prevFlag
+      if (prevFlag === undefined) delete process.env["SPADAKCODE_SERVER_PASSWORD"]
+      else process.env["SPADAKCODE_SERVER_PASSWORD"] = prevFlag
     }
   })
 
@@ -103,7 +103,7 @@ describe("project.initGit endpoint", () => {
       const init = await app.request("/project/git/init", {
         method: "POST",
         headers: {
-          "x-mimocode-directory": tmp.path,
+          "x-spadakcode-directory": tmp.path,
         },
       })
       expect(init.status).toBe(200)
@@ -118,7 +118,7 @@ describe("project.initGit endpoint", () => {
 
       const current = await app.request("/project/current", {
         headers: {
-          "x-mimocode-directory": tmp.path,
+          "x-spadakcode-directory": tmp.path,
         },
       })
       expect(current.status).toBe(200)

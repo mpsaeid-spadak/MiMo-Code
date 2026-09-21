@@ -15,7 +15,7 @@ import { testEffect } from "../lib/effect"
 import * as CrossSpawnSpawner from "../../src/effect/cross-spawn-spawner"
 
 // The test process shares a single in-memory SQLite DB (test/preload sets
-// MIMOCODE_DB=:memory:), so other suites' SessionTable/PartTable rows are visible
+// SPADAKCODE_DB=:memory:), so other suites' SessionTable/PartTable rows are visible
 // here. backfillAll() walks ALL sessions in the DB and would index those rows,
 // so wipe the relevant tables both before AND after each test.
 const wipe = () =>
@@ -280,7 +280,7 @@ test("background migration delays startup, rests after expensive work and cancel
 
 // R6/N1: error path — 5 failed attempts clear the jobs slot so startIndexMigration can re-arm.
 test("index migration clears jobs slot after five failed attempts and allows restart", () => {
-  process.env.MIMOCODE_SKIP_MIGRATIONS = "1"
+  process.env.SPADAKCODE_SKIP_MIGRATIONS = "1"
   Database.close()
   const scheduled: { run: () => void; delay: number }[] = []
   const timeout = spyOn(globalThis, "setTimeout").mockImplementation(((run: () => void, delay: number) => {
@@ -316,7 +316,7 @@ test("index migration clears jobs slot after five failed attempts and allows res
     expect(scheduled.length).toBe(afterGiveUp + 1)
     expect(scheduled[scheduled.length - 1]!.delay).toBeGreaterThanOrEqual(1000)
   } finally {
-    delete process.env.MIMOCODE_SKIP_MIGRATIONS
+    delete process.env.SPADAKCODE_SKIP_MIGRATIONS
     timeout.mockRestore()
   }
 })
@@ -393,7 +393,7 @@ for (const count of [0, 300]) {
         [process.execPath, fileURLToPath(new URL("./fixtures/backfill-restart.ts", import.meta.url))],
         {
           cwd: process.cwd(),
-          env: { ...process.env, MIMOCODE_DB: file, HISTORY_BATCH_LIMIT: String(limit) },
+          env: { ...process.env, SPADAKCODE_DB: file, HISTORY_BATCH_LIMIT: String(limit) },
           stdout: "pipe",
           stderr: "pipe",
         },

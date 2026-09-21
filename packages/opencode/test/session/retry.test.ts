@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import { NamedError } from "@mimo-ai/shared/util/error"
+import { NamedError } from "@spadak/shared/util/error"
 import { APICallError, RetryError } from "ai"
 import { setTimeout as sleep } from "node:timers/promises"
 import { Effect, Schedule, Schema } from "effect"
@@ -955,7 +955,7 @@ describe("retry decision and coordinator budget", () => {
   test("terminal kinds stay terminal and are not swallowed by UnknownError retry", () => {
     const aborted = new MessageV2.AbortedError({ message: "Aborted" }).toObject()
     expect(decide(aborted)).toMatchObject({ retryable: false, kind: "terminal" })
-    const auth = new MessageV2.AuthError({ providerID: "mimo", message: "invalid key" }).toObject()
+    const auth = new MessageV2.AuthError({ providerID: "spadak", message: "invalid key" }).toObject()
     expect(decide(auth)).toMatchObject({ retryable: false, kind: "terminal" })
     const overflow = new MessageV2.ContextOverflowError({ message: "too long" }).toObject()
     expect(decide(overflow)).toMatchObject({ retryable: false, kind: "terminal" })

@@ -24,7 +24,7 @@ import { SkillSearchTool } from "./skill-search"
 import { MCP_TOOL_SEARCH_ID, McpToolSearchTool } from "./mcp-tool-search"
 import * as Tool from "./tool"
 import { Config } from "../config"
-import { type ToolContext as PluginToolContext, type ToolDefinition } from "@mimo-ai/plugin"
+import { type ToolContext as PluginToolContext, type ToolDefinition } from "@spadak/plugin"
 import z from "zod"
 import { Plugin } from "../plugin"
 import { Provider } from "../provider"
@@ -39,7 +39,7 @@ import { errorMessage } from "@/util/error"
 import { LspTool } from "./lsp"
 import * as Truncate from "./truncate"
 import { ApplyPatchTool } from "./apply_patch"
-import { Glob } from "@mimo-ai/shared/util/glob"
+import { Glob } from "@spadak/shared/util/glob"
 import path from "path"
 import { pathToFileURL } from "url"
 import { Effect, Layer, Context } from "effect"
@@ -53,7 +53,7 @@ import { Question } from "../question"
 import { Todo } from "../session/todo"
 import { LSP } from "../lsp"
 import { Instruction } from "../session/instruction"
-import { AppFileSystem } from "@mimo-ai/shared/filesystem"
+import { AppFileSystem } from "@spadak/shared/filesystem"
 import { Bus } from "../bus"
 import { Agent } from "../agent/agent"
 import { hasActorTool } from "@/agent/config"
@@ -250,7 +250,7 @@ export const layer = Layer.effect(
 
         yield* config.get()
         const questionEnabled =
-          ["app", "cli", "desktop"].includes(Flag.MIMOCODE_CLIENT) || Flag.MIMOCODE_ENABLE_QUESTION_TOOL
+          ["app", "cli", "desktop"].includes(Flag.SPADAKCODE_CLIENT) || Flag.SPADAKCODE_ENABLE_QUESTION_TOOL
 
         const tool = yield* Effect.all({
           invalid: Tool.init(invalid),
@@ -304,15 +304,15 @@ export const layer = Layer.effect(
             tool.skillsearch,
             tool.skill,
             tool.patch,
-            ...(Flag.MIMOCODE_EXPERIMENTAL_LSP_TOOL ? [tool.lsp] : []),
+            ...(Flag.SPADAKCODE_EXPERIMENTAL_LSP_TOOL ? [tool.lsp] : []),
             tool.planexit,
             tool.memory,
             tool.history,
             tool.task,
             tool.toolscript,
-            ...(Flag.MIMOCODE_EXPERIMENTAL_CRON ? [tool.cron] : []),
-            Flag.MIMOCODE_EXPERIMENTAL_ORCHESTRATOR ? tool.session : tool.sessiontitle,
-            ...(Flag.MIMOCODE_EXPERIMENTAL_WORKFLOW_TOOL ? [tool.workflow] : []),
+            ...(Flag.SPADAKCODE_EXPERIMENTAL_CRON ? [tool.cron] : []),
+            Flag.SPADAKCODE_EXPERIMENTAL_ORCHESTRATOR ? tool.session : tool.sessiontitle,
+            ...(Flag.SPADAKCODE_EXPERIMENTAL_WORKFLOW_TOOL ? [tool.workflow] : []),
           ],
           actor: tool.actor,
           read: tool.read,
@@ -374,16 +374,16 @@ export const layer = Layer.effect(
     }) {
       const useGPTTools = usesGPTToolset(input.modelID, input.harness, input.apiModelID, input.family)
       let filtered = (yield* all()).filter((tool) => {
-        if (tool.id === ToolScriptTool.id) return useGPTTools || Flag.MIMOCODE_ENABLE_EXEC_TOOL
+        if (tool.id === ToolScriptTool.id) return useGPTTools || Flag.SPADAKCODE_ENABLE_EXEC_TOOL
         if (tool.id === CodeSearchTool.id || tool.id === WebSearchTool.id) {
           if (tool.id === WebSearchTool.id) {
             return (
               input.providerID === ProviderID.opencode ||
-              input.providerID === "xiaomi" ||
-              Flag.MIMOCODE_ENABLE_EXA
+              input.providerID === "spadak" ||
+              Flag.SPADAKCODE_ENABLE_EXA
             )
           }
-          return input.providerID === ProviderID.opencode || Flag.MIMOCODE_ENABLE_EXA
+          return input.providerID === ProviderID.opencode || Flag.SPADAKCODE_ENABLE_EXA
         }
 
         if (tool.id === ApplyPatchTool.id || tool.id === ViewImageTool.id) return useGPTTools

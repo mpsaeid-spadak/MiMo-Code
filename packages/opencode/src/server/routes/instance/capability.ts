@@ -15,7 +15,7 @@ import { ChatCompletionRequest, unsupported } from "@/llm-server/protocol"
  *
  * WHY IT LIVES ON THIS SERVER rather than in a listener of its own: provider credentials
  * are not uniformly a static key. For plugin-authenticated providers they are supplied by a
- * `chat.headers` hook (`src/plugin/mimo.ts`), applied on the agent's LLM path. A separate
+ * `chat.headers` hook (`src/plugin/spadak.ts`), applied on the agent's LLM path. A separate
  * process cannot see those plugins, and — the part that is easy to miss — even the same
  * process cannot serve such a provider unless the request path actually TRIGGERS the hook.
  * `completions.ts` now does, mirroring `session/llm.ts`.
@@ -85,7 +85,7 @@ export const CapabilityRoutes = lazy(() =>
     /**
      * Own authentication, ALWAYS, independent of the server's own auth.
      *
-     * `AuthMiddleware` only enforces Basic auth when `MIMOCODE_SERVER_PASSWORD` is set, and
+     * `AuthMiddleware` only enforces Basic auth when `SPADAKCODE_SERVER_PASSWORD` is set, and
      * it usually is not — so relying on it would mean any process on the machine could
      * spend the user's model credits. A task token is mandatory here regardless, and it
      * carries the model scope that Basic auth has no concept of.
@@ -207,7 +207,7 @@ export const CapabilityRoutes = lazy(() =>
       }
       log.error("request failed", { error: err })
       // 502, not 500: from the caller's point of view an upstream provider failure is this
-      // server's problem, but they still need to tell "MiMoCode broke" from "the provider
+      // server's problem, but they still need to tell "SpadakCode broke" from "the provider
       // broke". A bare 500 collapses that distinction.
       return c.json(
         errorBody({ message: err instanceof Error ? err.message : "Internal Server Error", type: "api_error" }),

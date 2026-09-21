@@ -37,8 +37,8 @@ residuals are deferred follow-up (S3).
 | `## Subagent return format` (also removed from memory block) | `actor/spawn.ts` `RETURN_FORMAT_INSTRUCTION` for gate-eligible children (`general` via `completionGate`); `general.txt` points at required format |
 | Help/feedback (`/help`, issue URL) | Not re-injected — TUI chrome only |
 | Claude brand / anthropics / CLAUDE.md | N/A; durable instructions are `AGENTS.md` |
-| compose / Agent-system / Session lifecycle / Plan-mode detail / MCP essay | Tool descriptions, `agent.ts`, `prompt.ts` plan reminder, `plan-exit.txt`, mimocode-docs |
-| Skills brand-path dumps | Named only `.mimocode/skill(s)` + `.agents/skills`; other roots unnamed |
+| compose / Agent-system / Session lifecycle / Plan-mode detail / MCP essay | Tool descriptions, `agent.ts`, `prompt.ts` plan reminder, `plan-exit.txt`, spadakcode-docs |
+| Skills brand-path dumps | Named only `.spadakcode/skill(s)` + `.agents/skills`; other roots unnamed |
 | Workflow numeric limits / “shared token budget” | `workflow` tool description / config |
 | Wrong tool ids (`Agent tool`, `task_*`, `plan-exit`, …) | Registry snake_case ids |
 
@@ -60,7 +60,7 @@ rules + two real roots; Tone (progress rhythm, end-of-turn summary).
 
 **Journey log**
 1. Memory rewrite was wrong — already in `buildMemoryInstructions`; **delete** the section.
-2. Over-slashed then restored Agent system; final product call: **architecture out of base sys** (mimocode-docs / tool desc own it); tests lock the slim shape.
+2. Over-slashed then restored Agent system; final product call: **architecture out of base sys** (spadakcode-docs / tool desc own it); tests lock the slim shape.
 3. Subagent return format belongs on spawn task injection, not the main memory block.
 4. `general` must keep a nested-spawn ban and inspect/verify work-face: `toolAllowlist` is unset so it can inherit `actor`; without verify bullets the parent-report contract is unimplementable.
 5. Tool-name casing across **all injectors**: English imperatives stay plain English (`Read all sources`, `Glob \`pattern\``, `Read CHECKPOINT_PATH`). When naming the registered tool, use `Use \`glob\` with …` / `the \`grep\` tool` / call form `glob("…")` — never jam a backticked id in front of an argument (`` `glob` `path` `` is unreadable). Prefer registered snake_case ids over `Grep`/`Read tool` prose when the word means the tool.
@@ -78,7 +78,7 @@ case-sensitive registered-id rule.
 
 Base sys = behavior + trust + tool routing + skills roots + tone. Delete wrong,
 branded, or already-injected content. Architecture lives in tool descriptions /
-mimocode-docs / runtime injectors. compose never appears. Return format is
+spadakcode-docs / runtime injectors. compose never appears. Return format is
 spawn-owned. `general` forbids nested spawn. Tool names in every model-facing
 injector use exact registered ids when naming the tool (`Use \`glob\` with …`,
 `the \`grep\` tool`, `glob("…")`); leave English imperatives as plain English.

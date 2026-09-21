@@ -24,7 +24,7 @@ export function isImageAttachment(mime: string) {
 
 // Finite allowlists for the read tool. Prefix matching is unsafe: mime-types
 // maps code extensions such as .ts/.mts to video/mp2t. Deliberately narrower
-// than the full MiMo API surface — only the familiar formats the agent is
+// than the full Spadak API surface — only the familiar formats the agent is
 // expected to attach. Unknown media MIMEs never enter an attachment branch.
 export const READ_IMAGE_MIMES = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"])
 export const READ_PDF_MIMES = new Set(["application/pdf"])
@@ -66,7 +66,7 @@ export function readMimeAllowlist(mime: string): ReadonlySet<string> | undefined
 }
 
 // Inline audio/video is sent as a `data:{mime};base64,...` string, and the
-// provider bounds the ENCODED string (50 MB for both the MiMo audio and video
+// provider bounds the ENCODED string (50 MB for both the Spadak audio and video
 // APIs), not the decoded bytes. Base64 grows the payload by 4/3, so a file must
 // stay under ~37.5 MB on disk to fit. Checked on the stat size, before any
 // bytes are read.
@@ -100,8 +100,8 @@ export function sniffAttachmentMime(bytes: Uint8Array, fallback: string) {
   return fallback
 }
 
-// Attachment size gate, driven by Flag.MIMOCODE_MAX_ATTACHMENT_SIZE and
-// Flag.MIMOCODE_MAX_ATTACHMENT_SOURCE_SIZE. Enforced where the attachment is
+// Attachment size gate, driven by Flag.SPADAKCODE_MAX_ATTACHMENT_SIZE and
+// Flag.SPADAKCODE_MAX_ATTACHMENT_SOURCE_SIZE. Enforced where the attachment is
 // produced (read tool, user prompt attachments, MCP result normalization) on a
 // size known up front (stat or base64 length), so nothing over the limit
 // reaches the session DB:
@@ -121,9 +121,9 @@ export function base64ByteSize(base64: string) {
 }
 
 export function classifyAttachment(mime: string, size: number): "fits" | "shrink" | "reject" {
-  if (size <= Flag.MIMOCODE_MAX_ATTACHMENT_SIZE) return "fits"
+  if (size <= Flag.SPADAKCODE_MAX_ATTACHMENT_SIZE) return "fits"
   if (!mime.startsWith("image/")) return "reject"
-  return size > Flag.MIMOCODE_MAX_ATTACHMENT_SOURCE_SIZE ? "reject" : "shrink"
+  return size > Flag.SPADAKCODE_MAX_ATTACHMENT_SOURCE_SIZE ? "reject" : "shrink"
 }
 
 function mb(bytes: number) {
@@ -134,11 +134,11 @@ function mb(bytes: number) {
 // attempted and failed; otherwise the payload was refused on size alone and
 // the notice says why (over the source ceiling, or not an image).
 export function oversizedAttachmentNotice(input: { label: string; size: number; compressed?: boolean; hint: string }) {
-  const limit = mb(Flag.MIMOCODE_MAX_ATTACHMENT_SIZE)
+  const limit = mb(Flag.SPADAKCODE_MAX_ATTACHMENT_SIZE)
   const reason = input.compressed
     ? "it could not be compressed under the limit"
-    : input.size > Flag.MIMOCODE_MAX_ATTACHMENT_SOURCE_SIZE
-      ? `it is also over the ${mb(Flag.MIMOCODE_MAX_ATTACHMENT_SOURCE_SIZE)} ceiling above which compression is not attempted`
+    : input.size > Flag.SPADAKCODE_MAX_ATTACHMENT_SOURCE_SIZE
+      ? `it is also over the ${mb(Flag.SPADAKCODE_MAX_ATTACHMENT_SOURCE_SIZE)} ceiling above which compression is not attempted`
       : "it cannot be compressed"
   return `Attachment ${input.label} is ${input.size} bytes, over the ${limit} attachment limit, and ${reason}. ${input.hint}`
 }

@@ -116,7 +116,7 @@ function process<Def extends Definition>(def: Def, event: Event<Def>, options: {
   Database.transaction((tx) => {
     projector(tx, event.data)
 
-    if (Flag.MIMOCODE_EXPERIMENTAL_WORKSPACES || options.replay) {
+    if (Flag.SPADAKCODE_EXPERIMENTAL_WORKSPACES || options.replay) {
       tx.insert(EventSequenceTable)
         .values({
           aggregate_id: event.aggregateID,

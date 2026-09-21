@@ -116,7 +116,7 @@ const issue = cmd({
         label: args.label,
       })
 
-      // Resolved rather than guessed: a mimocode process serving THIS directory advertises
+      // Resolved rather than guessed: a spadakcode process serving THIS directory advertises
       // its loopback address. Cross-host fallback was removed — those URLs 401 under
       // OpenAI-standard clients (no `?directory=`), so a null base_url is honest.
       const address = await LLMServerTokens.address(process.cwd())
@@ -134,7 +134,7 @@ const issue = cmd({
             models: issued.record.models.length > 0 ? issued.record.models : "all",
             // How to get another key when this one ages out, resolved for THIS
             // installation. A skill that only ever sees this JSON can therefore
-            // recover from `expired_api_key` without knowing whether mimocode came
+            // recover from `expired_api_key` without knowing whether spadakcode came
             // from npx, a global install, or a source checkout.
             renew_argv: Self.argv("llm-server", "issue", ...renewArgs(args)),
             renew_command: Self.commandLine("llm-server", "issue", ...renewArgs(args)),
@@ -151,12 +151,12 @@ const issue = cmd({
       UI.println(`  models    ${issued.record.models.length > 0 ? issued.record.models.join(", ") : "all configured"}`)
       UI.println("")
       UI.println("The plaintext token is shown once and is not stored; only its hash is.")
-      // The endpoint belongs to whichever mimocode process serves this project, and each
+      // The endpoint belongs to whichever spadakcode process serves this project, and each
       // binds its own port — so this is read from what that process advertised, not
       // guessed. Nothing serving means nothing to point at: say so instead of printing a
       // URL that will refuse connections.
       if (!address) {
-        UI.println("Start a session in this directory (or `mimo serve --port <n>`) and issue again.")
+        UI.println("Start a session in this directory (or `spadak serve --port <n>`) and issue again.")
       }
     }),
 })

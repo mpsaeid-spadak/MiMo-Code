@@ -152,22 +152,22 @@ describe("ProviderTransform.maxOutputTokens", () => {
     release_date: "2026-01-01",
   }
 
-  test("uses 128K for mimo provider models", () => {
+  test("uses 128K for spadak provider models", () => {
     expect(
       ProviderTransform.maxOutputTokens({
         ...baseModel,
-        id: ModelID.make("mimo-auto"),
-        providerID: ProviderID.make("mimo"),
+        id: ModelID.make("spadak-auto"),
+        providerID: ProviderID.make("spadak"),
       }),
     ).toBe(128_000)
   })
 
-  test("uses 128K for xiaomi provider models", () => {
+  test("uses 128K for spadak provider models", () => {
     expect(
       ProviderTransform.maxOutputTokens({
         ...baseModel,
-        id: ModelID.make("mimo-coder"),
-        providerID: ProviderID.make("xiaomi"),
+        id: ModelID.make("spadak-coder"),
+        providerID: ProviderID.make("spadak"),
       }),
     ).toBe(128_000)
   })
@@ -190,7 +190,7 @@ describe("ProviderTransform.maxOutputTokens", () => {
     ).toBe(128_000)
   })
 
-  test("keeps the default cap for non-mimo models", () => {
+  test("keeps the default cap for non-spadak models", () => {
     expect(ProviderTransform.maxOutputTokens({ ...baseModel, limit: { context: 1_000_000, output: 64_000 } })).toBe(
       32_000,
     )
@@ -1110,7 +1110,7 @@ describe("ProviderTransform.message - DeepSeek reasoning content", () => {
 })
 
 describe("ProviderTransform.message - forced Anthropic reasoning content", () => {
-  const flag = "MIMOCODE_FORCE_ANTHROPIC_REASONING_CONTENT"
+  const flag = "SPADAKCODE_FORCE_ANTHROPIC_REASONING_CONTENT"
   const model = {
     id: ModelID.make("anthropic/claude-sonnet-4"),
     providerID: ProviderID.make("anthropic"),
@@ -2404,7 +2404,7 @@ describe("ProviderTransform.ensureTrailingUserMessage - safe proactive guard (ne
   })
   // Gateway exposing an Anthropic-backed model via a dotted id — the live-400 path
   // (gateway -> Bedrock). The guard is provider-agnostic so it applies here too.
-  const gatewayModel = withProvider("mimo", {
+  const gatewayModel = withProvider("spadak", {
     id: "anthropic.claude-sonnet-4",
     url: "http://gateway.example/v1/messages",
     npm: "@ai-sdk/anthropic",
@@ -2773,7 +2773,7 @@ describe("ProviderTransform.message - strip openai metadata when store=false", (
       providerID: "opencode",
       api: {
         id: "opencode-test",
-        url: "https://api.mimocode.ai",
+        url: "https://api.spadakcode.ai",
         npm: "@ai-sdk/openai-compatible",
       },
     }
@@ -4775,9 +4775,9 @@ describe("ProviderTransform.schema - moonshot combiner sibling type", () => {
     expect(result.properties.operation.anyOf[0].type).toBe("object")
   })
 
-  test("non-moonshot models keep the parent type (guards the mimo/MiniMax stringify mitigation, #1371)", () => {
-    const mimo = { providerID: "mimo", api: { id: "mimo-v2.5-pro", npm: "@ai-sdk/openai-compatible" } } as any
-    const result = ProviderTransform.schema(mimo, nested("oneOf")) as any
+  test("non-moonshot models keep the parent type (guards the spadak/MiniMax stringify mitigation, #1371)", () => {
+    const spadak = { providerID: "spadak", api: { id: "spadak-v2.5-pro", npm: "@ai-sdk/openai-compatible" } } as any
+    const result = ProviderTransform.schema(spadak, nested("oneOf")) as any
     expect(result.properties.operation.type).toBe("object")
     expect(Array.isArray(result.properties.operation.oneOf)).toBe(true)
   })
@@ -5310,8 +5310,8 @@ describe("prompt image count across user and native tool results", () => {
   test.each(["tool", "assistant"] as const)(
     "drops oldest images on %s while preserving result IDs and non-image content",
     (role) => {
-      const previous = Flag.MIMOCODE_MAX_PROMPT_IMAGES
-      Flag.MIMOCODE_MAX_PROMPT_IMAGES = 2
+      const previous = Flag.SPADAKCODE_MAX_PROMPT_IMAGES
+      Flag.SPADAKCODE_MAX_PROMPT_IMAGES = 2
       try {
         const model = ProviderTest.model()
         model.capabilities.input.image = true
@@ -5362,7 +5362,7 @@ describe("prompt image count across user and native tool results", () => {
         expect(result[2]).toEqual(messages[2])
         expect(JSON.stringify(messages)).not.toContain("Image omitted")
       } finally {
-        Flag.MIMOCODE_MAX_PROMPT_IMAGES = previous
+        Flag.SPADAKCODE_MAX_PROMPT_IMAGES = previous
       }
     },
   )

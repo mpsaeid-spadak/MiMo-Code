@@ -1,7 +1,7 @@
 import path from "path"
 import { childProcessEnv } from "@/util/child-process-env"
 import z from "zod"
-import { AppFileSystem } from "@mimo-ai/shared/filesystem"
+import { AppFileSystem } from "@spadak/shared/filesystem"
 import { Cause, Context, Effect, Fiber, Layer, Queue, Stream } from "effect"
 import type { PlatformError } from "effect/PlatformError"
 import { FetchHttpClient, HttpClient, HttpClientRequest } from "effect/unstable/http"
@@ -439,7 +439,7 @@ export const layer: Layer.Layer<Service, never, AppFileSystem.Service | ChildPro
 
         const root: Node = { name: "", children: new Map() }
         for (const file of list) {
-          if (file.includes(".mimocode")) continue
+          if (file.includes(".spadakcode")) continue
           const parts = file.split(path.sep)
           if (parts.length < 2) continue
           let node = root

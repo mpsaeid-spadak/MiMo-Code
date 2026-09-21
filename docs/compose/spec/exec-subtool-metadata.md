@@ -22,7 +22,7 @@ commits: 84f17b64233ae6bd4b65bb8ccd6325fb8a2cdf16..bc1abe91dc7334d709a7ab454269f
 
 The outer `ToolPart` is persisted by the existing `part.data` JSON column in SQLite. The loss happens before persistence, in `tool-script.ts`, so a new database table is not required for the core fix.
 
-The Desktop MR !3727 (`mimo-desktop` merge `82c4ddf7a`, implementation `63ae744e5`) only standardized exec summaries and script/XML rendering. Its own design document records the nested-actor gap. Desktop currently receives raw engine messages from its message API; once nested metadata is present in the engine part, Desktop can project it into its live/history/shared schemas without a second source of truth.
+The Desktop MR !3727 (`spadak-desktop` merge `82c4ddf7a`, implementation `63ae744e5`) only standardized exec summaries and script/XML rendering. Its own design document records the nested-actor gap. Desktop currently receives raw engine messages from its message API; once nested metadata is present in the engine part, Desktop can project it into its live/history/shared schemas without a second source of truth.
 
 ## [S2] Design
 

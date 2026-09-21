@@ -23,7 +23,7 @@ export type UncommittedHintConfig = {
   enabled?: boolean
 }
 
-/** Sentinel: live MIMOCODE_CONFIG_CONTENT present but not parseable JSON. */
+/** Sentinel: live SPADAKCODE_CONFIG_CONTENT present but not parseable JSON. */
 export const UNCOMMITTED_HINT_CONFIG_PARSE_FAILED = "parse-failed" as const
 export type UncommittedHintConfigParse = UncommittedHintConfig | undefined | typeof UNCOMMITTED_HINT_CONFIG_PARSE_FAILED
 
@@ -56,7 +56,7 @@ export type UncommittedHintDecision =
         | "clean"
     }
 
-/** Parse live MIMOCODE_CONFIG_CONTENT so mid-session desktop toggles apply on the next turn. */
+/** Parse live SPADAKCODE_CONFIG_CONTENT so mid-session desktop toggles apply on the next turn. */
 export function uncommittedHintConfigFromConfigContent(
   content: string | undefined,
 ): UncommittedHintConfigParse {

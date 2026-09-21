@@ -10,11 +10,11 @@ commits: c946f4c215aaf326036342a8c3dec6ad12d8772a..HEAD
 
 ## [S1] Problem
 
-Sending every complete MCP function definition to the model consumes context before the task needs any MCP capability. Hiding all metadata, however, leaves the model unable to discover capabilities it does not already know exist. OpenAI `defer_loading` is provider-specific and cannot generalize to Claude, Gemini, DeepSeek, MiMo, or compatibility gateways.
+Sending every complete MCP function definition to the model consumes context before the task needs any MCP capability. Hiding all metadata, however, leaves the model unable to discover capabilities it does not already know exist. OpenAI `defer_loading` is provider-specific and cannot generalize to Claude, Gemini, DeepSeek, Spadak, or compatibility gateways.
 
 ## [S2] Private Catalog And Generic Discovery
 
-MiMoCode keeps every transformed schema and execute closure in a local registry. When MCP Tool Search is enabled, at least one effective MCP tool exists, and the selected model supports function calling, the request exposes one ordinary function named `mcp_tool_search`. Its description contains a deterministic catalog of the effective MCP tools so the model knows what it can search for, while individual MCP function definitions and schemas remain hidden until activation.
+SpadakCode keeps every transformed schema and execute closure in a local registry. When MCP Tool Search is enabled, at least one effective MCP tool exists, and the selected model supports function calling, the request exposes one ordinary function named `mcp_tool_search`. Its description contains a deterministic catalog of the effective MCP tools so the model knows what it can search for, while individual MCP function definitions and schemas remain hidden until activation.
 
 At context pressure levels 0-1 (below 70% of the usable input window), the catalog includes every effective callable name and description when the complete rendering fits its budget. At levels 2-3, or when the rich catalog itself exceeds the budget, it degrades to callable names only. The catalog budget is 10% of the model's usable input window capped at 20,000 estimated tokens; unknown windows use the 20,000-token cap. If all names still exceed the budget, the renderer includes a deterministic prefix plus an omitted-count notice. Local search always covers the complete catalog.
 
@@ -24,7 +24,7 @@ The catalog is recomputed on every model step because API requests are stateless
 
 ## [S3] Request-Scoped Loading
 
-A successful search persists a catalog fingerprint and validated matched callable names in ordinary tool-result metadata. On the next existing Session outer-loop step, MiMoCode scans only completed searches parented to the current user message, unions valid matches, and exposes those MCP definitions through the AI SDK `activeTools` subset.
+A successful search persists a catalog fingerprint and validated matched callable names in ordinary tool-result metadata. On the next existing Session outer-loop step, SpadakCode scans only completed searches parented to the current user message, unions valid matches, and exposes those MCP definitions through the AI SDK `activeTools` subset.
 
 Loaded tools accumulate across searches for the current user request, up to a bounded total. A new user message starts with all MCP functions hidden again. A catalog change invalidates earlier matches. Model-visible output is never trusted as activation state.
 
@@ -36,7 +36,7 @@ This guard covers hallucinated calls, stale history, repair mistakes, Max Mode r
 
 ## [S5] Provider And ToolScript Behavior
 
-The mechanism uses an ordinary function tool and does not depend on OpenAI provider tools or `defer_loading`. It is enabled by default for GPT-family models except GPT-OSS. Other models expose effective MCP definitions directly by default and may opt into discovery with `MIMOCODE_EXPERIMENTAL_MCP_TOOL_SEARCH=true` (or the umbrella `MIMOCODE_EXPERIMENTAL`). Models without function calling receive neither MCP discovery nor MCP definitions.
+The mechanism uses an ordinary function tool and does not depend on OpenAI provider tools or `defer_loading`. It is enabled by default for GPT-family models except GPT-OSS. Other models expose effective MCP definitions directly by default and may opt into discovery with `SPADAKCODE_EXPERIMENTAL_MCP_TOOL_SEARCH=true` (or the umbrella `SPADAKCODE_EXPERIMENTAL`). Models without function calling receive neither MCP discovery nor MCP definitions.
 
 The GPT ToolScript/`exec` surface no longer embeds or dispatches MCP tools. This prevents ToolScript descriptions and sandbox declarations from leaking the private catalog or bypassing request-scoped activation. Loaded MCP capabilities are invoked through their ordinary direct tool definitions.
 

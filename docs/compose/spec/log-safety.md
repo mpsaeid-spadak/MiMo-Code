@@ -14,7 +14,7 @@ commits: 014a2577..aa28c273
 
 The logger no longer treats stderr as a fallback sink. Records reach stderr only under `--print-logs`; without a usable file sink they are dropped, and sink failures are swallowed rather than reported. The TUI worker flushes before its bounded teardown and closes its log as the last teardown step, so instance disposal and bus unsubscribe records land in the file instead of on the rendered screen.
 
-**Verification** — `MIMOCODE_PROCESS_ROLE=main bun test test/util/log.test.ts` passed 18 tests / 53 expectations, and `MIMOCODE_PROCESS_ROLE=worker bun test test/util/log.test.ts test/effect/app-runtime-logger.test.ts test/effect/runner-warn-log.test.ts` passed 26 tests. `bun typecheck` passed. oxlint on the changed files reported zero warnings and zero errors.
+**Verification** — `SPADAKCODE_PROCESS_ROLE=main bun test test/util/log.test.ts` passed 18 tests / 53 expectations, and `SPADAKCODE_PROCESS_ROLE=worker bun test test/util/log.test.ts test/effect/app-runtime-logger.test.ts test/effect/runner-warn-log.test.ts` passed 26 tests. `bun typecheck` passed. oxlint on the changed files reported zero warnings and zero errors.
 
 Reproduction, before and after: running the same child-process script against the pre-fix `log.ts` leaked `INFO … teardown after shutdown` to stderr, while the fixed logger emitted nothing. End-to-end, a tmux-driven `bun dev <dir>` quit through the `exit` prompt command on `main` printed nine teardown records to stderr — the exact lines the user reported — with the worker log file ending at `worker shutting down`; on the delivered head stderr stayed empty and the worker log file contained the full teardown sequence through `service=bus type=session.updated unsubscribing`.
 
@@ -25,7 +25,7 @@ Reproduction, before and after: running the same child-process script against th
 - Bun main and worker contexts share a PID, so stale worker recovery also needs the process role.
 - Closing the worker log before its teardown traded one bug for another: the records were durable but were printed over the TUI. Flushing, then closing last, satisfies both; a worker killed mid-drain leaves an `.active.log` that the next initialization recovers.
 - Gating the failure report behind print mode made it unreachable — print mode never opens a file — which is why the reporting path was removed instead of gated. Attempting to test a branch is the cheapest way to discover it cannot happen.
-- `bun dev` writes its logs under the checkout's `.dev-home` (`MIMOCODE_HOME` in `script/dev.ts`), so redirecting only stderr to a file keeps the TUI on the real terminal while making a leak trivially greppable.
+- `bun dev` writes its logs under the checkout's `.dev-home` (`SPADAKCODE_HOME` in `script/dev.ts`), so redirecting only stderr to a file keeps the TUI on the real terminal while making a leak trivially greppable.
 
 ## [S1] Problem
 

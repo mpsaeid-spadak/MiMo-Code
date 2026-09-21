@@ -18,7 +18,7 @@ import { Question } from "../../src/question"
 import { Todo } from "../../src/session/todo"
 import { Session } from "../../src/session"
 import { LLM } from "../../src/session/llm"
-import { AppFileSystem } from "@mimo-ai/shared/filesystem"
+import { AppFileSystem } from "@spadak/shared/filesystem"
 import { SessionPrune } from "../../src/session/prune"
 import { SessionSummary } from "../../src/session/summary"
 import { Instruction } from "../../src/session/instruction"
@@ -1412,7 +1412,7 @@ describe("Actor.spawn structured output (P3)", () => {
         })
 
         yield* llm.push(
-          ...Array.from({ length: Flag.MIMOCODE_INVALID_OUTPUT_CONTINUATION_LIMIT + 1 }, () => reply().stop()),
+          ...Array.from({ length: Flag.SPADAKCODE_INVALID_OUTPUT_CONTINUATION_LIMIT + 1 }, () => reply().stop()),
         )
 
         const result = yield* actor.spawn({

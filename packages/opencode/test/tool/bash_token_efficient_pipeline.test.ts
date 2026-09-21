@@ -225,16 +225,16 @@ describe("createPipeline", () => {
     expect(result.text).toBe("payload")
   })
 
-  test("MIMOCODE_BASH_RAW=1 bypasses the pipeline", () => {
-    const prev = process.env.MIMOCODE_BASH_RAW
-    process.env.MIMOCODE_BASH_RAW = "1"
+  test("SPADAKCODE_BASH_RAW=1 bypasses the pipeline", () => {
+    const prev = process.env.SPADAKCODE_BASH_RAW
+    process.env.SPADAKCODE_BASH_RAW = "1"
     try {
       const drop: CleanPlugin = { name: "drop", apply: () => "" }
       const result = createPipeline([drop]).run("payload", { command: "ls" })
       expect(result.text).toBe("payload")
     } finally {
-      if (prev === undefined) delete process.env.MIMOCODE_BASH_RAW
-      else process.env.MIMOCODE_BASH_RAW = prev
+      if (prev === undefined) delete process.env.SPADAKCODE_BASH_RAW
+      else process.env.SPADAKCODE_BASH_RAW = prev
     }
   })
 

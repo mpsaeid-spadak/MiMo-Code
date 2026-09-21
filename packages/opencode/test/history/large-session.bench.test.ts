@@ -22,7 +22,7 @@ for (const variant of cases.filter((x) => !process.env.HISTORY_BENCH_CASE || x =
     provideTmpdirInstance(() =>
       Effect.gen(function* () {
         // Fail closed even if someone changes the standard test preload later.
-        expect(process.env.MIMOCODE_DB).toBe(":memory:")
+        expect(process.env.SPADAKCODE_DB).toBe(":memory:")
         const client = Database.Client().$client
         const count = Number(process.env.HISTORY_BENCH_MESSAGES ?? 1000)
         const images = Number(process.env.HISTORY_BENCH_IMAGES ?? 6)

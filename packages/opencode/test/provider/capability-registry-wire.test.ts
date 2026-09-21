@@ -87,7 +87,7 @@ describe("@ai-sdk/openai-compatible audio behaviour matches the registry", () =>
     async (mediaType) => {
       // The registry declares exactly this MIME set as supported. wav/mp3 are
       // stock adapter behaviour; flac/m4a/ogg come from the repo patch that
-      // extends the input_audio format map to the MiMo audio API's formats.
+      // extends the input_audio format map to the Spadak audio API's formats.
       expect(ModelCapability.adapterDeclaration("@ai-sdk/openai-compatible").audio.mimeTypes).toContain(mediaType)
       const outcome = await sendAudio("openai-compatible", mediaType)
       expect(outcome).not.toHaveProperty("error")
@@ -108,7 +108,7 @@ describe("@ai-sdk/openai-compatible audio behaviour matches the registry", () =>
 
 describe("@ai-sdk/openai-compatible video is serialized by the repo patch", () => {
   // Not stock adapter behaviour: patches/@ai-sdk%2Fopenai-compatible@2.0.41.patch
-  // adds the `video_url` branch the MiMo video API expects, with the payload
+  // adds the `video_url` branch the Spadak video API expects, with the payload
   // inlined as a `data:` URL and no per-part tuning fields (the API defaults
   // fps and media_resolution). A dependency upgrade that drops the patch fails here.
   test.each(["video/mp4", "video/quicktime"])("%s is serialized as video_url", async (mediaType) => {

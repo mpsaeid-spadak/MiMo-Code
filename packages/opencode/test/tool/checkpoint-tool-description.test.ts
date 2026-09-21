@@ -8,11 +8,11 @@ import TASK_DESCRIPTION from "../../src/tool/task.txt"
 import TASK_SHELL from "../../src/tool/task.shell.txt"
 import { withCheckpointClause, withCheckpointDescription } from "../../src/tool/checkpoint-description"
 
-const original = process.env.MIMOCODE_DISABLE_CHECKPOINT
+const original = process.env.SPADAKCODE_DISABLE_CHECKPOINT
 
 function set(value?: string) {
-  if (value === undefined) delete process.env.MIMOCODE_DISABLE_CHECKPOINT
-  else process.env.MIMOCODE_DISABLE_CHECKPOINT = value
+  if (value === undefined) delete process.env.SPADAKCODE_DISABLE_CHECKPOINT
+  else process.env.SPADAKCODE_DISABLE_CHECKPOINT = value
 }
 
 afterEach(() => set(original))

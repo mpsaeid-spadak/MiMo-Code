@@ -1,14 +1,14 @@
-# MiMoCode 面向 GPT 模型的 Codex 微内核运行时
+# SpadakCode 面向 GPT 模型的 Codex 微内核运行时
 
 > “Codex 微内核运行时”是本文对当前架构的概括，不是源码中的正式模块名，也不表示操作系统级微内核。
 
 ## 摘要
 
-MiMoCode 在共享 Session 引擎上运行 GPT/Codex 模型，同时向它们暴露一套更小的 Codex 风格工具 ABI：`bash`、`apply_patch`、`view_image` 和 `exec`。`exec` 在 QuickJS 中组合经过授权的宿主工具；权限、路径、子进程、取消、持久化和 UI 始终由宿主控制。
+SpadakCode 在共享 Session 引擎上运行 GPT/Codex 模型，同时向它们暴露一套更小的 Codex 风格工具 ABI：`bash`、`apply_patch`、`view_image` 和 `exec`。`exec` 在 QuickJS 中组合经过授权的宿主工具；权限、路径、子进程、取消、持久化和 UI 始终由宿主控制。
 
 ## 核心设计
 
-MiMoCode 没有为 GPT 新建一套 Agent 引擎，而是在统一 Session runtime 上做三件事：
+SpadakCode 没有为 GPT 新建一套 Agent 引擎，而是在统一 Session runtime 上做三件事：
 
 1. 使用 GPT/Codex 专属 system prompt，约定工具选择和调度方式；
 2. 通过 `ToolRegistry` 装配更小的模型专属工具 ABI；
@@ -103,19 +103,19 @@ QuickJS 只隔离 `exec` 代码。`bash` 仍是真实 Shell，不是容器 sandb
 
 OpenAI provider 通过 [`sdk.responses(modelID)`](../../packages/opencode/src/provider/provider.ts#L203) 发送请求。[`ProviderTransform.options()`](../../packages/opencode/src/provider/transform.ts#L1275) 默认设置 `store: false`，并为 GPT-5 reasoning 模型请求 `reasoning.encrypted_content`。
 
-MiMoCode 将 provider metadata 写入消息并在下一轮回放，使无状态 Responses 工具循环可以继续推理；同时在发送前移除不可安全复用的 `itemId`，避免服务端或代理解析失效的 `rs_...` 引用。
+SpadakCode 将 provider metadata 写入消息并在下一轮回放，使无状态 Responses 工具循环可以继续推理；同时在发送前移除不可安全复用的 `itemId`，避免服务端或代理解析失效的 `rs_...` 引用。
 
 [`CodexAuthPlugin`](../../packages/opencode/src/plugin/codex.ts#L364) 另行负责 ChatGPT Plus/Pro OAuth、token refresh、账户 header 和 Codex endpoint rewrite。它属于认证与传输层，不改变工具权限。
 
 ## PR 演化
 
-[PR #1865](https://github.com/XiaomiMiMo/MiMo-Code/pull/1865) 是 stacked PR，base 指向 #1864 的 `feat/view-image-tool` 分支。它先完成：
+[PR #1865](https://github.com/spadak/Spadak-Code/pull/1865) 是 stacked PR，base 指向 #1864 的 `feat/view-image-tool` 分支。它先完成：
 
 - GPT 专属 Bash guidance；
 - 隐藏重叠文件工具；
 - 对齐 GPT/Claude 的 skill-search prompt 和 reminder。
 
-[PR #1864](https://github.com/XiaomiMiMo/MiMo-Code/pull/1864) 随后继续加入 `view_image`、更完整的工具裁剪、`tool_script → exec`、GPT prompt、TUI 和 checkpoint 支持，最终整体合入 `main`。
+[PR #1864](https://github.com/spadak/Spadak-Code/pull/1864) 随后继续加入 `view_image`、更完整的工具裁剪、`tool_script → exec`、GPT prompt、TUI 和 checkpoint 支持，最终整体合入 `main`。
 
 当前 `skill_search` 仍向 GPT/Claude 暴露，但 system prompt 和 reminder 不主动要求它们搜索；这是 #1865 初始“隐藏工具”策略的后续调整。
 

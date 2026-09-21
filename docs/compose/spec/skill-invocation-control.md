@@ -30,7 +30,7 @@ while `available()` and `all()` stay as the user-facing sets. The dead
 its SKILL.md sets the flag, and both its description and body now state that
 the workflow starts only on explicit user invocation — belt and braces, so it
 still behaves if the flag is ever removed. `skill-creator` and its frontmatter
-reference document the field for skill authors; `mimocode-docs` records that
+reference document the field for skill authors; `spadakcode-docs` records that
 `/compose-next` is user-only, which is the channel through which a model learns
 the skill exists at all.
 
@@ -158,7 +158,7 @@ Behaviour matrix for one skill, given a default-agent `skill: "*": "allow"`:
 the `skill` tool description, and `skill_search` results. A
 `disable-model-invocation` skill appears in none of them, so the model does not
 learn the name from the harness at all — it learns that `/compose-next` exists
-from documentation skills such as `mimocode-docs`, which also state that the
+from documentation skills such as `spadakcode-docs`, which also state that the
 model must not start the workflow itself.
 
 ### Registry contract
@@ -210,7 +210,7 @@ leak it back to the model.
 - Drop `compose-next` from `isComposeSkill` in `skill/search.ts:20-22`. Its
   exclusion from search is now carried by the field at the caller, and the
   helper goes back to meaning only `startsWith("compose:")`.
-- `mimocode-docs` records that `/compose-next` is user-invocable only and that
+- `spadakcode-docs` records that `/compose-next` is user-invocable only and that
   the model must not start it — this is the intended channel through which the
   model learns the skill exists.
 
@@ -300,7 +300,7 @@ leak it back to the model.
       and add coverage for frontmatter parsing plus `modelInvocable` filtering —
       acceptance: `bun test test/skill test/tool test/permission test/session`
       shows no failures attributable to this change (covers: S2; depends: T4)
-- [x] T7: Record in `mimocode-docs` that `/compose-next` is user-invocable only
+- [x] T7: Record in `spadakcode-docs` that `/compose-next` is user-invocable only
       and the model must not start it — acceptance: the skill states both facts
       where it already documents `/compose-next` (covers: S2)
 - [x] T8: Bring the published `AppSkillsResponses` type in

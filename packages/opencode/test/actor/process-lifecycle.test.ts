@@ -15,7 +15,7 @@ function launch(mode: string, directory: string, sessionID?: string) {
   const first = Promise.withResolvers<z.infer<typeof reportSchema>>()
   let received = false
   const child = Bun.spawn([process.execPath, "run", path.join(import.meta.dir, "../fixture/actor-process.ts"), mode, directory, ...(sessionID ? [sessionID] : [])], {
-    env: { ...process.env, MIMOCODE_DB: path.join(directory, "shared.db") },
+    env: { ...process.env, SPADAKCODE_DB: path.join(directory, "shared.db") },
     stdout: "ignore",
     stderr: "pipe",
     ipc(message) {

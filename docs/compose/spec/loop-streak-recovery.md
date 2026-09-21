@@ -139,7 +139,7 @@ Rough is fine; purpose is observability of "we routinely crop >20 blocks".
 | OpenAI | LCP ends at anchor; usually hit, best-effort. |
 | DeepSeek `interleaved.field` | Whole-assistant delete is the only safe mode; join cannot align thinking to tools. v1 already whole-assistant only. |
 | Bedrock | No new user is inserted; if the cropped view ends on an assistant, `transform.ts` trailing-assistant repair supplies `Continue.` on the wire. |
-| MiMo self-hosted | Behavior win only; no cache contract. |
+| Spadak self-hosted | Behavior win only; no cache contract. |
 
 ### Interaction with existing detectors
 

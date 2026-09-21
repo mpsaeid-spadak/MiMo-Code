@@ -10,7 +10,7 @@ export type ToolAttachmentRoute = "native" | "synthetic" | "placeholder"
 
 const MAX_ATTACHMENT_NAME_LENGTH = 120
 const SAFE_IMAGE_MIMES = new Set(["image/jpeg", "image/png", "image/gif", "image/webp"])
-// The formats the MiMo audio API documents (MP3, WAV, FLAC, M4A, OGG), as the
+// The formats the Spadak audio API documents (MP3, WAV, FLAC, M4A, OGG), as the
 // MIMEs a mime lookup or sniff yields for them. The stock openai-compatible
 // adapter only knows wav/mp3; patches/@ai-sdk%2Fopenai-compatible@2.0.41.patch
 // extends its input_audio format map to the rest.
@@ -26,7 +26,7 @@ const OPENAI_AUDIO_MIMES = new Set([
   "audio/x-m4a",
   "audio/ogg",
 ])
-// The formats the MiMo video API documents (MP4, MOV, AVI, WMV). The patched
+// The formats the Spadak video API documents (MP4, MOV, AVI, WMV). The patched
 // openai-compatible adapter serializes ANY video/* as `video_url`
 // (patches/@ai-sdk%2Fopenai-compatible@2.0.41.patch), so this allowlist is
 // what keeps e.g. video/webm from being sent only to fail server-side.
@@ -74,7 +74,7 @@ function providerAcceptsSynthetic(model: Provider.Model, attachment: ToolAttachm
   }
   // The patched openai-compatible chat adapter serializes inline video as a
   // `video_url` data URL (patches/@ai-sdk%2Fopenai-compatible@2.0.41.patch),
-  // narrowed here to the formats the MiMo video API accepts.
+  // narrowed here to the formats the Spadak video API accepts.
   if (mime.startsWith("video/")) {
     if (!isInlineAttachment(attachment)) return false
     if (OPENAI_CHAT_PACKAGES.has(npm)) return OPENAI_VIDEO_MIMES.has(mime)

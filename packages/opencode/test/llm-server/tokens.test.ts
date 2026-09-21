@@ -258,7 +258,7 @@ describe("server address", () => {
 
 /** The store file for a directory, derived the same way the module derives it. */
 async function pathOf(directory: string) {
-  const { Hash } = await import("@mimo-ai/shared/util/hash")
+  const { Hash } = await import("/shared/util/hash")
   const { Global } = await import("../../src/global")
   const { Filesystem } = await import("../../src/util")
   const path = await import("path")

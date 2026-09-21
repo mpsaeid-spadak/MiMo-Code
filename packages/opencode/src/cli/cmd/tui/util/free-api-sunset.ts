@@ -13,7 +13,7 @@ export function shouldBlockFreeApiRequest(
 }
 
 export function freeApiModelNameKey(sunset = isFreeApiSunset()) {
-  return sunset ? ("tui.model.mimo_auto.sunset_name" as const) : ("tui.model.mimo_auto.name" as const)
+  return sunset ? ("tui.model.spadak_auto.sunset_name" as const) : ("tui.model.spadak_auto.name" as const)
 }
 
 export function createFreeApiSunsetSignal(
