@@ -61,31 +61,31 @@ describe("ToolRegistry.tools: invocation style resolution", () => {
     ),
   )
 
-  it.live("uses the harness rather than MiMo API transport to select the toolset", () =>
+  it.live("uses the harness rather than Spadak API transport to select the toolset", () =>
     provideTmpdirInstance(() =>
       Effect.gen(function* () {
         const reg = yield* ToolRegistry.Service
         const agents = yield* Agent.Service
         const build = yield* agents.get("build")
         const normalDefault = yield* reg.tools({
-          providerID: ProviderID.make("xiaomi"),
-          modelID: ModelID.make("mimo-v2.6"),
+          providerID: ProviderID.make("spadak"),
+          modelID: ModelID.make("spadak-v2.6"),
           agent: build,
         })
         const responsesDefault = yield* reg.tools({
-          providerID: ProviderID.make("xiaomi"),
-          modelID: ModelID.make("mimo-v2.6-ptc"),
+          providerID: ProviderID.make("spadak"),
+          modelID: ModelID.make("spadak-v2.6-ptc"),
           agent: build,
         })
         const normalCodex = yield* reg.tools({
-          providerID: ProviderID.make("xiaomi"),
-          modelID: ModelID.make("mimo-v2.6"),
+          providerID: ProviderID.make("spadak"),
+          modelID: ModelID.make("spadak-v2.6"),
           agent: build,
           harness: "codex",
         })
         const responsesCodex = yield* reg.tools({
-          providerID: ProviderID.make("xiaomi"),
-          modelID: ModelID.make("mimo-v2.6-ptc"),
+          providerID: ProviderID.make("spadak"),
+          modelID: ModelID.make("spadak-v2.6-ptc"),
           agent: build,
           harness: "codex",
         })
@@ -133,7 +133,7 @@ describe("ToolRegistry.tools: invocation style resolution", () => {
         expect(exec?.description).not.toContain("write(input:")
         expect(exec?.description).not.toContain("edit(input:")
         expect(yield* ids("anthropic/claude-sonnet-4-6")).not.toContain("exec")
-        expect(yield* ids("mimo-v2")).not.toContain("exec")
+        expect(yield* ids("spadak-v2")).not.toContain("exec")
       }),
     ),
     30000,
@@ -157,7 +157,7 @@ describe("ToolRegistry.tools: invocation style resolution", () => {
 
         expect(yield* ids("openai/gpt-5.4")).not.toContain("skill_search")
         expect(yield* ids("anthropic/claude-sonnet-4-6")).toContain("skill_search")
-        expect(yield* ids("mimo-v2")).toContain("skill_search")
+        expect(yield* ids("spadak-v2")).toContain("skill_search")
       }),
     ),
   )
@@ -211,10 +211,10 @@ describe("ToolRegistry.tools: invocation style resolution", () => {
   it.live.skip("masks multiedit for GPT models", () =>
     provideTmpdirInstance((dir) =>
       Effect.gen(function* () {
-        yield* Effect.promise(() => fs.mkdir(path.join(dir, ".mimocode/tool"), { recursive: true }))
+        yield* Effect.promise(() => fs.mkdir(path.join(dir, ".spadakcode/tool"), { recursive: true }))
         yield* Effect.promise(() =>
           Bun.write(
-            path.join(dir, ".mimocode/tool/multiedit.ts"),
+            path.join(dir, ".spadakcode/tool/multiedit.ts"),
             [
               "export default {",
               "  description: 'multi-edit files',",

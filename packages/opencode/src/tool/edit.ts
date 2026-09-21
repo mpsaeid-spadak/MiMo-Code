@@ -18,7 +18,7 @@ import { Instance } from "../project/instance"
 import { SessionCwd } from "./session-cwd"
 import { Snapshot } from "@/snapshot"
 import { assertWriteAllowed, askEditUnlessMemory } from "./external-directory"
-import { AppFileSystem } from "@mimo-ai/shared/filesystem"
+import { AppFileSystem } from "@spadak/shared/filesystem"
 import { Flag } from "@/flag/flag"
 
 function normalizeLineEndings(text: string): string {
@@ -652,8 +652,8 @@ export function replace(content: string, oldString: string, newString: string, r
   }
 
   // Default: pure exact match with explicit, actionable errors. Set
-  // MIMOCODE_ENABLE_FUZZY_EDIT=true to opt into the legacy fuzzy fallback chain.
-  if (!Flag.MIMOCODE_ENABLE_FUZZY_EDIT) {
+  // SPADAKCODE_ENABLE_FUZZY_EDIT=true to opt into the legacy fuzzy fallback chain.
+  if (!Flag.SPADAKCODE_ENABLE_FUZZY_EDIT) {
     const firstIndex = content.indexOf(oldString)
     if (firstIndex === -1) {
       throw new Error(buildNotFoundError(content, oldString))
@@ -670,7 +670,7 @@ export function replace(content: string, oldString: string, newString: string, r
     return content.substring(0, firstIndex) + newString + content.substring(firstIndex + oldString.length)
   }
 
-  // Fuzzy fallback chain (opt-in via MIMOCODE_ENABLE_FUZZY_EDIT)
+  // Fuzzy fallback chain (opt-in via SPADAKCODE_ENABLE_FUZZY_EDIT)
   let notFound = true
 
   for (const replacer of [

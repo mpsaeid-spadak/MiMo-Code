@@ -1,13 +1,13 @@
 ---
 name: llm-endpoint-demo
-description: Demo and end-to-end fixture for MiMoCode's temporary local LLM server. Use when verifying that a skill can borrow a configured chat model through a local base_url and a throwaway token instead of a real provider API key, or when testing the expire-and-reissue loop. Not a general-purpose skill.
+description: Demo and end-to-end fixture for SpadakCode's temporary local LLM server. Use when verifying that a skill can borrow a configured chat model through a local base_url and a throwaway token instead of a real provider API key, or when testing the expire-and-reissue loop. Not a general-purpose skill.
 ---
 
 # LLM endpoint demo
 
 A minimal skill that needs "a model" and is given one **without ever seeing a
 provider API key**. It reads a handful of environment variables and calls an
-OpenAI-compatible endpoint; it knows nothing about MiMoCode's provider config or
+OpenAI-compatible endpoint; it knows nothing about SpadakCode's provider config or
 credential store.
 
 Its purpose is to be a black-box witness. If this skill works, the claim "a skill
@@ -27,15 +27,15 @@ readable config file" is demonstrated rather than asserted.
 1. **Make sure a server is running for this project.** Ask it:
 
    ```
-   <mimocode> llm-server status --json
+   <spadakcode> llm-server status --json
    ```
 
-   `<mimocode>` is however THIS installation is invoked. Do not assume `mimo` is
+   `<spadakcode>` is however THIS installation is invoked. Do not assume `spadak` is
    on `PATH` — it frequently is not, for example under `npx` or a source checkout.
    If nothing is running, start one in the background:
 
    ```
-   <mimocode> llm-server &
+   <spadakcode> llm-server &
    ```
 
    Prefer a fixed `--port` if the endpoint has to survive a restart, because the
@@ -44,7 +44,7 @@ readable config file" is demonstrated rather than asserted.
 2. **Mint a token scoped to this task.**
 
    ```
-   <mimocode> llm-server issue --model <provider/model> --label llm-endpoint-demo --json
+   <spadakcode> llm-server issue --model <provider/model> --label llm-endpoint-demo --json
    ```
 
    The response carries `base_url`, `api_key`, `expires_at`, and — importantly —
@@ -85,6 +85,6 @@ re-derive the endpoint.
 
 - A provider API key must never appear in `OPENAI_API_KEY`, in this skill's
   directory, or anywhere in the conversation. The whole point is that it stays
-  inside MiMoCode.
+  inside SpadakCode.
 - The token must not be written into a committed file. It is short-lived and
   per-task; mint a fresh one instead of persisting it.

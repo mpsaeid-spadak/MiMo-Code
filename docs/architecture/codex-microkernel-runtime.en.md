@@ -1,14 +1,14 @@
-# MiMoCode's Codex Microkernel Runtime for GPT Models
+# SpadakCode's Codex Microkernel Runtime for GPT Models
 
 > “Codex microkernel runtime” is this document's summary of the current architecture. It is not an official module name in the source code, nor does it refer to an operating-system-level microkernel.
 
 ## Abstract
 
-MiMoCode runs GPT/Codex models on a shared Session engine while exposing a smaller, Codex-style tool ABI to them: `bash`, `apply_patch`, `view_image`, and `exec`. `exec` composes authorized host tools inside QuickJS; permissions, paths, subprocesses, cancellation, persistence, and UI always remain under host control.
+SpadakCode runs GPT/Codex models on a shared Session engine while exposing a smaller, Codex-style tool ABI to them: `bash`, `apply_patch`, `view_image`, and `exec`. `exec` composes authorized host tools inside QuickJS; permissions, paths, subprocesses, cancellation, persistence, and UI always remain under host control.
 
 ## Core Design
 
-MiMoCode does not create a separate Agent engine for GPT. Instead, it does three things on top of the unified Session runtime:
+SpadakCode does not create a separate Agent engine for GPT. Instead, it does three things on top of the unified Session runtime:
 
 1. Uses a GPT/Codex-specific system prompt that defines tool selection and orchestration conventions;
 2. Uses `ToolRegistry` to assemble a smaller, model-specific tool ABI;
@@ -103,19 +103,19 @@ Current limitations:
 
 The OpenAI provider sends requests through [`sdk.responses(modelID)`](../../packages/opencode/src/provider/provider.ts#L203). [`ProviderTransform.options()`](../../packages/opencode/src/provider/transform.ts#L1275) sets `store: false` by default and requests `reasoning.encrypted_content` for GPT-5 reasoning models.
 
-MiMoCode writes provider metadata into messages and replays it in the next turn, allowing stateless Responses tool loops to continue reasoning. Before sending, it also removes `itemId` values that cannot be safely reused, preventing the server or proxy from failing to parse stale `rs_...` references.
+SpadakCode writes provider metadata into messages and replays it in the next turn, allowing stateless Responses tool loops to continue reasoning. Before sending, it also removes `itemId` values that cannot be safely reused, preventing the server or proxy from failing to parse stale `rs_...` references.
 
 [`CodexAuthPlugin`](../../packages/opencode/src/plugin/codex.ts#L364) separately handles ChatGPT Plus/Pro OAuth, token refresh, account headers, and Codex endpoint rewriting. It belongs to the authentication and transport layer and does not alter tool permissions.
 
 ## PR Evolution
 
-[PR #1865](https://github.com/XiaomiMiMo/MiMo-Code/pull/1865) is a stacked PR whose base points to #1864's `feat/view-image-tool` branch. It first introduced:
+[PR #1865](https://github.com/spadak/Spadak-Code/pull/1865) is a stacked PR whose base points to #1864's `feat/view-image-tool` branch. It first introduced:
 
 - GPT-specific Bash guidance;
 - masking of overlapping file tools;
 - aligned skill-search prompts and reminders for GPT and Claude.
 
-[PR #1864](https://github.com/XiaomiMiMo/MiMo-Code/pull/1864) then added `view_image`, broader tool masking, the `tool_script → exec` transition, the GPT prompt, TUI integration, and checkpoint support before the complete stack was merged into `main`.
+[PR #1864](https://github.com/spadak/Spadak-Code/pull/1864) then added `view_image`, broader tool masking, the `tool_script → exec` transition, the GPT prompt, TUI integration, and checkpoint support before the complete stack was merged into `main`.
 
 Today, `skill_search` remains visible to GPT and Claude, but the system prompt and reminder do not proactively ask those models to search. This is a later refinement of #1865's original tool-masking policy.
 

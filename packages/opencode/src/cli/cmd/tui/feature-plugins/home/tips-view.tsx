@@ -146,13 +146,13 @@ export function buildTipKeys(
   orchestratorEnabled: boolean,
   platform: NodeJS.Platform,
   freeApiSunset = false,
-  xiaomiAuthenticated = false,
+  spadakAuthenticated = false,
 ): readonly string[] {
   const tabAgentKey = orchestratorEnabled ? "tui.tips.tab_agent_orchestrator" : "tui.tips.tab_agent"
   const suspendKey = platform === "win32" ? "tui.tips.suspend.win" : "tui.tips.suspend.unix"
   return [
     ...TIP_KEYS.filter((key) => !freeApiSunset || key !== "tui.tips.free_models"),
-    ...(freeApiSunset && !xiaomiAuthenticated ? ["tui.tips.free_api_sunset"] : []),
+    ...(freeApiSunset && !spadakAuthenticated ? ["tui.tips.free_api_sunset"] : []),
     tabAgentKey,
     suspendKey,
   ]
@@ -203,10 +203,10 @@ export function Tips() {
   const freeApiSunset = createFreeApiSunsetSignal()
   const allKeys = createMemo(() =>
     buildTipKeys(
-      Flag.MIMOCODE_EXPERIMENTAL_ORCHESTRATOR,
+      Flag.SPADAKCODE_EXPERIMENTAL_ORCHESTRATOR,
       process.platform,
       freeApiSunset(),
-      sync.data.provider_next.authenticated.includes("xiaomi"),
+      sync.data.provider_next.authenticated.includes("spadak"),
     ),
   )
   const [key, setKey] = createSignal(pickWeighted(allKeys()))

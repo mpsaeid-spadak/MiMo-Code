@@ -180,7 +180,7 @@ function countingSpawn(impl: SpawnImpl) {
   }
 }
 
-function mimocodeConfig(baseURL: string, extra?: Record<string, unknown>) {
+function spadakcodeConfig(baseURL: string, extra?: Record<string, unknown>) {
   return JSON.stringify({
     $schema: "https://opencode.ai/config.json",
     enabled_providers: ["alibaba"],
@@ -254,7 +254,7 @@ describe("Manual /rebuild: on-the-spot rebuild driven through SessionPrompt.comm
       try {
         await using tmp = await tmpdir({
           git: true,
-          init: (dir) => Bun.write(path.join(dir, "mimocode.json"), mimocodeConfig(llm.origin)),
+          init: (dir) => Bun.write(path.join(dir, "spadakcode.json"), spadakcodeConfig(llm.origin)),
         })
 
         await Instance.provide({
@@ -388,7 +388,7 @@ describe("Manual /rebuild: on-the-spot rebuild driven through SessionPrompt.comm
       try {
         await using tmp = await tmpdir({
           git: true,
-          init: (dir) => Bun.write(path.join(dir, "mimocode.json"), mimocodeConfig(llm.origin)),
+          init: (dir) => Bun.write(path.join(dir, "spadakcode.json"), spadakcodeConfig(llm.origin)),
         })
 
         await withSpawnRef(writer, () =>
@@ -495,7 +495,7 @@ describe("Manual /rebuild: on-the-spot rebuild driven through SessionPrompt.comm
       try {
         await using tmp = await tmpdir({
           git: true,
-          init: (dir) => Bun.write(path.join(dir, "mimocode.json"), mimocodeConfig(llm.origin)),
+          init: (dir) => Bun.write(path.join(dir, "spadakcode.json"), spadakcodeConfig(llm.origin)),
         })
 
         // Force NO writer: with spawnRef unset, tryStartCheckpointWriter cannot
@@ -584,7 +584,7 @@ describe("Manual /rebuild: on-the-spot rebuild driven through SessionPrompt.comm
       try {
         await using tmp = await tmpdir({
           git: true,
-          init: (dir) => Bun.write(path.join(dir, "mimocode.json"), mimocodeConfig(llm.origin)),
+          init: (dir) => Bun.write(path.join(dir, "spadakcode.json"), spadakcodeConfig(llm.origin)),
         })
 
         await withSpawnRef(writer, () =>
@@ -626,10 +626,10 @@ describe("Manual /rebuild: on-the-spot rebuild driven through SessionPrompt.comm
   )
 
   test(
-    "MIMOCODE_DISABLE_CHECKPOINT=true → compacts immediately without starting or waiting for a writer",
+    "SPADAKCODE_DISABLE_CHECKPOINT=true → compacts immediately without starting or waiting for a writer",
     async () => {
-      const previous = process.env.MIMOCODE_DISABLE_CHECKPOINT
-      process.env.MIMOCODE_DISABLE_CHECKPOINT = "true"
+      const previous = process.env.SPADAKCODE_DISABLE_CHECKPOINT
+      process.env.SPADAKCODE_DISABLE_CHECKPOINT = "true"
       const llm = startLLM("should-not-be-used-as-a-reply")
       const writer = countingSpawn(writerThatWritesCheckpoint("SHOULD_NEVER_BE_WRITTEN"))
       const seen: Array<string | undefined> = []
@@ -644,7 +644,7 @@ describe("Manual /rebuild: on-the-spot rebuild driven through SessionPrompt.comm
       try {
         await using tmp = await tmpdir({
           git: true,
-          init: (dir) => Bun.write(path.join(dir, "mimocode.json"), mimocodeConfig(llm.origin)),
+          init: (dir) => Bun.write(path.join(dir, "spadakcode.json"), spadakcodeConfig(llm.origin)),
         })
 
         await withSpawnRef(writer.impl, () =>
@@ -697,7 +697,7 @@ describe("Manual /rebuild: on-the-spot rebuild driven through SessionPrompt.comm
                       (p) =>
                         p.type === "text" &&
                         p.text.includes("Checkpointing is off") &&
-                        p.text.includes("MIMOCODE_DISABLE_CHECKPOINT"),
+                        p.text.includes("SPADAKCODE_DISABLE_CHECKPOINT"),
                     )
                   expect(notice?.type).toBe("text")
                   if (notice?.type !== "text") throw new Error("expected checkpoint-off notice")
@@ -710,8 +710,8 @@ describe("Manual /rebuild: on-the-spot rebuild driven through SessionPrompt.comm
           }),
         )
       } finally {
-        if (previous === undefined) delete process.env.MIMOCODE_DISABLE_CHECKPOINT
-        else process.env.MIMOCODE_DISABLE_CHECKPOINT = previous
+        if (previous === undefined) delete process.env.SPADAKCODE_DISABLE_CHECKPOINT
+        else process.env.SPADAKCODE_DISABLE_CHECKPOINT = previous
         GlobalBus.off("event", onEvent)
         await llm.stop()
       }
@@ -752,8 +752,8 @@ describe("Manual /rebuild: on-the-spot rebuild driven through SessionPrompt.comm
           git: true,
           init: (dir) =>
             Bun.write(
-              path.join(dir, "mimocode.json"),
-              mimocodeConfig(llm.origin, { memory: { disable_write: true } }),
+              path.join(dir, "spadakcode.json"),
+              spadakcodeConfig(llm.origin, { memory: { disable_write: true } }),
             ),
         })
 

@@ -108,17 +108,17 @@ const seedSession = Effect.fn("seedSession")(function* () {
 
 describe("memory write gate (W1)", () => {
   it.live(
-    "MIMOCODE_DISABLE_CHECKPOINT=true → skipped without affecting the memory config",
+    "SPADAKCODE_DISABLE_CHECKPOINT=true → skipped without affecting the memory config",
     provideTmpdirInstance(
       () =>
         Effect.gen(function* () {
           yield* reset
-          const previous = process.env["MIMOCODE_DISABLE_CHECKPOINT"]
-          process.env["MIMOCODE_DISABLE_CHECKPOINT"] = "true"
+          const previous = process.env["SPADAKCODE_DISABLE_CHECKPOINT"]
+          process.env["SPADAKCODE_DISABLE_CHECKPOINT"] = "true"
           yield* Effect.addFinalizer(() =>
             Effect.sync(() => {
-              if (previous === undefined) delete process.env["MIMOCODE_DISABLE_CHECKPOINT"]
-              else process.env["MIMOCODE_DISABLE_CHECKPOINT"] = previous
+              if (previous === undefined) delete process.env["SPADAKCODE_DISABLE_CHECKPOINT"]
+              else process.env["SPADAKCODE_DISABLE_CHECKPOINT"] = previous
             }),
           )
           const cp = yield* SessionCheckpoint.Service

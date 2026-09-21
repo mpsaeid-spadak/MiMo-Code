@@ -199,7 +199,7 @@ describe("streaming responses", () => {
   })
 
   test("a non-streaming upstream failure surfaces as 502, not 500", async () => {
-    // So a caller can tell "MiMoCode broke" from "the provider broke".
+    // So a caller can tell "SpadakCode broke" from "the provider broke".
     const status = await withUpstream(
       () => new Response(JSON.stringify({ error: { message: "upstream exploded" } }), { status: 500 }),
       async ({ app, token }) => {

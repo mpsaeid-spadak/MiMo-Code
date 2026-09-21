@@ -63,7 +63,7 @@ describe("buildTipKeys", () => {
     expect(keys).toContain("tui.tips.free_api_sunset")
   })
 
-  test("does not show sign-in guidance to authenticated Xiaomi users after sunset", () => {
+  test("does not show sign-in guidance to authenticated Spadak users after sunset", () => {
     const keys = buildTipKeys(false, "linux", true, true)
     expect(keys).not.toContain("tui.tips.free_models")
     expect(keys).not.toContain("tui.tips.free_api_sunset")

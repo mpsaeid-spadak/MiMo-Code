@@ -11,7 +11,7 @@ import type { Git } from "@/git"
  * branch is the maintainer's job, but *a CONFLICT belongs to the session that
  * owns the branch* — abort and route it back, do not resolve the hunks.
  *
- * That prose failed 3/3 live turns on mimo-v2.5. Not by stalling: each run
+ * That prose failed 3/3 live turns on spadak-v2.5. Not by stalling: each run
  * completed an 8-13 call loop that merged, hit `CONFLICT (add/add)`, then
  * `read` → `edit`/`write` → `git add` → `git commit`. Zero `session` calls in
  * all three. One run also `git branch -d`'d the author's branch. The maintainer

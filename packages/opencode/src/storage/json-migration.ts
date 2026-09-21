@@ -9,7 +9,7 @@ import { SessionShareTable } from "../share/share.sql"
 import path from "path"
 import { existsSync } from "fs"
 import { Filesystem } from "../util"
-import { Glob } from "@mimo-ai/shared/util/glob"
+import { Glob } from "@spadak/shared/util/glob"
 
 const log = Log.create({ service: "json-migration" })
 

@@ -5,7 +5,7 @@ description: "Query the raw trajectory SQLite database directly when the built-i
 
 # Memory Search: SQLite Trajectory Database
 
-Direct SQL access to mimocode's trajectory database for structured analysis that the `memory` (BM25 over curated markdown) and `history` (FTS over raw messages) tools cannot perform — aggregation, filtering by tool/status/time, cross-session pattern detection, and execution chain inspection.
+Direct SQL access to spadakcode's trajectory database for structured analysis that the `memory` (BM25 over curated markdown) and `history` (FTS over raw messages) tools cannot perform — aggregation, filtering by tool/status/time, cross-session pattern detection, and execution chain inspection.
 
 ## When to use
 
@@ -18,8 +18,8 @@ Direct SQL access to mimocode's trajectory database for structured analysis that
 ## Locating the database
 
 ```bash
-# Typically at this path. MIMOCODE_DB env var overrides if set.
-sqlite3 -readonly ~/.local/share/mimocode/mimocode.db ".tables"
+# Typically at this path. SPADAKCODE_DB env var overrides if set.
+sqlite3 -readonly ~/.local/share/spadakcode/spadakcode.db ".tables"
 ```
 
 Always use `-readonly` or only SELECT queries — never modify the database.

@@ -1,14 +1,14 @@
-# Environnement d’exécution à micronoyau Codex de MiMoCode pour les modèles GPT
+# Environnement d’exécution à micronoyau Codex de SpadakCode pour les modèles GPT
 
 > « Environnement d’exécution à micronoyau Codex » est la formulation employée dans ce document pour résumer l’architecture actuelle. Il ne s’agit ni du nom officiel d’un module dans le code source, ni d’une référence à un micronoyau de système d’exploitation.
 
 ## Résumé
 
-MiMoCode exécute les modèles GPT/Codex sur un moteur de Session partagé, tout en leur exposant une ABI d’outils plus restreinte, dans le style de Codex : `bash`, `apply_patch`, `view_image` et `exec`. `exec` compose dans QuickJS des outils hôte préalablement autorisés ; les permissions, les chemins, les sous-processus, l’annulation, la persistance et l’interface utilisateur restent toujours sous le contrôle de l’hôte.
+SpadakCode exécute les modèles GPT/Codex sur un moteur de Session partagé, tout en leur exposant une ABI d’outils plus restreinte, dans le style de Codex : `bash`, `apply_patch`, `view_image` et `exec`. `exec` compose dans QuickJS des outils hôte préalablement autorisés ; les permissions, les chemins, les sous-processus, l’annulation, la persistance et l’interface utilisateur restent toujours sous le contrôle de l’hôte.
 
 ## Conception fondamentale
 
-MiMoCode n’a pas créé un moteur d’Agent distinct pour GPT. Il effectue plutôt trois opérations sur l’environnement d’exécution unifié de Session :
+SpadakCode n’a pas créé un moteur d’Agent distinct pour GPT. Il effectue plutôt trois opérations sur l’environnement d’exécution unifié de Session :
 
 1. utiliser un system prompt propre à GPT/Codex, qui définit la sélection et l’orchestration des outils ;
 2. assembler, au moyen de `ToolRegistry`, une ABI d’outils plus restreinte et propre au modèle ;
@@ -103,19 +103,19 @@ Limites actuelles :
 
 Le provider OpenAI envoie les requêtes via [`sdk.responses(modelID)`](../../packages/opencode/src/provider/provider.ts#L203). [`ProviderTransform.options()`](../../packages/opencode/src/provider/transform.ts#L1275) définit `store: false` par défaut et demande `reasoning.encrypted_content` pour les modèles de reasoning GPT-5.
 
-MiMoCode enregistre les metadata du provider dans le message et les rejoue au tour suivant, afin que la boucle d’outils Responses sans état puisse poursuivre le raisonnement. Avant l’envoi, il supprime également les `itemId` qui ne peuvent pas être réutilisés de manière sûre, afin d’éviter que le serveur ou le proxy échoue à analyser des références `rs_...` invalides.
+SpadakCode enregistre les metadata du provider dans le message et les rejoue au tour suivant, afin que la boucle d’outils Responses sans état puisse poursuivre le raisonnement. Avant l’envoi, il supprime également les `itemId` qui ne peuvent pas être réutilisés de manière sûre, afin d’éviter que le serveur ou le proxy échoue à analyser des références `rs_...` invalides.
 
 [`CodexAuthPlugin`](../../packages/opencode/src/plugin/codex.ts#L364) gère séparément l’OAuth ChatGPT Plus/Pro, le token refresh, les headers de compte et l’endpoint rewrite de Codex. Il appartient à la couche d’authentification et de transport et ne modifie pas les permissions des outils.
 
 ## Évolution des PR
 
-La [PR #1865](https://github.com/XiaomiMiMo/MiMo-Code/pull/1865) est une PR empilée dont la base pointe vers la branche `feat/view-image-tool` de la #1864. Elle a d’abord introduit :
+La [PR #1865](https://github.com/spadak/Spadak-Code/pull/1865) est une PR empilée dont la base pointe vers la branche `feat/view-image-tool` de la #1864. Elle a d’abord introduit :
 
 - des instructions Bash propres à GPT ;
 - le masquage des outils de fichiers aux capacités redondantes ;
 - l’alignement des prompts et rappels de recherche de skills pour GPT et Claude.
 
-La [PR #1864](https://github.com/XiaomiMiMo/MiMo-Code/pull/1864) a ensuite ajouté `view_image`, un masquage plus complet des outils, la transition `tool_script → exec`, le prompt GPT, l’intégration TUI et la prise en charge des checkpoints, avant que l’ensemble ne soit fusionné dans `main`.
+La [PR #1864](https://github.com/spadak/Spadak-Code/pull/1864) a ensuite ajouté `view_image`, un masquage plus complet des outils, la transition `tool_script → exec`, le prompt GPT, l’intégration TUI et la prise en charge des checkpoints, avant que l’ensemble ne soit fusionné dans `main`.
 
 Aujourd’hui, `skill_search` reste visible pour GPT et Claude, mais le prompt système et le rappel ne leur demandent pas proactivement d’effectuer une recherche. Il s’agit d’un ajustement ultérieur de la politique initiale de masquage de la #1865.
 

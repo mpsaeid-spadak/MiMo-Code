@@ -14,7 +14,7 @@ function load<A>(dir: string, fn: (svc: Agent.Interface) => Effect.Effect<A>) {
 }
 
 // Spawn the agent-list probe in a FRESH process (no test/preload.ts, which
-// force-sets MIMOCODE_EXPERIMENTAL_ORCHESTRATOR=true for the suite). `Flag` reads
+// force-sets SPADAKCODE_EXPERIMENTAL_ORCHESTRATOR=true for the suite). `Flag` reads
 // the env once at import time, so the flag-OFF path is only observable here.
 // Returns the list of agent names Agent.list() produced under `flag`.
 function listAgentNames(flag: boolean): string[] {
@@ -27,13 +27,13 @@ function listAgentNames(flag: boolean): string[] {
       XDG_CONFIG_HOME: path.join(root, "config"),
       XDG_STATE_HOME: path.join(root, "state"),
       HOME: path.join(root, "home"),
-      MIMOCODE_DB: ":memory:",
-      MIMOCODE_DISABLE_DEFAULT_PLUGINS: "true",
-      MIMOCODE_TEST_TMPDIR_ROOT: path.join(root, "tmp"),
+      SPADAKCODE_DB: ":memory:",
+      SPADAKCODE_DISABLE_DEFAULT_PLUGINS: "true",
+      SPADAKCODE_TEST_TMPDIR_ROOT: path.join(root, "tmp"),
     }
-    delete env.MIMOCODE_EXPERIMENTAL
-    delete env.MIMOCODE_EXPERIMENTAL_ORCHESTRATOR
-    if (flag) env.MIMOCODE_EXPERIMENTAL_ORCHESTRATOR = "true"
+    delete env.SPADAKCODE_EXPERIMENTAL
+    delete env.SPADAKCODE_EXPERIMENTAL_ORCHESTRATOR
+    if (flag) env.SPADAKCODE_EXPERIMENTAL_ORCHESTRATOR = "true"
     const result = Bun.spawnSync({
       cmd: [process.execPath, path.join(import.meta.dir, "fixtures", "list-agents-probe.ts")],
       cwd: process.cwd(),

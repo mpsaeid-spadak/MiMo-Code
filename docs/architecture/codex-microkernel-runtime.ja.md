@@ -1,14 +1,14 @@
-# GPT モデル向け MiMoCode Codex マイクロカーネルランタイム
+# GPT モデル向け SpadakCode Codex マイクロカーネルランタイム
 
 > 「Codex マイクロカーネルランタイム」は、本稿における現行アーキテクチャの総称であり、ソースコード上の正式なモジュール名ではなく、OS レベルのマイクロカーネルを意味するものでもありません。
 
 ## 概要
 
-MiMoCode は、共有 Session エンジン上で GPT/Codex モデルを実行すると同時に、より小規模な Codex スタイルのツール ABI、すなわち `bash`、`apply_patch`、`view_image`、`exec` をモデルに公開します。`exec` は QuickJS 内で、許可されたホストツールを組み合わせます。権限、パス、サブプロセス、キャンセル、永続化、UI は常にホストによって制御されます。
+SpadakCode は、共有 Session エンジン上で GPT/Codex モデルを実行すると同時に、より小規模な Codex スタイルのツール ABI、すなわち `bash`、`apply_patch`、`view_image`、`exec` をモデルに公開します。`exec` は QuickJS 内で、許可されたホストツールを組み合わせます。権限、パス、サブプロセス、キャンセル、永続化、UI は常にホストによって制御されます。
 
 ## コア設計
 
-MiMoCode は GPT 専用の Agent エンジンを新設するのではなく、統一された Session runtime 上で次の三つを行います。
+SpadakCode は GPT 専用の Agent エンジンを新設するのではなく、統一された Session runtime 上で次の三つを行います。
 
 1. GPT/Codex 専用の system prompt を使用し、ツールの選択方法とスケジューリング方法を規定する。
 2. `ToolRegistry` を介して、より小規模なモデル専用ツール ABI を構成する。
@@ -103,19 +103,19 @@ QuickJS が隔離するのは `exec` のコードのみです。`bash` は引き
 
 OpenAI provider は、[`sdk.responses(modelID)`](../../packages/opencode/src/provider/provider.ts#L203) を介してリクエストを送信します。[`ProviderTransform.options()`](../../packages/opencode/src/provider/transform.ts#L1275) はデフォルトで `store: false` を設定し、GPT-5 reasoning モデルには `reasoning.encrypted_content` を要求します。
 
-MiMoCode は provider metadata をメッセージに書き込み、次のターンで再生することで、ステートレスな Responses ツールループが推論を継続できるようにします。同時に、送信前に安全に再利用できない `itemId` を取り除き、サーバーまたはプロキシによる無効な `rs_...` 参照の解析エラーを回避します。
+SpadakCode は provider metadata をメッセージに書き込み、次のターンで再生することで、ステートレスな Responses ツールループが推論を継続できるようにします。同時に、送信前に安全に再利用できない `itemId` を取り除き、サーバーまたはプロキシによる無効な `rs_...` 参照の解析エラーを回避します。
 
 [`CodexAuthPlugin`](../../packages/opencode/src/plugin/codex.ts#L364) は別途、ChatGPT Plus/Pro OAuth、token refresh、アカウント header、Codex endpoint rewrite を担います。これは認証・トランスポート層に属し、ツールの権限を変更するものではありません。
 
 ## PR の変遷
 
-[PR #1865](https://github.com/XiaomiMiMo/MiMo-Code/pull/1865) は stacked PR で、base は #1864 の `feat/view-image-tool` ブランチです。まず次の変更を導入しました。
+[PR #1865](https://github.com/spadak/Spadak-Code/pull/1865) は stacked PR で、base は #1864 の `feat/view-image-tool` ブランチです。まず次の変更を導入しました。
 
 - GPT 専用の Bash ガイダンス
 - 機能が重複するファイルツールの非表示化
 - GPT/Claude 向け skill-search prompt と reminder の整合
 
-その後、[PR #1864](https://github.com/XiaomiMiMo/MiMo-Code/pull/1864) で `view_image`、より包括的なツールの非表示化、`tool_script → exec` への移行、GPT prompt、TUI、checkpoint 対応が追加され、最終的に一式が `main` にマージされました。
+その後、[PR #1864](https://github.com/spadak/Spadak-Code/pull/1864) で `view_image`、より包括的なツールの非表示化、`tool_script → exec` への移行、GPT prompt、TUI、checkpoint 対応が追加され、最終的に一式が `main` にマージされました。
 
 現在も `skill_search` は GPT/Claude に公開されていますが、system prompt と reminder は能動的な検索を要求しません。これは #1865 の当初のツール非表示化方針を後から調整したものです。
 

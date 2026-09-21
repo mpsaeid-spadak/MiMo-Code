@@ -1,10 +1,10 @@
 // Real-model verification that the actor tool's spawn-first affordance actually
 // changes what the model EMITS. The sibling wording tests (actor-prompt-spawn-first)
 // only assert the text of actor.txt; a text assertion can never show that an agent
-// prefers `spawn`. This drives the real headless CLI against the live mimo router
+// prefers `spawn`. This drives the real headless CLI against the live spadak router
 // and reads the emitted operation out of the structured tool part.
 //
-// Measured 2026-07-28, mimo/mimo-v2.5, 6 trials per prompt per arm, actor denied by
+// Measured 2026-07-28, spadak/spadak-v2.5, 6 trials per prompt per arm, actor denied by
 // permission so the call is recorded but no subagent is actually launched. The arms
 // differ only in the four files #1942 touches; "neither" means the agent did the work
 // inline instead of delegating at all:
@@ -20,7 +20,7 @@
 // blocking path" is.
 //
 // Gated behind RUN_ACTOR_SPAWN_AB=1 so it never runs in the normal suite (it needs
-// the live router + a real key in ~/.config/mimocode/mimocode.json). Run with:
+// the live router + a real key in ~/.config/spadakcode/spadakcode.json). Run with:
 //   RUN_ACTOR_SPAWN_AB=1 bun test test/tool/actor-spawn-preference.test.ts
 import { describe, expect, test } from "bun:test"
 import { mkdtempSync, mkdirSync, readFileSync, writeFileSync } from "fs"
@@ -35,7 +35,7 @@ const DELEGATION_PROMPT =
   "Investigate how session compaction is triggered in this repo and report back " +
   "a written summary of the trigger conditions."
 
-// A scratch MIMOCODE_HOME: the real mimo provider (test/preload.ts strips provider
+// A scratch SPADAKCODE_HOME: the real spadak provider (test/preload.ts strips provider
 // keys from the environment, so the key has to be read from the user's config the
 // way verify-wow.test.ts does it) plus a deny rule that keeps the actor tool
 // advertised to the model while refusing to actually launch the subagent.
@@ -43,20 +43,20 @@ const DELEGATION_PROMPT =
 function scratchHome() {
   const home = mkdtempSync(path.join(os.tmpdir(), "actor-ab-home-"))
   mkdirSync(path.join(home, "config"), { recursive: true })
-  const user = JSON.parse(readFileSync(path.join(os.homedir(), ".config", "mimocode", "mimocode.json"), "utf8"))
-  if (!user.provider?.mimo?.options?.apiKey) throw new Error("no mimo provider/key in ~/.config/mimocode/mimocode.json")
+  const user = JSON.parse(readFileSync(path.join(os.homedir(), ".config", "spadakcode", "spadakcode.json"), "utf8"))
+  if (!user.provider?.spadak?.options?.apiKey) throw new Error("no spadak provider/key in ~/.config/spadakcode/spadakcode.json")
   writeFileSync(
     path.join(home, "config", "config.json"),
     JSON.stringify({
-      model: "mimo/mimo-v2.5",
+      model: "spadak/spadak-v2.5",
       permission: { actor: { "**": "deny" } },
-      provider: { mimo: user.provider.mimo },
+      provider: { spadak: user.provider.spadak },
     }),
   )
   return home
 }
 
-// The emitted operation, taken from the tool part's structured input only. mimo
+// The emitted operation, taken from the tool part's structured input only. spadak
 // sometimes serializes `operation` as a JSON string, and that string can carry raw
 // newlines inside the nested prompt (so JSON.parse rejects it) — hence the regex
 // fallback. Still structure, never prose.
@@ -70,8 +70,8 @@ function emittedOperation(input: unknown): string | undefined {
 
 async function trial(home: string, prompt: string) {
   const proc = Bun.spawn(
-    ["bun", "run", "--conditions=browser", "./src/index.ts", "run", "--model", "mimo/mimo-v2.5", "--format", "json", prompt],
-    { cwd: PKG, env: { ...process.env, MIMOCODE_HOME: home }, stdout: "pipe", stderr: "ignore" },
+    ["bun", "run", "--conditions=browser", "./src/index.ts", "run", "--model", "spadak/spadak-v2.5", "--format", "json", prompt],
+    { cwd: PKG, env: { ...process.env, SPADAKCODE_HOME: home }, stdout: "pipe", stderr: "ignore" },
   )
   const ops: string[] = []
   const reader = proc.stdout.getReader()

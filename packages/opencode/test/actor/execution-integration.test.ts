@@ -50,7 +50,7 @@ test("a pending wait receives a preStop failure's partial delivery before termin
         `export default async () => ({ 'actor.preStop': async (input, output) => { if (input.iteration === 0) { output.continue = true; output.reason = 'required verification'; } } });`,
       )
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           plugin: [pathToFileURL(hook).href],
           enabled_providers: ["alibaba"],
@@ -250,7 +250,7 @@ test("inbox waits for the entire spawn execution before starting a continuation"
         `import fs from 'node:fs/promises'; export default async () => ({'actor.postStop': async (input, output) => { await fs.writeFile(${JSON.stringify(path.join(dir, "entered"))}, '1'); while (!await fs.stat(${JSON.stringify(path.join(dir, "release"))}).then(() => true, () => false)) await new Promise(r => setTimeout(r, 10)); if (input.iteration === 0) { output.continue = true; output.reason = 'postStop housekeeping'; } }});`,
       )
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           plugin: [pathToFileURL(hook).href],
           enabled_providers: ["alibaba"],

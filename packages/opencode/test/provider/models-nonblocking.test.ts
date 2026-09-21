@@ -28,7 +28,7 @@ describe("models.dev is local-only for startup", () => {
     }
   })
 
-  test("refresh(true) is a no-op when MIMOCODE_MODELS_PATH is pinned", async () => {
+  test("refresh(true) is a no-op when SPADAKCODE_MODELS_PATH is pinned", async () => {
     const originalFetch = globalThis.fetch
     let fetched = false
     globalThis.fetch = (async () => {

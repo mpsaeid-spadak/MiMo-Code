@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "opencode",
+  "name": "spadakcode",
   "description": "AI-powered development tool",
   "private": true,
   "type": "module",
@@ -96,15 +96,15 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.933.0",
-    "@mimo-ai/plugin": "workspace:*",
-    "@mimo-ai/script": "workspace:*",
-    "@mimo-ai/sdk": "workspace:*",
+    @spadak/plugin: "workspace:*",
+    @spadak/script: "workspace:*",
+    @spadak/sdk: "workspace:*",
     "heap-snapshot-toolkit": "1.1.3",
     "typescript": "catalog:"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/anomalyco/opencode"
+    "url": "https://github.com/mpsaeid-spadak/Spadak-Code"
   },
   "license": "MIT",
   "prettier": {

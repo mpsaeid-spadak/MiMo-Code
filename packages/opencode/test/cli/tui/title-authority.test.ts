@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import type { Session } from "@mimo-ai/sdk/v2"
+import type { Session } from "@spadak/sdk/v2"
 import { mergeSessionTitle, titleReadback, unchangedTitle } from "../../../src/cli/cmd/tui/util/session-title"
 
 test("unchanged opening title is a no-op unless resolving a conflict", () => {

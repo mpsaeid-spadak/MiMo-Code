@@ -38,14 +38,14 @@ test("no-set callers keep reading the current process environment", () => {
 
 test("credential scrub applies only to inherited baseline", () => {
   const env = makeChildProcessEnv(() => ({
-    MIMOCODE_AUTH_CONTENT: "inherited-secret",
-    MIMOCODE_CONFIG_CONTENT: "inherited-config",
+    SPADAKCODE_AUTH_CONTENT: "inherited-secret",
+    SPADAKCODE_CONFIG_CONTENT: "inherited-config",
     USER_VAR: "kept",
   }))
 
-  expect(env.resolve({ MIMOCODE_AUTH_CONTENT: "explicit-secret" })).toEqual({
+  expect(env.resolve({ SPADAKCODE_AUTH_CONTENT: "explicit-secret" })).toEqual({
     USER_VAR: "kept",
-    MIMOCODE_AUTH_CONTENT: "explicit-secret",
+    SPADAKCODE_AUTH_CONTENT: "explicit-secret",
   })
 })
 
@@ -103,7 +103,7 @@ test("all inherited external process paths use childProcessEnv", async () => {
 
   const uninstall = await Bun.file(path.join(root, "cli", "cmd", "uninstall.ts")).text()
   expect(uninstall).not.toContain("childProcessEnv")
-  expect(uninstall).toContain("env: { MIMOCODE_UNINSTALL_DIR: installDir }")
+  expect(uninstall).toContain("env: { SPADAKCODE_UNINSTALL_DIR: installDir }")
 
   const ripgrep = await Bun.file(path.join(root, "file", "ripgrep.ts")).text()
   expect(ripgrep).not.toMatch(/env: env\(\),\s*extendEnv: true/)

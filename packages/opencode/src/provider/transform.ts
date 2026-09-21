@@ -27,13 +27,13 @@ function mimeToModality(mime: string): Modality | undefined {
   return undefined
 }
 
-export const OUTPUT_TOKEN_MAX = Flag.MIMOCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX || 32_000
+export const OUTPUT_TOKEN_MAX = Flag.SPADAKCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX || 32_000
 export const LARGE_MODEL_OUTPUT_TOKEN_MAX = 128_000
 
 export function usesLargeModelDefaults(model: { id: string; providerID: string; api: { id: string } }) {
-  if (["mimo", "xiaomi"].includes(model.providerID.toLowerCase())) return true
+  if (["spadak", "spadak"].includes(model.providerID.toLowerCase())) return true
   return [model.id, model.api.id].some((id) =>
-    ["claude", "gpt", "mimo"].some((name) => id.toLowerCase().includes(name)),
+    ["claude", "gpt", "spadak"].some((name) => id.toLowerCase().includes(name)),
   )
 }
 
@@ -657,7 +657,7 @@ function normalizeContentArray(msgs: ModelMessage[]): ModelMessage[] {
 // branch as signed reasoning. Compatible endpoints may intentionally accept it;
 // the official Anthropic API can still reject an unverifiable signature.
 function forceAnthropicReasoningContent(msgs: ModelMessage[], model: Provider.Model): ModelMessage[] {
-  if (!Flag.MIMOCODE_FORCE_ANTHROPIC_REASONING_CONTENT) return msgs
+  if (!Flag.SPADAKCODE_FORCE_ANTHROPIC_REASONING_CONTENT) return msgs
   if (!["@ai-sdk/anthropic", "@ai-sdk/google-vertex/anthropic"].includes(model.api.npm)) return msgs
 
   return msgs.map((msg) => {
@@ -870,7 +870,7 @@ function imageWithinCaps(mime: string, bytes: Buffer, maxSize: number, maxDimens
 //
 // The caps are provider-aware: Anthropic/Claude routes get the ~5 MB byte limit
 // and 2000 px longest-edge limit; other providers remain untouched unless the
-// explicit Flag.MIMOCODE_MAX_PROMPT_IMAGE_SIZE byte override is set.
+// explicit Flag.SPADAKCODE_MAX_PROMPT_IMAGE_SIZE byte override is set.
 //
 // For the capped providers the size cap runs by default (no flag needed) because a
 // single >5 MB image in history otherwise 400s on every subsequent request and
@@ -878,8 +878,8 @@ function imageWithinCaps(mime: string, bytes: Buffer, maxSize: number, maxDimens
 // compressing it in transform, which runs immediately before send, self-heals such
 // "poison" history (including images already sitting in history / tool_result).
 function limitImages(msgs: ModelMessage[], model: Provider.Model): ModelMessage[] {
-  const maxImages = Flag.MIMOCODE_MAX_PROMPT_IMAGES
-  const maxSize = Flag.MIMOCODE_MAX_PROMPT_IMAGE_SIZE ?? providerImageCap(model)
+  const maxImages = Flag.SPADAKCODE_MAX_PROMPT_IMAGES
+  const maxSize = Flag.SPADAKCODE_MAX_PROMPT_IMAGE_SIZE ?? providerImageCap(model)
   const maxDimension = providerImageDimensionCap(model)
 
   // The provider content shape for tool-result output values is untyped in the
@@ -1213,7 +1213,7 @@ export function temperature(model: Provider.Model) {
   if (id.includes("glm-4.6")) return 1.0
   if (id.includes("glm-4.7")) return 1.0
   if (id.includes("minimax-m2")) return 1.0
-  if (id.includes("mimo")) return 1.0
+  if (id.includes("spadak")) return 1.0
   if (id.includes("kimi-k2")) {
     // kimi-k2-thinking & kimi-k2.5 && kimi-k2p5 && kimi-k2-5
     if (["thinking", "k2.", "k2p", "k2-5"].some((s) => id.includes(s))) {
@@ -2012,7 +2012,7 @@ function isMoonshot(model: Provider.Model): boolean {
 // `oneOf` is normalized the same way defensively (some SDKs, e.g.
 // `@ai-sdk/anthropic` used by kimi-for-coding, rewrite `oneOf` → `anyOf`).
 // Scoped to Moonshot/Kimi so the parent `type` other models rely on (e.g.
-// mimo-v2.5-pro / MiniMax-M3, which stringify the whole envelope without it —
+// spadak-v2.5-pro / MiniMax-M3, which stringify the whole envelope without it —
 // see #1371) stays intact.
 function sanitizeMoonshot(node: any): any {
   if (node === null || typeof node !== "object") return node

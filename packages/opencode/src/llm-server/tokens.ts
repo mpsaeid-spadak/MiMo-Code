@@ -1,8 +1,8 @@
 import path from "path"
 import fs from "fs/promises"
 import { createHash, timingSafeEqual } from "node:crypto"
-import { Hash } from "@mimo-ai/shared/util/hash"
-import { Flock } from "@mimo-ai/shared/util/flock"
+import { Hash } from "@spadak/shared/util/hash"
+import { Flock } from "@spadak/shared/util/flock"
 import { Global } from "@/global"
 import { Filesystem, Log } from "@/util"
 
@@ -11,7 +11,7 @@ const log = Log.create({ service: "llm-server.tokens" })
 /**
  * Persistent registry of the temporary tokens this project's LLM server accepts.
  *
- * Persistence is not a convenience here, it is what makes a `mimo llm-server
+ * Persistence is not a convenience here, it is what makes a `spadak llm-server
  * issue` subcommand possible at all: the process that MINTS a token is not the
  * process that VALIDATES it, so the two have to meet somewhere outside memory.
  *

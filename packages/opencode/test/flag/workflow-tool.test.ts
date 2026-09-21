@@ -2,15 +2,15 @@ import { describe, expect, test } from "bun:test"
 
 function read(value?: string, experimental?: string) {
   const env = { ...process.env }
-  delete env.MIMOCODE_EXPERIMENTAL_WORKFLOW_TOOL
-  delete env.MIMOCODE_EXPERIMENTAL
-  if (value !== undefined) env.MIMOCODE_EXPERIMENTAL_WORKFLOW_TOOL = value
-  if (experimental !== undefined) env.MIMOCODE_EXPERIMENTAL = experimental
+  delete env.SPADAKCODE_EXPERIMENTAL_WORKFLOW_TOOL
+  delete env.SPADAKCODE_EXPERIMENTAL
+  if (value !== undefined) env.SPADAKCODE_EXPERIMENTAL_WORKFLOW_TOOL = value
+  if (experimental !== undefined) env.SPADAKCODE_EXPERIMENTAL = experimental
   const result = Bun.spawnSync({
     cmd: [
       process.execPath,
       "-e",
-      'import { Flag } from "./src/flag/flag.ts"; process.stdout.write(String(Flag.MIMOCODE_EXPERIMENTAL_WORKFLOW_TOOL))',
+      'import { Flag } from "./src/flag/flag.ts"; process.stdout.write(String(Flag.SPADAKCODE_EXPERIMENTAL_WORKFLOW_TOOL))',
     ],
     cwd: process.cwd(),
     env,
@@ -19,7 +19,7 @@ function read(value?: string, experimental?: string) {
   return result.stdout.toString()
 }
 
-describe("MIMOCODE_EXPERIMENTAL_WORKFLOW_TOOL", () => {
+describe("SPADAKCODE_EXPERIMENTAL_WORKFLOW_TOOL", () => {
   test("is disabled by default and accepts explicit truthy values", () => {
     expect(read()).toBe("false")
     expect(read("true")).toBe("true")

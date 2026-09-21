@@ -30,7 +30,7 @@ import type {
   UserMessage,
   TextPart,
   ReasoningPart,
-} from "@mimo-ai/sdk/v2"
+} from "@spadak/sdk/v2"
 import { useLocal } from "@tui/context/local"
 import { Locale } from "@/util"
 import {
@@ -278,7 +278,7 @@ export function Session() {
     // The prohibition. Every way of reaching this route hands a raw session id
     // straight to the renderer and bypasses both hiding layers: -s/--session
     // (thread.ts → app.tsx), `attach --session`, POST /tui/select-session, POST
-    // /tui/event, the session tool's `switch`, MIMOCODE_ROUTE, plugin
+    // /tui/event, the session tool's `switch`, SPADAKCODE_ROUTE, plugin
     // navigate("session", …) and the session-list dialog's child injection. This
     // effect is the one point all of them must pass, so the refusal lives here
     // rather than on any single entry point. What counts as forbidden lives in
@@ -380,7 +380,7 @@ export function Session() {
         ...logo,
         ``,
         `  ${weak("Session")}${UI.Style.TEXT_NORMAL_BOLD}${title}${UI.Style.TEXT_NORMAL}`,
-        `  ${weak("Continue")}${UI.Style.TEXT_NORMAL_BOLD}mimo -s ${session()?.id}${UI.Style.TEXT_NORMAL}`,
+        `  ${weak("Continue")}${UI.Style.TEXT_NORMAL_BOLD}spadak -s ${session()?.id}${UI.Style.TEXT_NORMAL}`,
         ``,
       ].join("\n"),
     )
@@ -464,14 +464,14 @@ export function Session() {
 
   const local = useLocal()
 
-  // Free "mimo-auto" channel: on a rate-limit / queue ("too many requests"),
+  // Free "spadak-auto" channel: on a rate-limit / queue ("too many requests"),
   // nudge the user toward a Token Plan — at most once per 24h.
   event.on("session.status", (evt) => {
     if (evt.properties.sessionID !== route.sessionID) return
     if (evt.properties.status.type !== "retry") return
     if (!SessionRetry.isRateLimitMessage(evt.properties.status.message)) return
     const model = local.model.current()
-    if (!model || model.providerID !== "mimo" || model.modelID !== "mimo-auto") return
+    if (!model || model.providerID !== "spadak" || model.modelID !== "spadak-auto") return
     if (dialog.stack.length > 0) return
 
     const seen = kv.get(QUEUE_TOKEN_PLAN_LAST_SEEN_AT)
@@ -1649,7 +1649,7 @@ function UserMessage(props: {
   // Detect + parse it into a compact status card instead of showing raw XML.
   // Gated on the orchestrator flag so non-orchestrator sessions are untouched.
   const actorNotification = createMemo(() => {
-    if (!Flag.MIMOCODE_EXPERIMENTAL_ORCHESTRATOR) return undefined
+    if (!Flag.SPADAKCODE_EXPERIMENTAL_ORCHESTRATOR) return undefined
     return props.parts.flatMap((x) => {
       if (x.type !== "text" || !x.synthetic) return []
       const parsed = parseActorNotification(x.text)
@@ -2263,7 +2263,7 @@ function TextPart(props: { last: boolean; part: TextPart; message: AssistantMess
     <Show when={props.part.text.trim()}>
       <box id={"text-" + props.part.id} paddingLeft={3} marginTop={1} flexShrink={0}>
         <Switch>
-          <Match when={Flag.MIMOCODE_EXPERIMENTAL_MARKDOWN}>
+          <Match when={Flag.SPADAKCODE_EXPERIMENTAL_MARKDOWN}>
             <markdown
               syntaxStyle={syntax()}
               streaming={true}
@@ -2273,7 +2273,7 @@ function TextPart(props: { last: boolean; part: TextPart; message: AssistantMess
               bg={theme.background}
             />
           </Match>
-          <Match when={!Flag.MIMOCODE_EXPERIMENTAL_MARKDOWN}>
+          <Match when={!Flag.SPADAKCODE_EXPERIMENTAL_MARKDOWN}>
             <code
               filetype="markdown"
               drawUnstyledText={false}

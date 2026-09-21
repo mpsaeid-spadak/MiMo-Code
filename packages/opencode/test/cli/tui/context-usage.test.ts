@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { AssistantMessage, Message, UserMessage } from "@mimo-ai/sdk/v2"
+import type { AssistantMessage, Message, UserMessage } from "@spadak/sdk/v2"
 import { computeContextUsage } from "../../../src/cli/cmd/tui/util/model"
 
 // The footer's context readout (prompt/index.tsx `usage` memo) reads the LAST

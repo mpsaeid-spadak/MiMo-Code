@@ -1,5 +1,5 @@
 import { Provider } from "../provider"
-import { NamedError } from "@mimo-ai/shared/util/error"
+import { NamedError } from "@spadak/shared/util/error"
 import { NotFoundError } from "../storage"
 import { Session } from "../session"
 import type { ContentfulStatusCode } from "hono/utils/http-status"
@@ -53,7 +53,7 @@ function presentsToken(...headers: (string | undefined)[]) {
 
 export const AuthMiddleware: MiddlewareHandler = (c, next) => {
   if (c.req.method === "OPTIONS") return next()
-  const password = Flag.MIMOCODE_SERVER_PASSWORD
+  const password = Flag.SPADAKCODE_SERVER_PASSWORD
   if (!password) return next()
 
   // PTY websocket connect with a ticket skips basic auth; the handler validates the ticket.
@@ -69,7 +69,7 @@ export const AuthMiddleware: MiddlewareHandler = (c, next) => {
     return next()
   }
 
-  const username = Flag.MIMOCODE_SERVER_USERNAME ?? "mimocode"
+  const username = Flag.SPADAKCODE_SERVER_USERNAME ?? "spadakcode"
 
   return basicAuth({ username, password })(c, next)
 }

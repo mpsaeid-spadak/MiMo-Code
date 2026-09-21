@@ -24,7 +24,7 @@ import { Todo } from "../../src/session/todo"
 import { Session } from "../../src/session"
 import { LLM } from "../../src/session/llm"
 import { MessageV2 } from "../../src/session/message-v2"
-import { AppFileSystem } from "@mimo-ai/shared/filesystem"
+import { AppFileSystem } from "@spadak/shared/filesystem"
 import { SessionPrune } from "../../src/session/prune"
 import { SessionSummary } from "../../src/session/summary"
 import { Instruction } from "../../src/session/instruction"
@@ -152,16 +152,16 @@ function withSh<A, E, R>(fx: () => Effect.Effect<A, E, R>) {
 function dynamicSystemPrompt<A, E, R>(value: string | undefined, fx: () => Effect.Effect<A, E, R>) {
   return Effect.acquireUseRelease(
     Effect.sync(() => {
-      const previous = process.env.MIMOCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT
-      if (value === undefined) delete process.env.MIMOCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT
-      else process.env.MIMOCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT = value
+      const previous = process.env.SPADAKCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT
+      if (value === undefined) delete process.env.SPADAKCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT
+      else process.env.SPADAKCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT = value
       return previous
     }),
     () => fx(),
     (previous) =>
       Effect.sync(() => {
-        if (previous === undefined) delete process.env.MIMOCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT
-        else process.env.MIMOCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT = previous
+        if (previous === undefined) delete process.env.SPADAKCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT
+        else process.env.SPADAKCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT = previous
       }),
   )
 }
@@ -410,7 +410,7 @@ let lifecycleToolStarted: Deferred.Deferred<void> | undefined
 let lifecycleToolGate: Deferred.Deferred<void> | undefined
 const lifecycleClient = {
   getServerCapabilities: () => ({
-    experimental: { "com.xiaomi.mimo/turn-lifecycle": { version: 1 } },
+    experimental: { "com.xiaomi.spadak/turn-lifecycle": { version: 1 } },
   }),
   notification: async (notification: Record<string, any>) => {
     if (lifecycleNotificationHangs) return new Promise<void>(() => {})
@@ -723,8 +723,8 @@ it.live("[TP-R1-01][TP-R4-02][TP-R7-01] uncommitted-hint dirty USER turn produce
         writeFileSync(join(dir, "dirty.txt"), "x")
         return true
       })
-      const prev = process.env.MIMOCODE_CONFIG_CONTENT
-      process.env.MIMOCODE_CONFIG_CONTENT = JSON.stringify({
+      const prev = process.env.SPADAKCODE_CONFIG_CONTENT
+      process.env.SPADAKCODE_CONFIG_CONTENT = JSON.stringify({
         experimental: { uncommitted_hint: { enabled: true } },
       })
       try {
@@ -763,8 +763,8 @@ it.live("[TP-R1-01][TP-R4-02][TP-R7-01] uncommitted-hint dirty USER turn produce
         const settled = yield* statusSvc.get(chat.id)
         expect(settled.type).toBe("idle")
       } finally {
-        if (prev === undefined) delete process.env.MIMOCODE_CONFIG_CONTENT
-        else process.env.MIMOCODE_CONFIG_CONTENT = prev
+        if (prev === undefined) delete process.env.SPADAKCODE_CONFIG_CONTENT
+        else process.env.SPADAKCODE_CONFIG_CONTENT = prev
       }
     }),
     { git: true, config: providerCfg },
@@ -785,8 +785,8 @@ it.live("[TP-R4-02] uncommitted-hint cancel hook turn then dirty USER turn re-hi
         writeFileSync(join(dir, "dirty.txt"), "x")
         return true
       })
-      const prev = process.env.MIMOCODE_CONFIG_CONTENT
-      process.env.MIMOCODE_CONFIG_CONTENT = JSON.stringify({
+      const prev = process.env.SPADAKCODE_CONFIG_CONTENT
+      process.env.SPADAKCODE_CONFIG_CONTENT = JSON.stringify({
         experimental: { uncommitted_hint: { enabled: true } },
       })
       const countHints = Effect.fn("test.countUhHints")(function* (sessionID: SessionID) {
@@ -835,8 +835,8 @@ it.live("[TP-R4-02] uncommitted-hint cancel hook turn then dirty USER turn re-hi
         // 1 (first inject) + 1 (second dirty user turn) = 2
         expect(yield* countHints(chat.id)).toBe(2)
       } finally {
-        if (prev === undefined) delete process.env.MIMOCODE_CONFIG_CONTENT
-        else process.env.MIMOCODE_CONFIG_CONTENT = prev
+        if (prev === undefined) delete process.env.SPADAKCODE_CONFIG_CONTENT
+        else process.env.SPADAKCODE_CONFIG_CONTENT = prev
       }
     }),
     { git: true, config: providerCfg },
@@ -855,8 +855,8 @@ it.live("[TP-R3-01][TP-R4-01][TP-R7-01] uncommitted-hint disabled USER turn does
         writeFileSync(join(dir, "dirty.txt"), "x")
         return true
       })
-      const prev = process.env.MIMOCODE_CONFIG_CONTENT
-      process.env.MIMOCODE_CONFIG_CONTENT = JSON.stringify({
+      const prev = process.env.SPADAKCODE_CONFIG_CONTENT
+      process.env.SPADAKCODE_CONFIG_CONTENT = JSON.stringify({
         experimental: { uncommitted_hint: { enabled: false } },
       })
       try {
@@ -879,8 +879,8 @@ it.live("[TP-R3-01][TP-R4-01][TP-R7-01] uncommitted-hint disabled USER turn does
         )
         expect(hints).toHaveLength(0)
       } finally {
-        if (prev === undefined) delete process.env.MIMOCODE_CONFIG_CONTENT
-        else process.env.MIMOCODE_CONFIG_CONTENT = prev
+        if (prev === undefined) delete process.env.SPADAKCODE_CONFIG_CONTENT
+        else process.env.SPADAKCODE_CONFIG_CONTENT = prev
       }
     }),
     { git: true, config: providerCfg },
@@ -898,8 +898,8 @@ it.live("[TP-R4-01][TP-R7-01] uncommitted-hint enabled + hook-source turn does n
         writeFileSync(join(dir, "dirty.txt"), "x")
         return true
       })
-      const prev = process.env.MIMOCODE_CONFIG_CONTENT
-      process.env.MIMOCODE_CONFIG_CONTENT = JSON.stringify({
+      const prev = process.env.SPADAKCODE_CONFIG_CONTENT
+      process.env.SPADAKCODE_CONFIG_CONTENT = JSON.stringify({
         experimental: { uncommitted_hint: { enabled: true } },
       })
       try {
@@ -922,8 +922,8 @@ it.live("[TP-R4-01][TP-R7-01] uncommitted-hint enabled + hook-source turn does n
         )
         expect(hints).toHaveLength(0)
       } finally {
-        if (prev === undefined) delete process.env.MIMOCODE_CONFIG_CONTENT
-        else process.env.MIMOCODE_CONFIG_CONTENT = prev
+        if (prev === undefined) delete process.env.SPADAKCODE_CONFIG_CONTENT
+        else process.env.SPADAKCODE_CONFIG_CONTENT = prev
       }
     }),
     { git: true, config: providerCfg },
@@ -972,7 +972,7 @@ it.live("[TP-R4-01] machine hook prompt with file attachment + provenance is acc
     Effect.fnUntraced(function* ({ llm, dir }) {
       const prompt = yield* SessionPrompt.Service
       const sessions = yield* Session.Service
-      const filePath = `${dir}/.mimo-automation-execution-context.txt`
+      const filePath = `${dir}/.spadak-automation-execution-context.txt`
       yield* Effect.promise(async () => {
         const { writeFileSync } = await import("node:fs")
         writeFileSync(filePath, "automation execution protocol")
@@ -993,7 +993,7 @@ it.live("[TP-R4-01] machine hook prompt with file attachment + provenance is acc
           { type: "text", text: "run automation with protocol file" },
           {
             type: "file",
-            filename: ".mimo-automation-execution-context.txt",
+            filename: ".spadak-automation-execution-context.txt",
             mime: "text/plain",
             url: `file://${filePath}`,
           },
@@ -1016,7 +1016,7 @@ it.live("[TP-R4-01] machine command with protocol file part + provenance is acce
       yield* Effect.promise(async () => {
         const { mkdirSync, writeFileSync } = await import("node:fs")
         const { join } = await import("node:path")
-        const cmdDir = join(dir, ".mimocode", "command")
+        const cmdDir = join(dir, ".spadakcode", "command")
         mkdirSync(cmdDir, { recursive: true })
         writeFileSync(
           join(cmdDir, "auto-cmd.md"),
@@ -1032,7 +1032,7 @@ it.live("[TP-R4-01] machine command with protocol file part + provenance is acce
       const protocolPart = {
         type: "file" as const,
         mime: "text/plain",
-        filename: ".mimo-automation-execution-context.txt",
+        filename: ".spadak-automation-execution-context.txt",
         url: `data:text/plain;charset=utf-8,${encodeURIComponent("automation protocol body")}`,
       }
       yield* prompt.command({
@@ -1067,8 +1067,8 @@ it.live("[TP-R4-01] uncommitted-hint cancel during first git probe produces no l
         writeFileSync(join(dir, "dirty.txt"), "x")
         return true
       })
-      const prev = process.env.MIMOCODE_CONFIG_CONTENT
-      process.env.MIMOCODE_CONFIG_CONTENT = JSON.stringify({
+      const prev = process.env.SPADAKCODE_CONFIG_CONTENT
+      process.env.SPADAKCODE_CONFIG_CONTENT = JSON.stringify({
         experimental: { uncommitted_hint: { enabled: true } },
       })
       let reached: (() => void) | undefined
@@ -1112,8 +1112,8 @@ it.live("[TP-R4-01] uncommitted-hint cancel during first git probe produces no l
         expect(hints).toHaveLength(0)
         expect((yield* llm.inputs).length).toBe(inputsAtProbe)
       } finally {
-        if (prev === undefined) delete process.env.MIMOCODE_CONFIG_CONTENT
-        else process.env.MIMOCODE_CONFIG_CONTENT = prev
+        if (prev === undefined) delete process.env.SPADAKCODE_CONFIG_CONTENT
+        else process.env.SPADAKCODE_CONFIG_CONTENT = prev
         hintGitProbeBarrier.onReached = undefined
         hintGitProbeBarrier.wait = undefined
         releaseGit?.()
@@ -1135,8 +1135,8 @@ it.live("[TP-R4-01] uncommitted-hint main cancel after child runLoop still kills
         writeFileSync(join(dir, "dirty.txt"), "x")
         return true
       })
-      const prev = process.env.MIMOCODE_CONFIG_CONTENT
-      process.env.MIMOCODE_CONFIG_CONTENT = JSON.stringify({
+      const prev = process.env.SPADAKCODE_CONFIG_CONTENT
+      process.env.SPADAKCODE_CONFIG_CONTENT = JSON.stringify({
         experimental: { uncommitted_hint: { enabled: true } },
       })
       let reached: (() => void) | undefined
@@ -1194,8 +1194,8 @@ it.live("[TP-R4-01] uncommitted-hint main cancel after child runLoop still kills
         )
         expect(hints).toHaveLength(0)
       } finally {
-        if (prev === undefined) delete process.env.MIMOCODE_CONFIG_CONTENT
-        else process.env.MIMOCODE_CONFIG_CONTENT = prev
+        if (prev === undefined) delete process.env.SPADAKCODE_CONFIG_CONTENT
+        else process.env.SPADAKCODE_CONFIG_CONTENT = prev
         hintClaimBarrier.onReached = undefined
         hintClaimBarrier.wait = undefined
         hintFirePostBarrier.onReached = undefined
@@ -1222,8 +1222,8 @@ it.live("[TP-R4-01][TP-R7-01] uncommitted-hint busy claim does not inject and do
         writeFileSync(join(dir, "dirty.txt"), "x")
         return true
       })
-      const prev = process.env.MIMOCODE_CONFIG_CONTENT
-      process.env.MIMOCODE_CONFIG_CONTENT = JSON.stringify({
+      const prev = process.env.SPADAKCODE_CONFIG_CONTENT
+      process.env.SPADAKCODE_CONFIG_CONTENT = JSON.stringify({
         experimental: { uncommitted_hint: { enabled: true } },
       })
       try {
@@ -1270,8 +1270,8 @@ it.live("[TP-R4-01][TP-R7-01] uncommitted-hint busy claim does not inject and do
           ),
         ).toHaveLength(0)
       } finally {
-        if (prev === undefined) delete process.env.MIMOCODE_CONFIG_CONTENT
-        else process.env.MIMOCODE_CONFIG_CONTENT = prev
+        if (prev === undefined) delete process.env.SPADAKCODE_CONFIG_CONTENT
+        else process.env.SPADAKCODE_CONFIG_CONTENT = prev
         hintClaimBarrier.onReached = undefined
         hintClaimBarrier.wait = undefined
       }
@@ -1291,8 +1291,8 @@ it.live("[TP-R4-01] uncommitted-hint cancel-only invalidates pending follow-up b
         writeFileSync(join(dir, "dirty.txt"), "x")
         return true
       })
-      const prev = process.env.MIMOCODE_CONFIG_CONTENT
-      process.env.MIMOCODE_CONFIG_CONTENT = JSON.stringify({
+      const prev = process.env.SPADAKCODE_CONFIG_CONTENT
+      process.env.SPADAKCODE_CONFIG_CONTENT = JSON.stringify({
         experimental: { uncommitted_hint: { enabled: true } },
       })
       let reached: (() => void) | undefined
@@ -1344,8 +1344,8 @@ it.live("[TP-R4-01] uncommitted-hint cancel-only invalidates pending follow-up b
         const inputsAfter = (yield* llm.inputs).length
         expect(inputsAfter).toBe(inputsAtBarrier)
       } finally {
-        if (prev === undefined) delete process.env.MIMOCODE_CONFIG_CONTENT
-        else process.env.MIMOCODE_CONFIG_CONTENT = prev
+        if (prev === undefined) delete process.env.SPADAKCODE_CONFIG_CONTENT
+        else process.env.SPADAKCODE_CONFIG_CONTENT = prev
         hintClaimBarrier.onReached = undefined
         hintClaimBarrier.wait = undefined
         releaseA?.()
@@ -1367,8 +1367,8 @@ it.live("[TP-R4-01] uncommitted-hint supersession after barrier drops stale A by
         writeFileSync(join(dir, "dirty.txt"), "x")
         return true
       })
-      const prev = process.env.MIMOCODE_CONFIG_CONTENT
-      process.env.MIMOCODE_CONFIG_CONTENT = JSON.stringify({
+      const prev = process.env.SPADAKCODE_CONFIG_CONTENT
+      process.env.SPADAKCODE_CONFIG_CONTENT = JSON.stringify({
         experimental: { uncommitted_hint: { enabled: true } },
       })
       let reached: (() => void) | undefined
@@ -1427,8 +1427,8 @@ it.live("[TP-R4-01] uncommitted-hint supersession after barrier drops stale A by
           expect(hint.info.model.variant).toBe("high")
         }
       } finally {
-        if (prev === undefined) delete process.env.MIMOCODE_CONFIG_CONTENT
-        else process.env.MIMOCODE_CONFIG_CONTENT = prev
+        if (prev === undefined) delete process.env.SPADAKCODE_CONFIG_CONTENT
+        else process.env.SPADAKCODE_CONFIG_CONTENT = prev
         hintClaimBarrier.onReached = undefined
         hintClaimBarrier.wait = undefined
         releaseA?.()
@@ -1450,8 +1450,8 @@ it.live("[TP-R4-01] uncommitted-hint delete during wait produces no late hint me
         writeFileSync(join(dir, "dirty.txt"), "x")
         return true
       })
-      const prev = process.env.MIMOCODE_CONFIG_CONTENT
-      process.env.MIMOCODE_CONFIG_CONTENT = JSON.stringify({
+      const prev = process.env.SPADAKCODE_CONFIG_CONTENT
+      process.env.SPADAKCODE_CONFIG_CONTENT = JSON.stringify({
         experimental: { uncommitted_hint: { enabled: true } },
       })
       let reached: (() => void) | undefined
@@ -1503,8 +1503,8 @@ it.live("[TP-R4-01] uncommitted-hint delete during wait produces no late hint me
           expect(String(msgExit.cause)).toContain("NotFoundError")
         }
       } finally {
-        if (prev === undefined) delete process.env.MIMOCODE_CONFIG_CONTENT
-        else process.env.MIMOCODE_CONFIG_CONTENT = prev
+        if (prev === undefined) delete process.env.SPADAKCODE_CONFIG_CONTENT
+        else process.env.SPADAKCODE_CONFIG_CONTENT = prev
         hintClaimBarrier.onReached = undefined
         hintClaimBarrier.wait = undefined
         releaseA?.()
@@ -1526,8 +1526,8 @@ it.live("[TP-R7-01] uncommitted-hint decision logs land in Desktop WARN-level si
         writeFileSync(join(dir, "dirty.txt"), "x")
         return true
       })
-      const prev = process.env.MIMOCODE_CONFIG_CONTENT
-      process.env.MIMOCODE_CONFIG_CONTENT = JSON.stringify({
+      const prev = process.env.SPADAKCODE_CONFIG_CONTENT
+      process.env.SPADAKCODE_CONFIG_CONTENT = JSON.stringify({
         experimental: { uncommitted_hint: { enabled: true } },
       })
       const prevLogPath = Global.Path.log
@@ -1568,8 +1568,8 @@ it.live("[TP-R7-01] uncommitted-hint decision logs land in Desktop WARN-level si
         // Isolation check (R017): path still points at the WARN dir until finally restores it.
         expect(Global.Path.log).toBe(warnLogDir)
       } finally {
-        if (prev === undefined) delete process.env.MIMOCODE_CONFIG_CONTENT
-        else process.env.MIMOCODE_CONFIG_CONTENT = prev
+        if (prev === undefined) delete process.env.SPADAKCODE_CONFIG_CONTENT
+        else process.env.SPADAKCODE_CONFIG_CONTENT = prev
         // Restore shared test-process log sink including LEVEL (R017: omit ≠ reset).
         yield* Effect.promise(async () => {
           const { rm } = await import("node:fs/promises")
@@ -2564,7 +2564,7 @@ it.live("injects orchestrator system prompt for agent 'orchestrator'", () =>
       yield* prompt.loop({ sessionID: session.id })
 
       const inputs = yield* llm.inputs
-      expect(JSON.stringify(inputs)).toContain("MiMoCode Orchestrator")
+      expect(JSON.stringify(inputs)).toContain("SpadakCode Orchestrator")
     }),
     { git: true, config: providerCfg },
   ),
@@ -3369,7 +3369,7 @@ lifecycleMcpIt.live("MCP calls in one outer run share one turn and emit one term
       expect(lifecycleContexts[1]).toEqual(lifecycleContexts[0])
       expect(lifecycleNotifications).toEqual([
         {
-          method: "notifications/com.xiaomi.mimo/turn-lifecycle",
+          method: "notifications/com.xiaomi.spadak/turn-lifecycle",
           params: { ...lifecycleContexts[0], status: "completed" },
         },
       ])
@@ -3450,7 +3450,7 @@ lifecycleMcpIt.live(
 
         expect(lifecycleNotifications).toHaveLength(1)
         expect(lifecycleNotifications[0]).toMatchObject({
-          method: "notifications/com.xiaomi.mimo/turn-lifecycle",
+          method: "notifications/com.xiaomi.spadak/turn-lifecycle",
           params: { sessionId: session.id, actorId: "main", status: "cancelled" },
         })
         expect(lifecycleNotifications[0]?.params?.turnId).toBeTruthy()
@@ -3476,7 +3476,7 @@ lifecycleMcpIt.live("MCP lifecycle emits one error notification when the outer r
 
       expect(lifecycleNotifications).toHaveLength(1)
       expect(lifecycleNotifications[0]).toMatchObject({
-        method: "notifications/com.xiaomi.mimo/turn-lifecycle",
+        method: "notifications/com.xiaomi.spadak/turn-lifecycle",
         params: { sessionId: session.id, actorId: "main", status: "error" },
       })
       expect(lifecycleNotifications[0]?.params?.turnId).toBeTruthy()

@@ -1,20 +1,20 @@
 #!/usr/bin/env bun
-import { Script } from "@mimo-ai/script"
+import { Script } from "@spadak/script"
 
 const PACKAGES = [
-  "@mimo-ai/cli",
-  "@mimo-ai/mimocode-darwin-arm64",
-  "@mimo-ai/mimocode-darwin-x64",
-  "@mimo-ai/mimocode-darwin-x64-baseline",
-  "@mimo-ai/mimocode-linux-arm64",
-  "@mimo-ai/mimocode-linux-arm64-musl",
-  "@mimo-ai/mimocode-linux-x64",
-  "@mimo-ai/mimocode-linux-x64-baseline",
-  "@mimo-ai/mimocode-linux-x64-musl",
-  "@mimo-ai/mimocode-linux-x64-baseline-musl",
-  "@mimo-ai/mimocode-windows-arm64",
-  "@mimo-ai/mimocode-windows-x64",
-  "@mimo-ai/mimocode-windows-x64-baseline",
+  "/cli",
+  "/spadakcode-darwin-arm64",
+  "/spadakcode-darwin-x64",
+  "/spadakcode-darwin-x64-baseline",
+  "/spadakcode-linux-arm64",
+  "/spadakcode-linux-arm64-musl",
+  "/spadakcode-linux-x64",
+  "/spadakcode-linux-x64-baseline",
+  "/spadakcode-linux-x64-musl",
+  "/spadakcode-linux-x64-baseline-musl",
+  "/spadakcode-windows-arm64",
+  "/spadakcode-windows-x64",
+  "/spadakcode-windows-x64-baseline",
 ]
 
 const REGISTRIES = {
@@ -48,7 +48,7 @@ async function syncNpmmirror(packageName: string) {
   const res = await fetch(url, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ skipDependencies: true, tips: "MiMoCode release sync" }),
+    body: JSON.stringify({ skipDependencies: true, tips: "SpadakCode release sync" }),
   })
   if (!res.ok) {
     const text = await res.text()
@@ -151,7 +151,7 @@ if (target && target !== "all" && !(target in REGISTRIES)) {
   process.exit(1)
 }
 
-console.log("═══ MiMoCode Registry Sync ═══")
+console.log("═══ SpadakCode Registry Sync ═══")
 console.log(`Version: ${Script.version} (${Script.channel})`)
 console.log(`Packages: ${PACKAGES.length}`)
 

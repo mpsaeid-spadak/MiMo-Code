@@ -10,7 +10,7 @@ commits: d17e176b..HEAD
 
 ## Report
 
-**What was built** — TUI voice control now speaks the desktop `voice_input` tool-call protocol: unique function tool, three-part `{before_cursor, selection, after_cursor}` snapshot (unfocused falls back to full string), insert/set/set_with_cursor + send, protocol retry ≤2, no agent/model arms. System prompt lives in `util/voice-input.txt` (English instructions, Chinese utterance examples). ASR inserts at caret/selection with end-of-buffer space rule; control VAD uses `minSilenceS=1.2`. Insert on an unchanged buffer uses a surgical splice (keeps paste/file extmarks); set/set_with_cursor full rewrite clears parts. Models stay `xiaomi/mimo-v2.5` / `xiaomi/mimo-v2.5-asr`.
+**What was built** — TUI voice control now speaks the desktop `voice_input` tool-call protocol: unique function tool, three-part `{before_cursor, selection, after_cursor}` snapshot (unfocused falls back to full string), insert/set/set_with_cursor + send, protocol retry ≤2, no agent/model arms. System prompt lives in `util/voice-input.txt` (English instructions, Chinese utterance examples). ASR inserts at caret/selection with end-of-buffer space rule; control VAD uses `minSilenceS=1.2`. Insert on an unchanged buffer uses a surgical splice (keeps paste/file extmarks); set/set_with_cursor full rewrite clears parts. Models stay `xiaomi/spadak-v2.5` / `xiaomi/spadak-v2.5-asr`.
 
 **Verification** — `bun typecheck` (packages/opencode) PASS; `bun test test/cli/tui/voice.test.ts` 42 pass, 0 fail. `bun run build:local` + smoke PASS. Independent review (3 rounds): protocol/snapshot/natural-selection solid; post-review fixes: surgical insert when buffer unchanged (keeps paste/file parts), ASR mid-flight end fallback, live mode switch, stale/protocol toasts, tool-role retry, object arguments.
 
@@ -31,10 +31,10 @@ TUI voice control still speaks the old JSON protocol (`response_format: json_obj
 
 | Mode id | Product name | Model default | Request body |
 |---------|--------------|---------------|--------------|
-| `asr` | 快速输入 | `xiaomi/mimo-v2.5-asr` | Xiaomi data-URL + `asr_options` (unchanged) |
-| `control` | 智能编辑 | `xiaomi/mimo-v2.5` | system prompt + user(text JSON + raw wav `input_audio`) + unique tool `voice_input` |
+| `asr` | 快速输入 | `xiaomi/spadak-v2.5-asr` | data-URL + `asr_options` (unchanged) |
+| `control` | 智能编辑 | `xiaomi/spadak-v2.5` | system prompt + user(text JSON + raw wav `input_audio`) + unique tool `voice_input` |
 
-No `mimo-explore-a`. Override stays `voice.control_model` / `voice.asr_model` in config.
+No `spadak-explore-a`. Override stays `voice.control_model` / `voice.asr_model` in config.
 
 ### Editor snapshot (shared)
 
@@ -79,7 +79,7 @@ Copy desktop `electron/prompts/voice-input.md` into TUI as `util/voice-input.txt
 
 ### ASR path
 
-- Keep Xiaomi fast-ASR body unchanged.
+- Keep fast-ASR body unchanged.
 - No send command on ASR — 「发送」/"send it" are dictated as text. Send exists only in control mode via `voice_input`.
 - Placement: if caret snapshot exists and no selection → insert at caret (exact, no auto space mid-buffer); if selection exists → replace selection; if no caret → append with existing end-of-buffer space rule.
 

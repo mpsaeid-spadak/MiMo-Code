@@ -5,7 +5,7 @@ import { Effect, ManagedRuntime, Layer } from "effect"
 import { ApplyPatchTool } from "../../src/tool/apply_patch"
 import { Instance } from "../../src/project/instance"
 import { LSP } from "../../src/lsp"
-import { AppFileSystem } from "@mimo-ai/shared/filesystem"
+import { AppFileSystem } from "@spadak/shared/filesystem"
 import { Format } from "../../src/format"
 import { Agent } from "../../src/agent/agent"
 import { Bus } from "../../src/bus"
@@ -609,11 +609,11 @@ describe("tool.apply_patch memory-path-guard", () => {
     })
   })
 
-  test("checkpoint-writer cannot patch under .mimocode", async () => {
+  test("checkpoint-writer cannot patch under .spadakcode", async () => {
     await using fixture = await tmpdir({ git: true })
     const { ctx: base } = makeCtx()
     const ctx = { ...base, agent: "checkpoint-writer" }
-    const target = path.join(fixture.path, ".mimocode", "skills", "unsafe", "SKILL.md")
+    const target = path.join(fixture.path, ".spadakcode", "skills", "unsafe", "SKILL.md")
 
     await Instance.provide({
       directory: fixture.path,

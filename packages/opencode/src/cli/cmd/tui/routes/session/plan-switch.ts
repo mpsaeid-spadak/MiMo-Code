@@ -1,4 +1,4 @@
-import type { ToolPart } from "@mimo-ai/sdk/v2"
+import type { ToolPart } from "@spadak/sdk/v2"
 
 export function planSwitchTarget(part: Pick<ToolPart, "tool" | "state">): "build" | undefined {
   if (part.state.status !== "completed") return undefined

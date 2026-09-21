@@ -1,6 +1,6 @@
-# Contributing to MiMoCode
+# Contributing to SpadakCode
 
-MiMoCode's codebase moves quickly. Outside contributions are welcome, especially focused improvements to the terminal experience and developer compatibility.
+SpadakCode's codebase moves quickly. Outside contributions are welcome, especially focused improvements to the terminal experience and developer compatibility.
 
 ## What we accept
 
@@ -30,9 +30,9 @@ Small bug fixes and documentation corrections can go directly to a pull request.
 
 Good places to start:
 
-- [`bug`](https://github.com/XiaomiMiMo/MiMo-Code/issues?q=is%3Aissue+state%3Aopen+label%3Abug)
-- [`help wanted`](https://github.com/XiaomiMiMo/MiMo-Code/issues?q=is%3Aissue+state%3Aopen+label%3A%22help+wanted%22)
-- [`good first issue`](https://github.com/XiaomiMiMo/MiMo-Code/issues?q=is%3Aissue+state%3Aopen+label%3A%22good+first+issue%22)
+- [`bug`](https://github.com/spadak/Spadak-Code/issues?q=is%3Aissue+state%3Aopen+label%3Abug)
+- [`help wanted`](https://github.com/spadak/Spadak-Code/issues?q=is%3Aissue+state%3Aopen+label%3A%22help+wanted%22)
+- [`good first issue`](https://github.com/spadak/Spadak-Code/issues?q=is%3Aissue+state%3Aopen+label%3A%22good+first+issue%22)
 
 Want to work on an existing issue? Leave a comment first so we can tell you if it is already being worked on.
 
@@ -60,7 +60,7 @@ Development is focused on the terminal UI. The web, desktop, and console surface
 
 - `packages/opencode` — core logic, server, and CLI (the directory name is historical)
 - `packages/opencode/src/cli/cmd/tui/` — the TUI, written in SolidJS with [opentui](https://github.com/sst/opentui)
-- `packages/plugin` — source for `@mimo-ai/plugin`
+- `packages/plugin` — source for `/plugin`
 - `packages/sdk/js` — the generated JavaScript SDK
 
 ### Running against another directory
@@ -72,7 +72,7 @@ bun dev <directory>
 bun dev .            # run against this repo itself
 ```
 
-`bun dev` is the local equivalent of the shipped `mimo` command and takes the same arguments:
+`bun dev` is the local equivalent of the shipped `spadak` command and takes the same arguments:
 
 ```bash
 bun dev --help
@@ -84,7 +84,7 @@ bun dev serve --port 8080 # pin the port (the default, 0, takes a free one)
 
 ```bash
 bun run build:local
-./packages/opencode/dist/mimocode-<platform>/bin/mimo
+./packages/opencode/dist/spadakcode-<platform>/bin/spadak
 ```
 
 Replace `<platform>` with your platform, e.g. `darwin-arm64` or `linux-x64`.
@@ -110,12 +110,12 @@ Please follow the [style guide](./AGENTS.md#style-guide).
 
 ### Setting up a debugger
 
-Bun debugging is rough around the edges. The most reliable approach is to run MiMoCode manually with `bun run --inspect=<url> dev ...` and attach your debugger to that URL. Other methods can map breakpoints incorrectly, at least in VSCode.
+Bun debugging is rough around the edges. The most reliable approach is to run SpadakCode manually with `bun run --inspect=<url> dev ...` and attach your debugger to that URL. Other methods can map breakpoints incorrectly, at least in VSCode.
 
 Tips:
 
 - Debug the server and the TUI separately:
-  - Server: `bun run --inspect=ws://localhost:6499/ --cwd packages/opencode ./src/index.ts serve --port 4096`, then attach the TUI with `mimo attach http://localhost:4096`
+  - Server: `bun run --inspect=ws://localhost:6499/ --cwd packages/opencode ./src/index.ts serve --port 4096`, then attach the TUI with `spadak attach http://localhost:4096`
   - TUI: `bun run --inspect=ws://localhost:6499/ --cwd packages/opencode --conditions=browser ./src/index.ts`
 - `--inspect-wait` / `--inspect-brk` may suit your workflow better than `--inspect`.
 - Instead of repeating the flag, `export BUN_OPTIONS=--inspect=ws://localhost:6499/`.

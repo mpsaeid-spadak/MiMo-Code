@@ -43,7 +43,7 @@ export const SkillSearchTool = Tool.define(
             }
           }
           const loaded =
-            results[0].score >= Flag.MIMOCODE_SKILL_SEARCH_AUTO_LOAD_THRESHOLD
+            results[0].score >= Flag.SPADAKCODE_SKILL_SEARCH_AUTO_LOAD_THRESHOLD
               ? available.find((item) => item.name === results[0].skill_id)
               : undefined
           const payload = {

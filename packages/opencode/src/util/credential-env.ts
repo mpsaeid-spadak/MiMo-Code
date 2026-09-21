@@ -1,18 +1,18 @@
 /**
  * Env vars that carry the user's credentials in cleartext.
  *
- * `MIMOCODE_AUTH_CONTENT` is the whole `auth.json` (model provider keys, OAuth refresh tokens);
- * `MIMOCODE_CONFIG_CONTENT` can embed MCP `environment` values and request `headers`.
+ * `SPADAKCODE_AUTH_CONTENT` is the whole `auth.json` (model provider keys, OAuth refresh tokens);
+ * `SPADAKCODE_CONFIG_CONTENT` can embed MCP `environment` values and request `headers`.
  *
  * Neither may reach a child process the engine spawns. The bash tool and the shell part run
  * agent-authored commands, local MCP servers are third-party binaries, and both run as the user —
- * so plain inheritance means `echo $MIMOCODE_AUTH_CONTENT` exfiltrates the provider key.
+ * so plain inheritance means `echo $SPADAKCODE_AUTH_CONTENT` exfiltrates the provider key.
  *
  * Scrub the *inherited* environment only, so a caller that puts credentials in an explicit `env` is
  * still honored — `control-plane/workspace.ts` builds its own env that way. The TUI worker keeps a
  * full copy (via `sanitizedProcessEnv`) because it is itself an engine process.
  */
-const CREDENTIAL_ENV = new Set(["MIMOCODE_AUTH_CONTENT", "MIMOCODE_CONFIG_CONTENT"])
+const CREDENTIAL_ENV = new Set(["SPADAKCODE_AUTH_CONTENT", "SPADAKCODE_CONFIG_CONTENT"])
 
 /**
  * Copy of `env` with the credential vars removed.

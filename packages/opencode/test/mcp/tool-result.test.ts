@@ -8,16 +8,16 @@ function parseResult(result: CallToolResult) {
 }
 
 describe("MCP tool result normalization", () => {
-  // Flag.MIMOCODE_MAX_ATTACHMENT_SIZE, lowered so the oversized fixture stays small.
+  // Flag.SPADAKCODE_MAX_ATTACHMENT_SIZE, lowered so the oversized fixture stays small.
   const LIMIT = 4096
   const CEILING = 32 * 1024
   beforeAll(() => {
-    process.env["MIMOCODE_MAX_ATTACHMENT_SIZE"] = String(LIMIT)
-    process.env["MIMOCODE_MAX_ATTACHMENT_SOURCE_SIZE"] = String(CEILING)
+    process.env["SPADAKCODE_MAX_ATTACHMENT_SIZE"] = String(LIMIT)
+    process.env["SPADAKCODE_MAX_ATTACHMENT_SOURCE_SIZE"] = String(CEILING)
   })
   afterAll(() => {
-    delete process.env["MIMOCODE_MAX_ATTACHMENT_SIZE"]
-    delete process.env["MIMOCODE_MAX_ATTACHMENT_SOURCE_SIZE"]
+    delete process.env["SPADAKCODE_MAX_ATTACHMENT_SIZE"]
+    delete process.env["SPADAKCODE_MAX_ATTACHMENT_SOURCE_SIZE"]
   })
 
   test("preserves standard fields and classifies tool execution errors", () => {

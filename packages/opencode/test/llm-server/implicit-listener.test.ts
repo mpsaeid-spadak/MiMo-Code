@@ -59,16 +59,16 @@ describe("before a password is generated", () => {
 describe("after a password is generated", () => {
   test("it does not claim the operator supplied one, and generating twice keeps the first", () => {
     generateServerPassword()
-    const first = Flag.MIMOCODE_SERVER_PASSWORD
+    const first = Flag.SPADAKCODE_SERVER_PASSWORD
     expect(first).toBeTruthy()
     // The distinction the containment rule keys on: we secured this, the user did not
     // ask for a reachable server.
-    expect(Flag.MIMOCODE_SERVER_PASSWORD_SUPPLIED).toBe(false)
+    expect(Flag.SPADAKCODE_SERVER_PASSWORD_SUPPLIED).toBe(false)
 
     generateServerPassword()
     // A second listener in the same process must not invalidate the credential the
     // first one is already authenticating against.
-    expect(Flag.MIMOCODE_SERVER_PASSWORD).toBe(first)
+    expect(Flag.SPADAKCODE_SERVER_PASSWORD).toBe(first)
   })
 
   test("an instance route now demands basic auth", async () => {
@@ -81,9 +81,9 @@ describe("after a password is generated", () => {
 
   test("and reopens for a caller holding that password", async () => {
     await using tmp = await tmpdir({ git: true })
-    const username = Flag.MIMOCODE_SERVER_USERNAME ?? "mimocode"
+    const username = Flag.SPADAKCODE_SERVER_USERNAME ?? "spadakcode"
     const response = await get(`/config?directory=${encodeURIComponent(tmp.path)}`, {
-      authorization: `Basic ${btoa(`${username}:${Flag.MIMOCODE_SERVER_PASSWORD}`)}`,
+      authorization: `Basic ${btoa(`${username}:${Flag.SPADAKCODE_SERVER_PASSWORD}`)}`,
     })
     // The TUI's own worker transport builds exactly this header from the same Flag, which
     // is why the generated value has to live there rather than inside the server module.

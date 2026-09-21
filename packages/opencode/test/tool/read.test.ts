@@ -4,7 +4,7 @@ import { Cause, Effect, Exit, Layer } from "effect"
 import path from "path"
 import { Agent } from "../../src/agent/agent"
 import * as CrossSpawnSpawner from "../../src/effect/cross-spawn-spawner"
-import { AppFileSystem } from "@mimo-ai/shared/filesystem"
+import { AppFileSystem } from "@spadak/shared/filesystem"
 import { LSP } from "../../src/lsp"
 import { Permission } from "../../src/permission"
 import { Instance } from "../../src/project/instance"
@@ -795,18 +795,18 @@ describe("tool.read attachment size limit", () => {
   // The size comes from stat, before any bytes are read. An oversized image is
   // then read and recompressed; a PDF or an undecodable image is refused, so
   // the base64 that would have bloated the session DB never exists.
-  // The limits come from Flag.MIMOCODE_MAX_ATTACHMENT_SIZE and
-  // Flag.MIMOCODE_MAX_ATTACHMENT_SOURCE_SIZE, lowered here so the fixtures
+  // The limits come from Flag.SPADAKCODE_MAX_ATTACHMENT_SIZE and
+  // Flag.SPADAKCODE_MAX_ATTACHMENT_SOURCE_SIZE, lowered here so the fixtures
   // stay small.
   const LIMIT = 4096
   const CEILING = 32 * 1024
   beforeAll(() => {
-    process.env["MIMOCODE_MAX_ATTACHMENT_SIZE"] = String(LIMIT)
-    process.env["MIMOCODE_MAX_ATTACHMENT_SOURCE_SIZE"] = String(CEILING)
+    process.env["SPADAKCODE_MAX_ATTACHMENT_SIZE"] = String(LIMIT)
+    process.env["SPADAKCODE_MAX_ATTACHMENT_SOURCE_SIZE"] = String(CEILING)
   })
   afterAll(() => {
-    delete process.env["MIMOCODE_MAX_ATTACHMENT_SIZE"]
-    delete process.env["MIMOCODE_MAX_ATTACHMENT_SOURCE_SIZE"]
+    delete process.env["SPADAKCODE_MAX_ATTACHMENT_SIZE"]
+    delete process.env["SPADAKCODE_MAX_ATTACHMENT_SOURCE_SIZE"]
   })
   it.live("recompresses an oversized image under the limit instead of refusing it", () =>
     Effect.gen(function* () {
@@ -861,7 +861,7 @@ describe("tool.read attachment size limit", () => {
     Effect.gen(function* () {
       const dir = yield* tmpdirScoped()
       // Audio is bounded by the provider's encoded-size cap (fitsMediaBase64),
-      // not Flag.MIMOCODE_MAX_ATTACHMENT_SIZE, so a file over LIMIT is still read.
+      // not Flag.SPADAKCODE_MAX_ATTACHMENT_SIZE, so a file over LIMIT is still read.
       const bytes = Buffer.concat([
         Buffer.from("RIFF"),
         Buffer.from([0x24, 0x00, 0x00, 0x00]),

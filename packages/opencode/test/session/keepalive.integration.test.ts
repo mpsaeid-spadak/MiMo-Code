@@ -29,9 +29,9 @@ import { testEffect } from "../lib/effect"
 // actually wires the scheduler. We save the original value once and restore
 // after the file finishes (each `beforeEach` re-forces ON so per-test env
 // fiddling doesn't leak).
-const originalCronFlag = Flag.MIMOCODE_EXPERIMENTAL_CRON
+const originalCronFlag = Flag.SPADAKCODE_EXPERIMENTAL_CRON
 afterEach(async () => {
-  ;(Flag as { MIMOCODE_EXPERIMENTAL_CRON: boolean }).MIMOCODE_EXPERIMENTAL_CRON = originalCronFlag
+  ;(Flag as { SPADAKCODE_EXPERIMENTAL_CRON: boolean }).SPADAKCODE_EXPERIMENTAL_CRON = originalCronFlag
   await Instance.disposeAll()
 })
 
@@ -103,10 +103,10 @@ const it = testEffect(env)
 beforeEach(() => {
   clearAllLoopStates()
   removeSessionCronTasks(getSessionCronTasks().map((t) => t.id))
-  delete process.env.MIMOCODE_DISABLE_CRON
-  delete process.env.MIMOCODE_LOOP_KEEPALIVE_BUDGET
-  delete process.env.MIMOCODE_LOOP_KEEPALIVE_DELAY_S
-  ;(Flag as { MIMOCODE_EXPERIMENTAL_CRON: boolean }).MIMOCODE_EXPERIMENTAL_CRON = true
+  delete process.env.SPADAKCODE_DISABLE_CRON
+  delete process.env.SPADAKCODE_LOOP_KEEPALIVE_BUDGET
+  delete process.env.SPADAKCODE_LOOP_KEEPALIVE_DELAY_S
+  ;(Flag as { SPADAKCODE_EXPERIMENTAL_CRON: boolean }).SPADAKCODE_EXPERIMENTAL_CRON = true
 })
 
 const sid = SessionID.make("ses_keepalive_test")
@@ -236,7 +236,7 @@ describe("cron-bridge keepalive sweep", () => {
 
   it.live("budget=0 ends loop immediately on first turn without a re-arm", () =>
     Effect.gen(function* () {
-      process.env.MIMOCODE_LOOP_KEEPALIVE_BUDGET = "0"
+      process.env.SPADAKCODE_LOOP_KEEPALIVE_BUDGET = "0"
       yield* withMountedBridge(({ bridge, scheduler }) =>
         Effect.gen(function* () {
           yield* scheduler.armLoop({ prompt: "zero", delay_seconds: 600, reason_length: 0 })

@@ -487,7 +487,7 @@ export interface Interface {
 
   /**
    * Await all in-flight writers across sessions up to `timeoutMs`. Used by
-   * the CLI shutdown path so headless `mimo run` invocations don't exit
+   * the CLI shutdown path so headless `spadak run` invocations don't exit
    * while a forked checkpoint writer is still waiting on its LLM round-trip.
    * Returns the count of writers that completed vs. still pending when the
    * timeout fired.
@@ -640,7 +640,7 @@ export const layer: Layer.Layer<
     ) => Effect.Effect<TryStartCheckpointWriterResult> = Effect.fn("SessionCheckpoint.tryStartCheckpointWriter")(function* (
       input: TryStartCheckpointWriterInput,
     ) {
-      if (Flag.MIMOCODE_DISABLE_CHECKPOINT) {
+      if (Flag.SPADAKCODE_DISABLE_CHECKPOINT) {
         log.info("checkpointing disabled, skipping checkpoint", { sessionID: input.sessionID })
         return "skipped" as const
       }

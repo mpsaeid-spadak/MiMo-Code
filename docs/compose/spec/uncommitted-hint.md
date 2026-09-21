@@ -26,7 +26,7 @@ Round 6 **CR-PASS** on snapshots engine `ff7dbd8d2f` / desktop pin
 `ff7dbd8d2f` (`fa55d9e32`). Ledger UH-D01–D03 and UH-C01–C08 all closed
 (`VERIFIED_FIXED`); no open findings. Engine typecheck PASS;
 `test/session/uncommitted-hint.test.ts` **34 pass / 0 fail**. Desktop unit
-uncommitted-hint (8) + host e2e receipt `/tmp/mimo-uh-e2e.log` **3 passed**
+uncommitted-hint (8) + host e2e receipt `/tmp/spadak-uh-e2e.log` **3 passed**
 (engine `bc789a4bfb`); later C03 test-only + C08 in-memory dispose-guard
 increments do not change host UI/IPC/product semantics and were verified by
 focused unit/typecheck (not claimed as a fresh e2e re-run on this pin). Do
@@ -51,7 +51,7 @@ identity, or anti-loop rules — those belong in the engine.
    `experimental.uncommitted_hint.enabled`  
    - Effective on only when `enabled === true`.  
    - Missing key / non-true / **malformed live JSON** → off (no git probe required; malformed live must not revive cached on).  
-   - Live `MIMOCODE_CONFIG_CONTENT` with an explicit key (including `false`) wins for `enabled`.  
+   - Live `SPADAKCODE_CONFIG_CONTENT` with an explicit key (including `false`) wins for `enabled`.  
    - Live env present, JSON valid, key absent → cached/file config still applies.  
    - Hosts (Desktop Lab) always write explicit `true`/`false`, never delete the key.  
    - **No** `max_consecutive`. **No** session-once hard cap.
@@ -110,7 +110,7 @@ identity, or anti-loop rules — those belong in the engine.
    Synthetic parts do not enter host chat bubbles (host-side parse concern).
    **Internal automation** calling `prompt()` must pass explicit `source:"hook"`
    or `"spawn"` **and**, when parts include non-text (attachments), machine
-   `provenance` (e.g. `{ machine: "mimocode-github" }`) so the entry gate allows
+   `provenance` (e.g. `{ machine: "spadakcode-github" }`) so the entry gate allows
    the request. Hosts omitting source are trusted as user-facing.
 
 ### Module boundary

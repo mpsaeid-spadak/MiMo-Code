@@ -1,4 +1,4 @@
-import type { Hooks, PluginInput } from "@mimo-ai/plugin"
+import type { Hooks, PluginInput } from "@spadak/plugin"
 import { OAUTH_DUMMY_KEY } from "../auth"
 import { createServer } from "http"
 import { InstallationVersion } from "../installation/version"
@@ -90,7 +90,7 @@ function authHeaders() {
   return {
     "Content-Type": "application/x-www-form-urlencoded",
     Accept: "application/json",
-    "User-Agent": `mimocode/${InstallationVersion}`,
+    "User-Agent": `spadakcode/${InstallationVersion}`,
   }
 }
 
@@ -310,7 +310,7 @@ function escapeHtml(s: string): string {
 const HTML_SUCCESS = `<!doctype html>
 <html>
   <head>
-    <title>MiMoCode - xAI Authorization Successful</title>
+    <title>SpadakCode - xAI Authorization Successful</title>
     <style>
       body { font-family: system-ui, -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #131010; color: #f1ecec; }
       .container { text-align: center; padding: 2rem; }
@@ -321,7 +321,7 @@ const HTML_SUCCESS = `<!doctype html>
   <body>
     <div class="container">
       <h1>Authorization Successful</h1>
-      <p>You can close this window and return to MiMoCode.</p>
+      <p>You can close this window and return to SpadakCode.</p>
     </div>
     <script>setTimeout(() => window.close(), 2000)</script>
   </body>
@@ -330,7 +330,7 @@ const HTML_SUCCESS = `<!doctype html>
 const HTML_ERROR = (error: string) => `<!doctype html>
 <html>
   <head>
-    <title>MiMoCode - xAI Authorization Failed</title>
+    <title>SpadakCode - xAI Authorization Failed</title>
     <style>
       body { font-family: system-ui, -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #131010; color: #f1ecec; }
       .container { text-align: center; padding: 2rem; }
@@ -585,7 +585,7 @@ export async function XaiAuthPlugin(input: PluginInput, options: XaiAuthPluginOp
               }
             }
             headers.set("authorization", `Bearer ${currentAuth.access}`)
-            headers.set("User-Agent", `mimocode/${InstallationVersion}`)
+            headers.set("User-Agent", `spadakcode/${InstallationVersion}`)
 
             return fetch(requestInput, { ...init, headers })
           },

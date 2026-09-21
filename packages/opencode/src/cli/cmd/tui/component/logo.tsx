@@ -930,8 +930,8 @@ export function Logo(props: { shape?: LogoShape; ink?: RGBA; animated?: boolean;
     }
   }
 
-  const MIMO_ORANGE = RGBA.fromInts(251, 129, 71)
-  const MIMO_GRAY = RGBA.fromInts(160, 160, 160)
+  const SPADAK_ORANGE = RGBA.fromInts(251, 129, 71)
+  const SPADAK_GRAY = RGBA.fromInts(160, 160, 160)
 
   return (
     <box ref={(item: BoxRenderable) => (box = item)}>
@@ -950,21 +950,21 @@ export function Logo(props: { shape?: LogoShape; ink?: RGBA; animated?: boolean;
           if (labelRow) {
             return (
               <box flexDirection="row" gap={1}>
-                <text fg={MIMO_GRAY} selectable={false}>{line}</text>
-                <text fg={MIMO_GRAY} selectable={false}>{ctx.shape.right[index()]}</text>
+                <text fg={SPADAK_GRAY} selectable={false}>{line}</text>
+                <text fg={SPADAK_GRAY} selectable={false}>{ctx.shape.right[index()]}</text>
               </box>
             )
           }
           return (
             <box flexDirection="row" gap={1}>
               <box flexDirection="row">
-                {renderLine(line, index(), props.ink ?? MIMO_ORANGE, true, 0, frame(), dusk(), idleState())}
+                {renderLine(line, index(), props.ink ?? SPADAK_ORANGE, true, 0, frame(), dusk(), idleState())}
               </box>
               <box flexDirection="row">
                 {renderLine(
                   ctx.shape.right[index()],
                   index(),
-                  props.ink ?? MIMO_GRAY,
+                  props.ink ?? SPADAK_GRAY,
                   true,
                   ctx.LEFT + GAP,
                   frame(),

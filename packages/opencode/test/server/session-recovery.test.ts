@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, test } from "bun:test"
 import { Effect, Fiber } from "effect"
-import { createOpencodeClient } from "@mimo-ai/sdk/v2"
+import { createOpencodeClient } from "@spadak/sdk/v2"
 import { AppRuntime } from "../../src/effect/app-runtime"
 import { Instance } from "../../src/project/instance"
 import { Server } from "../../src/server/server"

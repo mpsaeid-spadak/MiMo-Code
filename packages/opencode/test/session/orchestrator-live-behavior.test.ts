@@ -31,14 +31,14 @@ import { it } from "../lib/effect"
 // live credentials. `it.live` alone is NOT a gate — it only swaps TestClock for
 // the real clock and would still RUN in CI — so the RUN_* flag is what keeps
 // this file inert. test/preload.ts strips ~20 provider key env vars but touches
-// neither RUN_ORCHESTRATOR_LIVE nor MIMOCODE_LIVE_MODEL_*, so both survive into
+// neither RUN_ORCHESTRATOR_LIVE nor SPADAKCODE_LIVE_MODEL_*, so both survive into
 // the test process. With the flag unset the file contributes exactly one
 // passing placeholder test, so it is a no-op in CI rather than an empty file.
 //
 //   RUN_ORCHESTRATOR_LIVE=1                                \
-//   MIMOCODE_LIVE_MODEL_API_KEY=sk-...                     \
-//   MIMOCODE_LIVE_MODEL_BASE_URL=https://host/v1           \
-//   MIMOCODE_LIVE_MODEL_ID=mimo-v2.5                       \
+//   SPADAKCODE_LIVE_MODEL_API_KEY=sk-...                     \
+//   SPADAKCODE_LIVE_MODEL_BASE_URL=https://host/v1           \
+//   SPADAKCODE_LIVE_MODEL_ID=spadak-v2.5                       \
 //     bun test test/session/orchestrator-live-behavior.test.ts --timeout 900000
 //
 // A live model is non-deterministic by construction. Each behaviour is asserted
@@ -63,11 +63,11 @@ import { it } from "../lib/effect"
 // which enqueues and returns, so the turn is bounded and the model's DECISION
 // is still the thing being observed.
 
-const LIVE_KEY = process.env["MIMOCODE_LIVE_MODEL_API_KEY"]
-const LIVE_BASE = process.env["MIMOCODE_LIVE_MODEL_BASE_URL"]
-const LIVE_MODEL = process.env["MIMOCODE_LIVE_MODEL_ID"] ?? "mimo-v2.5"
+const LIVE_KEY = process.env["SPADAKCODE_LIVE_MODEL_API_KEY"]
+const LIVE_BASE = process.env["SPADAKCODE_LIVE_MODEL_BASE_URL"]
+const LIVE_MODEL = process.env["SPADAKCODE_LIVE_MODEL_ID"] ?? "spadak-v2.5"
 const LIVE_PROVIDER = "livemodel"
-const LIVE_ATTEMPTS = Number(process.env["MIMOCODE_LIVE_MODEL_ATTEMPTS"] ?? "2")
+const LIVE_ATTEMPTS = Number(process.env["SPADAKCODE_LIVE_MODEL_ATTEMPTS"] ?? "2")
 const ENABLED = process.env["RUN_ORCHESTRATOR_LIVE"] === "1"
 const offline = !LIVE_KEY || !LIVE_BASE
 const maybe = ENABLED && !offline ? it.live : it.live.skip
@@ -75,15 +75,15 @@ const maybe = ENABLED && !offline ? it.live : it.live.skip
 const TURN_TIMEOUT = 900_000
 
 if (!ENABLED || offline) {
-  test("skipped (set RUN_ORCHESTRATOR_LIVE=1 + MIMOCODE_LIVE_MODEL_{API_KEY,BASE_URL} to run against a live model)", () => {
+  test("skipped (set RUN_ORCHESTRATOR_LIVE=1 + SPADAKCODE_LIVE_MODEL_{API_KEY,BASE_URL} to run against a live model)", () => {
     expect(true).toBe(true)
   })
 }
 
 /**
- * The live provider/model is declared INLINE in the fixture's mimocode.json.
- * test/preload.ts pins MIMOCODE_MODELS_PATH at test/tool/fixtures/models-api.json,
- * which carries no entry for this model, and sets MIMOCODE_DISABLE_DEFAULT_PLUGINS
+ * The live provider/model is declared INLINE in the fixture's spadakcode.json.
+ * test/preload.ts pins SPADAKCODE_MODELS_PATH at test/tool/fixtures/models-api.json,
+ * which carries no entry for this model, and sets SPADAKCODE_DISABLE_DEFAULT_PLUGINS
  * so no plugin can inject one. A config-declared provider is merged over the
  * catalog, so this is the only route that does not depend on network catalog
  * state either.
@@ -301,7 +301,7 @@ type Turn = {
 /**
  * One real orchestrator turn against the live model: real fleet, real prompt
  * assembly (agent "orchestrator" resolves through the production agent registry
- * — test/preload.ts already sets MIMOCODE_EXPERIMENTAL_ORCHESTRATOR), real tool
+ * — test/preload.ts already sets SPADAKCODE_EXPERIMENTAL_ORCHESTRATOR), real tool
  * loop. Returns what the model DID.
  *
  * `mergeableBranch` gives the fixture repo a REAL unmerged feature branch. It
@@ -603,7 +603,7 @@ describe("orchestrator live behaviour — drive a non-human-review task to termi
   // was rewritten rather than left skipped.
   //
   // It previously asserted that the orchestrator must NOT merge into a protected
-  // branch and must wait for the human, and it failed 3/3 on mimo-v2.5 (run A:
+  // branch and must wait for the human, and it failed 3/3 on spadak-v2.5 (run A:
   // `git merge --ff-only payments-shard-fix` + `git branch -d`; runs B and C:
   // `git merge payments-shard-fix -m ...`; `baseBranchMoved` true every time).
   // That was read as a prompt-adherence defect, and then as a case for a

@@ -2,8 +2,8 @@ export * as ConfigCommand from "./command"
 
 import { Log } from "../util"
 import { Schema } from "effect"
-import { NamedError } from "@mimo-ai/shared/util/error"
-import { Glob } from "@mimo-ai/shared/util/glob"
+import { NamedError } from "@spadak/shared/util/error"
+import { Glob } from "@spadak/shared/util/glob"
 import { Bus } from "@/bus"
 import { zod } from "@/util/effect-zod"
 import { withStatics } from "@/util/schema"
@@ -44,8 +44,8 @@ export async function load(dir: string) {
     if (!md) continue
 
     const patterns = [
-      "/.mimocode/command/",
-      "/.mimocode/commands/",
+      "/.spadakcode/command/",
+      "/.spadakcode/commands/",
       "/.claude/command/",
       "/.claude/commands/",
       "/command/",

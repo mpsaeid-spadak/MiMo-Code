@@ -1,6 +1,6 @@
 import { indexImportedParts } from "../../history/import"
 import type { Argv } from "yargs"
-import type { Session as SDKSession, Message, Part } from "@mimo-ai/sdk/v2"
+import type { Session as SDKSession, Message, Part } from "@spadak/sdk/v2"
 import { Session } from "../../session"
 import { MessageV2 } from "../../session/message-v2"
 import { cmd } from "./cmd"

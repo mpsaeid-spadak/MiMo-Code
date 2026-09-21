@@ -14,24 +14,24 @@ function load<A>(dir: string, fn: (svc: Agent.Interface) => Effect.Effect<A>) {
   return Effect.runPromise(provideInstance(dir)(Agent.Service.use(fn)).pipe(Effect.provide(Agent.defaultLayer)))
 }
 
-const dynamicSystemPrompt = process.env.MIMOCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT
-const codexMode = process.env.MIMOCODE_CODEX_MODE
+const dynamicSystemPrompt = process.env.SPADAKCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT
+const codexMode = process.env.SPADAKCODE_CODEX_MODE
 
 beforeEach(() => {
-  process.env.MIMOCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT = "true"
-  delete process.env.MIMOCODE_CODEX_MODE
+  process.env.SPADAKCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT = "true"
+  delete process.env.SPADAKCODE_CODEX_MODE
 })
 
 afterEach(() => {
-  if (dynamicSystemPrompt === undefined) delete process.env.MIMOCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT
-  else process.env.MIMOCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT = dynamicSystemPrompt
-  if (codexMode === undefined) delete process.env.MIMOCODE_CODEX_MODE
-  else process.env.MIMOCODE_CODEX_MODE = codexMode
+  if (dynamicSystemPrompt === undefined) delete process.env.SPADAKCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT
+  else process.env.SPADAKCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT = dynamicSystemPrompt
+  if (codexMode === undefined) delete process.env.SPADAKCODE_CODEX_MODE
+  else process.env.SPADAKCODE_CODEX_MODE = codexMode
 })
 
 describe("session.system", () => {
   test("does not render dynamic environment information by default", async () => {
-    delete process.env.MIMOCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT
+    delete process.env.SPADAKCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT
     await using tmp = await tmpdir({ git: true })
 
     await Instance.provide({
@@ -65,20 +65,20 @@ describe("session.system", () => {
     expect(prompt).not.toMatch(/\/Users\/[^/\s]+\//)
   })
 
-  test("the explicit harness selects the prompt for MiMo regardless of API transport", () => {
+  test("the explicit harness selects the prompt for Spadak regardless of API transport", () => {
     const gpt = ProviderTest.model({ id: ModelID.make("gpt-5.2"), api: { id: "gpt-5.2" } as never })
     expect(SystemPrompt.provider(gpt, "default")[0]).toContain("You are Codex")
     expect(SystemPrompt.provider(gpt, "default")[0]).toContain("tools.apply_patch")
 
-    const mimo = ProviderTest.model({ id: ModelID.make("mimo-v2.6"), api: { id: "mimo-v2.6" } as never })
-    expect(SystemPrompt.provider(mimo, "codex")[0]).toContain("You are Codex")
-    expect(SystemPrompt.provider(mimo, "codex")[0]).toContain("tools.apply_patch")
-    expect(SystemPrompt.provider(mimo, "default")[0]).not.toContain("You are Codex")
-    expect(SystemPrompt.provider(mimo, "default")[0]).not.toContain("tools.apply_patch")
+    const spadak = ProviderTest.model({ id: ModelID.make("spadak-v2.6"), api: { id: "spadak-v2.6" } as never })
+    expect(SystemPrompt.provider(spadak, "codex")[0]).toContain("You are Codex")
+    expect(SystemPrompt.provider(spadak, "codex")[0]).toContain("tools.apply_patch")
+    expect(SystemPrompt.provider(spadak, "default")[0]).not.toContain("You are Codex")
+    expect(SystemPrompt.provider(spadak, "default")[0]).not.toContain("tools.apply_patch")
 
     const responses = ProviderTest.model({
-      id: ModelID.make("mimo-v2.6-ptc"),
-      api: { id: "mimo-v2.6-ptc" } as never,
+      id: ModelID.make("spadak-v2.6-ptc"),
+      api: { id: "spadak-v2.6-ptc" } as never,
     })
     expect(SystemPrompt.provider(responses, "codex")[0]).toContain("You are Codex")
     expect(SystemPrompt.provider(responses, "default")[0]).not.toContain("You are Codex")
@@ -216,10 +216,10 @@ describe("session.system", () => {
     expect(prompt).not.toContain("When possible, prefer parallelization over sequential tool calls")
   })
 
-  test("uses the GPT prompt for GPT models and the normal prompt for MiMo models", () => {
+  test("uses the GPT prompt for GPT models and the normal prompt for Spadak models", () => {
     const gpt = SystemPrompt.provider(ProviderTest.model({ id: ModelID.make("gpt-5.4") }))[0]
     const normal = SystemPrompt.provider(ProviderTest.model({ id: ModelID.make("model-default") }))[0]
-    const prompts = ["mimo-v2.5", "mimo-v2.5-pro", "mimo-v2.5-pro-ultraspeed", "mimo-v2-pro", "mimo-v2.6"].map(
+    const prompts = ["spadak-v2.5", "spadak-v2.5-pro", "spadak-v2.5-pro-ultraspeed", "spadak-v2-pro", "spadak-v2.6"].map(
       (id) =>
         SystemPrompt.provider(
           ProviderTest.model({
@@ -230,12 +230,12 @@ describe("session.system", () => {
 
     expect(SystemPrompt.provider(ProviderTest.model({ id: ModelID.make("gpt-5.4-codex") }))[0]).toBe(gpt)
     expect(prompts).toEqual([normal, normal, normal, normal, normal])
-    expect(SystemPrompt.provider(ProviderTest.model({ id: ModelID.make("mimo-v2.6-ptc") }))[0]).toBe(normal)
+    expect(SystemPrompt.provider(ProviderTest.model({ id: ModelID.make("spadak-v2.6-ptc") }))[0]).toBe(normal)
   })
 
   test("Codex mode forces the GPT prompt for every model", () => {
     const gpt = SystemPrompt.provider(ProviderTest.model({ id: ModelID.make("gpt-5.4") }))[0]
-    process.env.MIMOCODE_CODEX_MODE = "true"
+    process.env.SPADAKCODE_CODEX_MODE = "true"
     const prompt = SystemPrompt.provider(
       ProviderTest.model({
         id: ModelID.make("claude-sonnet-4-6"),
@@ -244,13 +244,13 @@ describe("session.system", () => {
     )[0]
 
     expect(prompt).toBe(gpt)
-    expect(SystemPrompt.provider(ProviderTest.model({ id: ModelID.make("mimo-v2.6") }))[0]).toBe(gpt)
-    expect(SystemPrompt.provider(ProviderTest.model({ id: ModelID.make("mimo-v2.6-ptc") }))[0]).toBe(gpt)
+    expect(SystemPrompt.provider(ProviderTest.model({ id: ModelID.make("spadak-v2.6") }))[0]).toBe(gpt)
+    expect(SystemPrompt.provider(ProviderTest.model({ id: ModelID.make("spadak-v2.6-ptc") }))[0]).toBe(gpt)
   })
 
   test("disabled Codex mode forces the default prompt for GPT models", () => {
     const normal = SystemPrompt.provider(ProviderTest.model({ id: ModelID.make("model-default") }))[0]
-    process.env.MIMOCODE_CODEX_MODE = "false"
+    process.env.SPADAKCODE_CODEX_MODE = "false"
 
     expect(SystemPrompt.provider(ProviderTest.model({ id: ModelID.make("gpt-5.4") }))[0]).toBe(normal)
     expect(
@@ -268,7 +268,7 @@ describe("session.system", () => {
     const gpt = SystemPrompt.provider(ProviderTest.model({ id: ModelID.make("gpt-5.4") }))[0]
 
     expect(SystemPrompt.provider(model, "codex")[0]).toBe(gpt)
-    process.env.MIMOCODE_CODEX_MODE = "true"
+    process.env.SPADAKCODE_CODEX_MODE = "true"
     expect(SystemPrompt.provider(model, "default")[0]).not.toBe(gpt)
   })
 
@@ -384,7 +384,7 @@ describe("session.system", () => {
           ["alpha-skill", "Alpha skill."],
           ["middle-skill", "Middle skill."],
         ]) {
-          const skillDir = path.join(dir, ".mimocode", "skill", name)
+          const skillDir = path.join(dir, ".spadakcode", "skill", name)
           await Bun.write(
             path.join(skillDir, "SKILL.md"),
             `---

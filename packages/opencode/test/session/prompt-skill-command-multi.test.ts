@@ -13,7 +13,7 @@ import { testEffect } from "../lib/effect"
 import { withEnv } from "../lib/env"
 import { makeLayer, providerCfg, ref } from "../workflow/lib"
 
-withEnv({ MIMOCODE_DISABLE_BUILTIN_SKILLS: "true", MIMOCODE_DISABLE_COMPOSE_SKILLS: "true" })
+withEnv({ SPADAKCODE_DISABLE_BUILTIN_SKILLS: "true", SPADAKCODE_DISABLE_COMPOSE_SKILLS: "true" })
 
 void Log.init({ print: false })
 
@@ -26,7 +26,7 @@ const it = testEffect(makeLayer())
 function writeSkill(dir: string, name: string, marker: string, description?: string, extraFrontmatter?: string) {
   return Effect.promise(() =>
     Bun.write(
-      path.join(dir, ".mimocode", "skill", name, "SKILL.md"),
+      path.join(dir, ".spadakcode", "skill", name, "SKILL.md"),
       `---\nname: ${name}\ndescription: ${description ?? `${name} used by multi-skill injection tests.`}\n${extraFrontmatter ? `${extraFrontmatter}\n` : ""}---\n\n# ${name}\n\n${marker}\n`,
     ),
   )

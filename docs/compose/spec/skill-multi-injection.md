@@ -25,7 +25,7 @@ bodies plus the orchestration reminder; four or more mentions overflow to the
 Skill-tool hint as before.
 
 Test hygiene was fixed alongside: five skill-related test files were writing
-`MIMOCODE_DISABLE_*_SKILLS` at module scope, leaking into every file scheduled
+`SPADAKCODE_DISABLE_*_SKILLS` at module scope, leaking into every file scheduled
 later in the same `bun test` process. They now share a `withEnv` helper
 (`test/lib/env.ts`) that applies flags in `beforeAll` and restores them in
 `afterAll`.
@@ -54,7 +54,7 @@ document is committed separately, outside the reviewed range.
 **Journey log**
 
 1. The bug was reproduced live in the authoring session itself: a message of the
-   form `/compose-next … /mimocode-docs …` delivered only the first skill's body.
+   form `/compose-next … /spadakcode-docs …` delivered only the first skill's body.
    The agent's own context was the evidence.
 2. The first design considered turning `alreadyWrapped` into a per-name set so
    both injectors could coexist. Rejected: it keeps two injectors in sync by
@@ -78,9 +78,9 @@ When a user message begins with a skill slash-invocation and mentions a second
 skill later in the same message, only the first skill's body is injected. The
 second one survives as literal text and the model never sees its `SKILL.md`.
 
-Reproduction: send `/compose-next 分析一下 ... /mimocode-docs 例如 ...`. The
+Reproduction: send `/compose-next 分析一下 ... /spadakcode-docs 例如 ...`. The
 model receives one `<skill_content name="compose-next">` block, no
-`<skill_content name="mimocode-docs">` block, and no multi-skill orchestration
+`<skill_content name="spadakcode-docs">` block, and no multi-skill orchestration
 reminder.
 
 Root cause is two independent injection points:
@@ -90,7 +90,7 @@ Root cause is two independent injection points:
    first line as a command name. Skills are registered as commands
    (`packages/opencode/src/command/index.ts:264-276`, `source: "skill"`), so
    `/compose-next` matches and everything after it — including
-   `/mimocode-docs` — becomes `arguments`. Server-side,
+   `/spadakcode-docs` — becomes `arguments`. Server-side,
    `packages/opencode/src/session/prompt.ts:4259-4269` emits a visible text part
    plus one `<skill_content>` part for `input.command` only.
 
@@ -170,7 +170,7 @@ attachment resolution, and the visible text, but stops injecting the body.
 
 **Test isolation:** Bun runs every file of a `bun test` invocation in one
 process, so a module-level `process.env` write leaks into files scheduled later.
-Skill tests that force `MIMOCODE_DISABLE_*_SKILLS` must set the flag in
+Skill tests that force `SPADAKCODE_DISABLE_*_SKILLS` must set the flag in
 `beforeAll` and restore it in `afterAll` — the flags are lazy getters
 (`flag/flag.ts:279-287`), so scoping them this way works.
 
@@ -218,7 +218,7 @@ scan-resolvable.
       acceptance: the comment points at the `mentionRe` symbol rather than a
       line number, so it cannot rot again, and the existing regex tests still
       pass (covers: S2)
-- [x] T4: Scope the `MIMOCODE_DISABLE_*_SKILLS` env writes in the skill tests so
+- [x] T4: Scope the `SPADAKCODE_DISABLE_*_SKILLS` env writes in the skill tests so
       they no longer leak across files in a shared `bun test` process, via a
       single `withEnv` helper — acceptance: `test/skill/skill.test.ts`,
       `test/skill/loop.test.ts`, `test/skill/bundle-discovery.test.ts`,

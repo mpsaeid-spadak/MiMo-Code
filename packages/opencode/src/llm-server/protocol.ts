@@ -3,7 +3,7 @@ import type { FinishReason, LanguageModelUsage, ModelMessage } from "ai"
 
 /**
  * OpenAI Chat Completions wire protocol, and its translation to/from the AI SDK
- * shapes MiMoCode already speaks.
+ * shapes SpadakCode already speaks.
  *
  * Unknown fields are IGNORED rather than rejected. Real OpenAI client libraries
  * send `parallel_tool_calls`, `store`, `metadata`, and `service_tier`
@@ -38,7 +38,7 @@ function acceptableImageUrl(value: string) {
 const ContentPart = z.discriminatedUnion("type", [
   z.object({ type: z.literal("text"), text: z.string() }),
   z.object({
-    // OpenAI's audio-input part, which `gpt-4o-audio-preview`, MiMo, and Gemini all
+    // OpenAI's audio-input part, which `gpt-4o-audio-preview`, Spadak, and Gemini all
     // accept: audio a caller wants REASONED about ("what did they agree to?"), which
     // needs an instruction alongside it and returns an answer rather than the words.
     type: z.literal("input_audio"),

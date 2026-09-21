@@ -12,7 +12,7 @@ revisions:
 
 ## Problem Frame
 
-The MiMoCode Orchestrator (`src/agent/agent.ts:231`, gated by `MIMOCODE_EXPERIMENTAL_ORCHESTRATOR`) is an experimental persistent coordinator that delegates work to background child sessions via the `session` tool. Its current architecture suffers from a **create-first default** that causes session explosion.
+The SpadakCode Orchestrator (`src/agent/agent.ts:231`, gated by `SPADAKCODE_EXPERIMENTAL_ORCHESTRATOR`) is an experimental persistent coordinator that delegates work to background child sessions via the `session` tool. Its current architecture suffers from a **create-first default** that causes session explosion.
 
 ### Symptom: Session Explosion
 
@@ -598,7 +598,7 @@ if (input.agent.name === "orchestrator") {
 1. `--topic` 参数标记 deprecated, 保留向后兼容但不再推荐
 2. `topicOf` / `tagTitle` 辅助函数标记 deprecated
 3. orchestrator.txt 中移除旧的 topic-based reuse 指引
-4. 更新 harness 文档 (`docs/harness/MiMo Orchestrator Mode.md`)
+4. 更新 harness 文档 (`docs/harness/Spadak Orchestrator Mode.md`)
 
 ## Scope Boundaries
 
@@ -628,5 +628,5 @@ if (input.agent.name === "orchestrator") {
 - `packages/opencode/src/agent/agent.ts:231-251` — orchestrator agent 定义
 - `packages/opencode/src/agent/config.ts:7-46` — `decideAskRouting` 权限转发决策
 - `packages/opencode/src/permission/permission-forward-ref.ts` — 权限转发/授权 ref + 去重
-- `docs/harness/MiMo Orchestrator Mode.md` — orchestrator 模式文档
+- `docs/harness/Spadak Orchestrator Mode.md` — orchestrator 模式文档
 - PR #1727 — 去掉 topic 字符串匹配 (止血, 非本 redesign)

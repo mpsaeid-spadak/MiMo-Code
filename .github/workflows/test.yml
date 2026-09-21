@@ -31,8 +31,8 @@ jobs:
 
       - name: Configure git identity
         run: |
-          git config --global user.email "ci@mimo.ai"
-          git config --global user.name "mimo-ci"
+          git config --global user.email "ci@spadak.ai"
+          git config --global user.name "spadak-ci"
 
       # These MCP suites mock SDK modules process-wide. Run each in its own
       # process below so they neither replace real transports in integration tests

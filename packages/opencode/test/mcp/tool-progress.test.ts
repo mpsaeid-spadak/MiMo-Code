@@ -15,7 +15,7 @@ test("MCP progress retains presentation metadata before result and drains ordere
         params: {
           progressToken: request.params._meta!.progressToken!,
           progress: browserId === "iab" ? 1 : 2,
-          _meta: { "mimo/toolSurface": { kind: "browserUse", browserId } },
+          _meta: { "spadak/toolSurface": { kind: "browserUse", browserId } },
         },
       })
     }
@@ -31,7 +31,7 @@ test("MCP progress retains presentation metadata before result and drains ordere
     onMcpToolProgress: async (meta: Record<string, { browserId: string }>) => {
       expect(finished).toBe(false)
       await new Promise((resolve) => setTimeout(resolve, 10))
-      seen.push(meta["mimo/toolSurface"].browserId)
+      seen.push(meta["spadak/toolSurface"].browserId)
     },
   })
   try {
@@ -54,9 +54,9 @@ test("progress ignores unrelated and oversized metadata without leaking across c
   })
   first.update({ message: "loading" })
   first.update({ _meta: { secret: "private" } })
-  first.update({ _meta: { "mimo/toolSurface": { kind: "browserUse", browserId: "x".repeat(400_001) } } })
+  first.update({ _meta: { "spadak/toolSurface": { kind: "browserUse", browserId: "x".repeat(400_001) } } })
   toolPresentationProgress(undefined).update({
-    _meta: { "mimo/toolSurface": { kind: "browserUse", browserId: "iab" } },
+    _meta: { "spadak/toolSurface": { kind: "browserUse", browserId: "iab" } },
   })
   await first.drain()
   expect(seen).toEqual([])

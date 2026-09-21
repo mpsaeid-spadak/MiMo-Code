@@ -1,11 +1,11 @@
 import "../src/index.css"
 import { render } from "solid-js/web"
 import { createSignal, Show } from "solid-js"
-import { createOpencodeClient } from "@mimo-ai/sdk/v2/client"
+import { createOpencodeClient } from "@spadak/sdk/v2/client"
 import { TitleEditor } from "../src/pages/session/title-editor"
 import type { TitleSnapshot } from "../src/pages/session/title-editor-state"
 import { dict } from "../src/i18n/en"
-import { ThemeProvider } from "@mimo-ai/ui/theme"
+import { ThemeProvider } from "@spadak/ui/theme"
 
 function Fixture() {
   const fallback = new URLSearchParams(window.location.search).has("fallback")

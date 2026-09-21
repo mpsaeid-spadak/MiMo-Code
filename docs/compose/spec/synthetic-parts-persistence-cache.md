@@ -73,7 +73,7 @@ Markers:
 |----------|-------|-------|
 | `RECALL_REMINDER_MARKER` | `This session has memory at` | `prompt.ts` |
 | `LOOP_STREAK_REMINDER_MARKER` | `repeating the same action without making progress` | `prompt.ts` |
-| `COMPOSE_REMINDER_MARKER` | `MiMoCode Compose Agent` | `message-v2.ts` (re-export from `prompt.ts`) |
+| `COMPOSE_REMINDER_MARKER` | `SpadakCode Compose Agent` | `message-v2.ts` (re-export from `prompt.ts`) |
 
 `toModelMessagesEffect` still includes non-ignored synthetic text; Desktop UI may hide `synthetic`. DB history now matches the request for these parts → trajectory / fork capture / history reload agree.
 

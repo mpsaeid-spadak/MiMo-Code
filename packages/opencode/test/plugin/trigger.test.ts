@@ -4,8 +4,8 @@ import path from "path"
 import { pathToFileURL } from "url"
 import { tmpdir } from "../fixture/fixture"
 
-const disableDefault = process.env.MIMOCODE_DISABLE_DEFAULT_PLUGINS
-process.env.MIMOCODE_DISABLE_DEFAULT_PLUGINS = "1"
+const disableDefault = process.env.SPADAKCODE_DISABLE_DEFAULT_PLUGINS
+process.env.SPADAKCODE_DISABLE_DEFAULT_PLUGINS = "1"
 
 const { Plugin } = await import("../../src/plugin/index")
 const { Instance } = await import("../../src/project/instance")
@@ -16,10 +16,10 @@ afterEach(async () => {
 
 afterAll(() => {
   if (disableDefault === undefined) {
-    delete process.env.MIMOCODE_DISABLE_DEFAULT_PLUGINS
+    delete process.env.SPADAKCODE_DISABLE_DEFAULT_PLUGINS
     return
   }
-  process.env.MIMOCODE_DISABLE_DEFAULT_PLUGINS = disableDefault
+  process.env.SPADAKCODE_DISABLE_DEFAULT_PLUGINS = disableDefault
 })
 
 async function project(source: string) {
@@ -28,7 +28,7 @@ async function project(source: string) {
       const file = path.join(dir, "plugin.ts")
       await Bun.write(file, source)
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify(
           {
             $schema: "https://opencode.ai/config.json",
@@ -136,7 +136,7 @@ describe("plugin.trigger", () => {
   test("chat.message is a no-op when no plugin implements the hook", async () => {
     await using tmp = await tmpdir({
       init: async (dir) => {
-        await Bun.write(path.join(dir, "mimocode.json"), "{}")
+        await Bun.write(path.join(dir, "spadakcode.json"), "{}")
       },
     })
 
@@ -171,7 +171,7 @@ describe("plugin.trigger", () => {
           ].join("\n"),
         )
         await Bun.write(
-          path.join(dir, "mimocode.json"),
+          path.join(dir, "spadakcode.json"),
           JSON.stringify(
             {
               $schema: "https://opencode.ai/config.json",

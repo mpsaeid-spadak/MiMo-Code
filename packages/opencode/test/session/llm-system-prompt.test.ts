@@ -146,7 +146,7 @@ describe("session.llm system prompt — memory-instructions guard", () => {
 
     await using tmp = await tmpdir({
       init: async (dir) => {
-        await Bun.write(path.join(dir, "mimocode.json"), tmpConfig(providerID, `${server.url.origin}/v1`))
+        await Bun.write(path.join(dir, "spadakcode.json"), tmpConfig(providerID, `${server.url.origin}/v1`))
       },
     })
 
@@ -205,7 +205,7 @@ describe("session.llm system prompt — memory-instructions guard", () => {
 
     await using tmp = await tmpdir({
       init: async (dir) => {
-        await Bun.write(path.join(dir, "mimocode.json"), tmpConfig(providerID, `${server.url.origin}/v1`))
+        await Bun.write(path.join(dir, "spadakcode.json"), tmpConfig(providerID, `${server.url.origin}/v1`))
       },
     })
 
@@ -289,7 +289,7 @@ describe("session.llm system prompt — memory-instructions guard", () => {
 
     await using tmp = await tmpdir({
       init: async (dir) => {
-        await Bun.write(path.join(dir, "mimocode.json"), tmpConfig(providerID, `${server.url.origin}/v1`))
+        await Bun.write(path.join(dir, "spadakcode.json"), tmpConfig(providerID, `${server.url.origin}/v1`))
       },
     })
 
@@ -347,7 +347,7 @@ describe("session.llm system prompt — memory-instructions guard", () => {
 
     await using tmp = await tmpdir({
       init: async (dir) => {
-        await Bun.write(path.join(dir, "mimocode.json"), tmpConfig(providerID, `${server.url.origin}/v1`))
+        await Bun.write(path.join(dir, "spadakcode.json"), tmpConfig(providerID, `${server.url.origin}/v1`))
       },
     })
 
@@ -427,7 +427,7 @@ describe("session.llm system prompt — memory-instructions guard", () => {
 
     await using tmp = await tmpdir({
       init: async (dir) => {
-        await Bun.write(path.join(dir, "mimocode.json"), tmpConfig(providerID, `${server.url.origin}/v1`))
+        await Bun.write(path.join(dir, "spadakcode.json"), tmpConfig(providerID, `${server.url.origin}/v1`))
       },
     })
 
@@ -483,9 +483,9 @@ describe("session.llm system prompt — memory-instructions guard", () => {
     })
   })
 
-  test("MIMOCODE_DISABLE_CHECKPOINT=true — core memory instructions still appended; ckpt extras omitted", async () => {
-    const previous = process.env.MIMOCODE_DISABLE_CHECKPOINT
-    process.env.MIMOCODE_DISABLE_CHECKPOINT = "true"
+  test("SPADAKCODE_DISABLE_CHECKPOINT=true — core memory instructions still appended; ckpt extras omitted", async () => {
+    const previous = process.env.SPADAKCODE_DISABLE_CHECKPOINT
+    process.env.SPADAKCODE_DISABLE_CHECKPOINT = "true"
     const server = queueState.server!
     const providerID = "alibaba"
     const modelID = "qwen-plus"
@@ -498,7 +498,7 @@ describe("session.llm system prompt — memory-instructions guard", () => {
     try {
       await using tmp = await tmpdir({
         init: async (dir) => {
-          await Bun.write(path.join(dir, "mimocode.json"), tmpConfig(providerID, `${server.url.origin}/v1`))
+          await Bun.write(path.join(dir, "spadakcode.json"), tmpConfig(providerID, `${server.url.origin}/v1`))
         },
       })
 
@@ -562,8 +562,8 @@ describe("session.llm system prompt — memory-instructions guard", () => {
         },
       })
     } finally {
-      if (previous === undefined) delete process.env.MIMOCODE_DISABLE_CHECKPOINT
-      else process.env.MIMOCODE_DISABLE_CHECKPOINT = previous
+      if (previous === undefined) delete process.env.SPADAKCODE_DISABLE_CHECKPOINT
+      else process.env.SPADAKCODE_DISABLE_CHECKPOINT = previous
     }
   })
 })

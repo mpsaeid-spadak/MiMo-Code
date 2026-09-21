@@ -33,7 +33,7 @@ export interface ActorPromptOps {
 const id = "actor"
 
 const MODEL_PARAM_DESCRIPTION =
-  "(optional) Model for this subagent: a model group name (e.g. ultra/standard/lite) or a literal provider/model (e.g. mimo-v2.5-pro). Overrides the agent's configured model; defaults to the agent's model, else the parent's. If no model_groups are configured, the tier names resolve to the default model. To discover valid provider/model values (e.g. a vision-capable model for image tasks), run `actor models` (or `actor models --vision`)."
+  "(optional) Model for this subagent: a model group name (e.g. ultra/standard/lite) or a literal provider/model (e.g. spadak-v2.5-pro). Overrides the agent's configured model; defaults to the agent's model, else the parent's. If no model_groups are configured, the tier names resolve to the default model. To discover valid provider/model values (e.g. a vision-capable model for image tasks), run `actor models` (or `actor models --vision`)."
 
 const KNOWN_ACTOR_VERBS = ["run", "spawn", "status", "wait", "cancel", "send", "models"]
 
@@ -321,7 +321,7 @@ export function recoverActorArgs(rawArgs: unknown): ActorShellArgs | undefined {
     // task_id, output_schema) — the others (timeout_ms/command/output_schema)
     // are dropped here, falling back to their schema defaults. `context` is
     // deliberately NOT recovered: models must not request fork inheritance.
-    // Low risk in practice: the bare shape mimo emits is the 3 required fields,
+    // Low risk in practice: the bare shape spadak emits is the 3 required fields,
     // rarely with extras. When adding an actor schema field, decide whether
     // bare-shape recover should carry it here, or this whitelist silently
     // drifts from the schema. (The actor_id carry just below is the one
@@ -514,7 +514,7 @@ export const ActorTool = Tool.define(
       const parameters = z.strictObject({
         // .meta({ type: "object" }) is REQUIRED — without it the emitted JSON
         // schema's `operation` node has only `anyOf`, no `type`, and some models
-        // (notably mimo-v2.5-pro) stringify the whole envelope
+        // (notably spadak-v2.5-pro) stringify the whole envelope
         // ({"operation":"{\"action\":\"run\",...}"}) which fails zod validation.
         // The root strictObject also means flattenDiscriminatedUnion finds no
         // root-level union and passes through unchanged — root keeps exactly one

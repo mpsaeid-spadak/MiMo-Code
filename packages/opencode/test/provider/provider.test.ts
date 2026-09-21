@@ -64,7 +64,7 @@ test("provider loaded from env variable", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
         }),
@@ -91,7 +91,7 @@ test("provider loaded from config with apiKey option", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -118,7 +118,7 @@ test("disabled_providers excludes provider", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           disabled_providers: ["anthropic"],
@@ -142,7 +142,7 @@ test("enabled_providers restricts to only listed providers", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           enabled_providers: ["anthropic"],
@@ -168,7 +168,7 @@ test("model whitelist filters models for provider", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -199,7 +199,7 @@ test("model blacklist excludes specific models", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -229,7 +229,7 @@ test("custom model alias via config", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -264,7 +264,7 @@ test("non-empty models config acts as implicit whitelist when only_configured_mo
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -299,7 +299,7 @@ test("models config only augments the catalog by default (no only_configured_mod
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -336,7 +336,7 @@ test("only_configured_models with no models map is a no-op (catalog stays intact
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -368,7 +368,7 @@ test("custom provider with npm package", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -411,7 +411,7 @@ test("custom DeepSeek openai-compatible model defaults interleaved reasoning fie
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -477,7 +477,7 @@ test("env variable takes precedence, config merges options", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -511,7 +511,7 @@ test("getModel returns model for valid provider/model", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
         }),
@@ -538,7 +538,7 @@ test("getModel throws ModelNotFoundError for invalid model", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
         }),
@@ -560,7 +560,7 @@ test("getModel throws ModelNotFoundError for invalid provider", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
         }),
@@ -591,7 +591,7 @@ test("defaultModel returns first available model when no config set", async () =
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
         }),
@@ -615,7 +615,7 @@ test("defaultModel respects config model setting", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           model: "anthropic/claude-sonnet-4-20250514",
@@ -640,7 +640,7 @@ test("defaultModel falls through when config model is missing from the registry"
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           model: "custom/does-not-exist",
@@ -683,7 +683,7 @@ test("defaultModel does not prefer priority substring ids over stable first mode
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -740,7 +740,7 @@ test("defaultModel prefers recent state model over first stable pick", async () 
     await using tmp = await tmpdir({
       init: async (dir) => {
         await Bun.write(
-          path.join(dir, "mimocode.json"),
+          path.join(dir, "spadakcode.json"),
           JSON.stringify({
             $schema: "https://opencode.ai/config.json",
             provider: {
@@ -794,7 +794,7 @@ test("defaultModel prefers valid config model over recent", async () => {
     await using tmp = await tmpdir({
       init: async (dir) => {
         await Bun.write(
-          path.join(dir, "mimocode.json"),
+          path.join(dir, "spadakcode.json"),
           JSON.stringify({
             $schema: "https://opencode.ai/config.json",
             model: "custom/aaa-plain",
@@ -847,7 +847,7 @@ test("defaultModel uses recent when config model is missing from the registry", 
     await using tmp = await tmpdir({
       init: async (dir) => {
         await Bun.write(
-          path.join(dir, "mimocode.json"),
+          path.join(dir, "spadakcode.json"),
           JSON.stringify({
             $schema: "https://opencode.ai/config.json",
             model: "custom/gone-model",
@@ -896,7 +896,7 @@ test("defaultModel last-resort skips non-chat models (no toolcall / zero context
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -947,7 +947,7 @@ test("provider with baseURL from config", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -986,7 +986,7 @@ test("model cost defaults to zero when not specified", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -1027,7 +1027,7 @@ test("model options are merged from existing model", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -1062,7 +1062,7 @@ test("provider removed when all models filtered out", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -1090,7 +1090,7 @@ test("closest finds model by partial match", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
         }),
@@ -1115,7 +1115,7 @@ test("closest returns undefined for nonexistent provider", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
         }),
@@ -1135,7 +1135,7 @@ test("getModel uses realIdByKey for aliased models", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -1173,7 +1173,7 @@ test("provider api field sets model api.url", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -1212,7 +1212,7 @@ test("explicit baseURL overrides api field", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -1251,7 +1251,7 @@ test("model inherits properties from existing database model", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -1287,7 +1287,7 @@ test("disabled_providers prevents loading even with env var", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           disabled_providers: ["openai"],
@@ -1311,7 +1311,7 @@ test("enabled_providers with empty array allows no providers", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           enabled_providers: [],
@@ -1336,7 +1336,7 @@ test("whitelist and blacklist can be combined", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -1369,7 +1369,7 @@ test("model modalities default correctly", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -1406,7 +1406,7 @@ test("model with custom cost values", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -1470,7 +1470,7 @@ test("getSmallModel resolves via the lite group", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: SMALL_MODEL_PROVIDER,
@@ -1496,7 +1496,7 @@ test("getSmallModel respects config small_model override", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: SMALL_MODEL_PROVIDER,
@@ -1521,17 +1521,17 @@ test("getSmallModel respects config small_model override", async () => {
 })
 
 // getVisionModel: an explicit `vision_model` literal wins first; otherwise a
-// smart default picks a vision-capable model with in-house (mimo/xiaomi)
+// smart default picks a vision-capable model with in-house (spadak/xiaomi)
 // providers preferred, then cheapest by cost.input. Providers are fully
 // config-declared so tests don't depend on env-keyed models.dev autoload.
 const VISION_PROVIDER = {
-  mimo: {
-    name: "MiMo",
+  spadak: {
+    name: "Spadak",
     npm: "@ai-sdk/openai-compatible",
     env: [],
     models: {
-      "mimo-vision": {
-        name: "MiMo Vision",
+      "spadak-vision": {
+        name: "Spadak Vision",
         tool_call: true,
         limit: { context: 8000, output: 2000 },
         cost: { input: 100, output: 200 },
@@ -1567,7 +1567,7 @@ test("getVisionModel respects config vision_model override", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: VISION_PROVIDER,
@@ -1591,11 +1591,11 @@ test("getVisionModel prefers in-house model over cheaper non-in-house", async ()
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: VISION_PROVIDER,
-          enabled_providers: ["mimo", "vendor"],
+          enabled_providers: ["spadak", "vendor"],
         }),
       )
     },
@@ -1603,12 +1603,12 @@ test("getVisionModel prefers in-house model over cheaper non-in-house", async ()
   await Instance.provide({
     directory: tmp.path,
     fn: async () => {
-      // mimo-vision (cost 100, in-house) beats vendor-cheap-vision (cost 1);
+      // spadak-vision (cost 100, in-house) beats vendor-cheap-vision (cost 1);
       // vendor-text is text-only and excluded entirely.
       const model = await getVisionModel()
       expect(model).toBeDefined()
-      expect(String(model?.providerID)).toBe("mimo")
-      expect(String(model?.id)).toBe("mimo-vision")
+      expect(String(model?.providerID)).toBe("spadak")
+      expect(String(model?.id)).toBe("spadak-vision")
     },
   })
 })
@@ -1617,7 +1617,7 @@ test("getVisionModel picks cheapest when no in-house vision model", async () => 
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -1664,7 +1664,7 @@ test("getVisionModel returns undefined when no vision-capable model exists", asy
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -1705,7 +1705,7 @@ test("getVisionModel falls back to smart default when vision_model is misconfigu
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           vision_model: "vendor/does-not-exist",
@@ -1761,7 +1761,7 @@ test("multiple providers can be configured simultaneously", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -1796,7 +1796,7 @@ test("provider with custom npm package", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -1832,24 +1832,24 @@ test("provider with custom npm package", async () => {
   })
 })
 
-test("xiaomi models stay on Chat Completions regardless of version", async () => {
+test("spadak models stay on Chat Completions regardless of version", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
-          enabled_providers: ["xiaomi"],
+          enabled_providers: ["spadak"],
           provider: {
-            xiaomi: {
+            spadak: {
               models: {
-                "mimo-v2.5": {
-                  name: "MiMo V2.5",
+                "spadak-v2.5": {
+                  name: "Spadak V2.5",
                   tool_call: true,
                   limit: { context: 8192, output: 2048 },
                 },
-                "mimo-v2.6": {
-                  name: "MiMo V2.6",
+                "spadak-v2.6": {
+                  name: "Spadak V2.6",
                   tool_call: true,
                   limit: { context: 8192, output: 2048 },
                 },
@@ -1864,33 +1864,33 @@ test("xiaomi models stay on Chat Completions regardless of version", async () =>
   await Instance.provide({
     directory: tmp.path,
     init: async () => {
-      set("XIAOMI_API_KEY", "test-key")
+      set("SPADAK_API_KEY", "test-key")
     },
     fn: async () => {
       const models = await Promise.all(
-        ["mimo-v2.5", "mimo-v2.6"].map((id) => getModel(ProviderID.make("xiaomi"), ModelID.make(id))),
+        ["spadak-v2.5", "spadak-v2.6"].map((id) => getModel(ProviderID.make("spadak"), ModelID.make(id))),
       )
       const languages = await Promise.all(models.map((model) => getLanguage(model)))
-      expect(languages.map((language) => language.provider)).toEqual(["xiaomi.chat", "xiaomi.chat"])
+      expect(languages.map((language) => language.provider)).toEqual(["spadak.chat", "spadak.chat"])
       // Must be the stock SDK, not the bundled Copilot fork (which only parses `reasoning_text`).
       for (const language of languages) expect(language).toBeInstanceOf(OpenAICompatibleChatLanguageModel)
     },
   })
 })
 
-test("xiaomi chat streams reasoning_content as reasoning parts", async () => {
+test("spadak chat streams reasoning_content as reasoning parts", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
-          enabled_providers: ["xiaomi"],
+          enabled_providers: ["spadak"],
           provider: {
-            xiaomi: {
+            spadak: {
               models: {
-                "mimo-v2.6": {
-                  name: "MiMo V2.6",
+                "spadak-v2.6": {
+                  name: "Spadak V2.6",
                   reasoning: true,
                   tool_call: true,
                   limit: { context: 8192, output: 2048 },
@@ -1917,10 +1917,10 @@ test("xiaomi chat streams reasoning_content as reasoning parts", async () => {
     await Instance.provide({
       directory: tmp.path,
       init: async () => {
-        set("XIAOMI_API_KEY", "test-key")
+        set("SPADAK_API_KEY", "test-key")
       },
       fn: async () => {
-        const model = await getModel(ProviderID.make("xiaomi"), ModelID.make("mimo-v2.6"))
+        const model = await getModel(ProviderID.make("spadak"), ModelID.make("spadak-v2.6"))
         const language = await getLanguage(model)
         const result = await language.doStream({ prompt: [{ role: "user", content: [{ type: "text", text: "hi" }] }] })
         const parts: any[] = []
@@ -1942,11 +1942,11 @@ test("xiaomi chat streams reasoning_content as reasoning parts", async () => {
   }
 })
 
-test("mimo model ids are pinned to @ai-sdk/openai-compatible in config", async () => {
+test("spadak model ids are pinned to @ai-sdk/openai-compatible in config", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -1955,11 +1955,11 @@ test("mimo model ids are pinned to @ai-sdk/openai-compatible in config", async (
               npm: "@ai-sdk/openai",
               env: [],
               models: {
-                "MiMo-V2.6": { tool_call: true, limit: { context: 8192, output: 2048 } },
-                "alias-model": { id: "vendor/mimo-v2.5", tool_call: true, limit: { context: 8192, output: 2048 } },
-                "mimo-auto": { tool_call: true, limit: { context: 8192, output: 2048 } },
+                "Spadak-V2.6": { tool_call: true, limit: { context: 8192, output: 2048 } },
+                "alias-model": { id: "vendor/spadak-v2.5", tool_call: true, limit: { context: 8192, output: 2048 } },
+                "spadak-auto": { tool_call: true, limit: { context: 8192, output: 2048 } },
                 "gpt-5.4": { tool_call: true, limit: { context: 8192, output: 2048 } },
-                "mimosa-1": { tool_call: true, limit: { context: 8192, output: 2048 } },
+                "spadak-1": { tool_call: true, limit: { context: 8192, output: 2048 } },
               },
               options: { apiKey: "test-key", baseURL: "https://example.test/v1" },
             },
@@ -1972,18 +1972,18 @@ test("mimo model ids are pinned to @ai-sdk/openai-compatible in config", async (
     directory: tmp.path,
     fn: async () => {
       const models = (await list())[ProviderID.make("my-gateway")].models
-      expect(models["MiMo-V2.6"].api.npm).toBe("@ai-sdk/openai-compatible")
+      expect(models["Spadak-V2.6"].api.npm).toBe("@ai-sdk/openai-compatible")
       expect(models["alias-model"].api.npm).toBe("@ai-sdk/openai-compatible")
-      expect(models["mimo-auto"].api.npm).toBe("@ai-sdk/openai-compatible")
+      expect(models["spadak-auto"].api.npm).toBe("@ai-sdk/openai-compatible")
       expect(models["gpt-5.4"].api.npm).toBe("@ai-sdk/openai")
-      expect(models["mimosa-1"].api.npm).toBe("@ai-sdk/openai")
+      expect(models["spadak-1"].api.npm).toBe("@ai-sdk/openai")
       // Only the SDK is pinned; the provider stays as configured.
-      expect(models["MiMo-V2.6"].providerID).toBe(ProviderID.make("my-gateway"))
+      expect(models["Spadak-V2.6"].providerID).toBe(ProviderID.make("my-gateway"))
     },
   })
 })
 
-test("mimo model ids are pinned to @ai-sdk/openai-compatible from models.dev", () => {
+test("spadak model ids are pinned to @ai-sdk/openai-compatible from models.dev", () => {
   const model = (id: string, npm?: string) => ({
     id,
     name: id,
@@ -1999,25 +1999,25 @@ test("mimo model ids are pinned to @ai-sdk/openai-compatible from models.dev", (
     npm: "@ai-sdk/openai",
     api: "https://example.test/v1",
     models: {
-      "xiaomi/mimo-v2.5": model("xiaomi/mimo-v2.5"),
-      "XiaomiMiMo/MiMo-V2.5-Pro": model("XiaomiMiMo/MiMo-V2.5-Pro", "@ai-sdk/deepinfra"),
+      "xiaomi/spadak-v2.5": model("xiaomi/spadak-v2.5"),
+      "SpadakSpadak/Spadak-V2.5-Pro": model("SpadakSpadak/Spadak-V2.5-Pro", "@ai-sdk/deepinfra"),
       "gpt-5.4": model("gpt-5.4", "@ai-sdk/openai"),
     },
   } as unknown as ModelsDev.Provider
 
   const models = Provider.fromModelsDevProvider(provider).models
-  expect(models["xiaomi/mimo-v2.5"].api.npm).toBe("@ai-sdk/openai-compatible")
-  expect(models["XiaomiMiMo/MiMo-V2.5-Pro"].api.npm).toBe("@ai-sdk/openai-compatible")
+  expect(models["xiaomi/spadak-v2.5"].api.npm).toBe("@ai-sdk/openai-compatible")
+  expect(models["SpadakSpadak/Spadak-V2.5-Pro"].api.npm).toBe("@ai-sdk/openai-compatible")
   expect(models["gpt-5.4"].api.npm).toBe("@ai-sdk/openai")
-  expect(models["xiaomi/mimo-v2.5"].providerID).toBe(ProviderID.make("test-provider"))
+  expect(models["xiaomi/spadak-v2.5"].providerID).toBe(ProviderID.make("test-provider"))
 })
 
-test("isMimoOrSmartModel matches mimo ids and the mimo-auto alias only", () => {
-  for (const id of ["mimo-v2.5", "MiMo-V2.6", "xiaomi/mimo-v2.5", "vendor_mimo-1", "mimo", "mimo-auto"]) {
-    expect(Provider.isMimoOrSmartModel(id)).toBe(true)
+test("isSpadakOrSmartModel matches spadak ids and the spadak-auto alias only", () => {
+  for (const id of ["spadak-v2.5", "Spadak-V2.6", "xiaomi/spadak-v2.5", "vendor_mimo-1", "spadak", "spadak-auto"]) {
+    expect(Provider.isSpadakOrSmartModel(id)).toBe(true)
   }
-  for (const id of ["mimosa-1", "gpt-5.4", "claude-opus-4-6", "xmimo-1"]) {
-    expect(Provider.isMimoOrSmartModel(id)).toBe(false)
+  for (const id of ["spadak-1", "gpt-5.4", "claude-opus-4-6", "xspadak-1"]) {
+    expect(Provider.isSpadakOrSmartModel(id)).toBe(false)
   }
 })
 
@@ -2027,7 +2027,7 @@ test("model alias name defaults to alias key when id differs", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -2060,7 +2060,7 @@ test("provider with multiple env var options only includes apiKey when single en
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -2102,7 +2102,7 @@ test("provider with single env var includes apiKey automatically", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -2144,7 +2144,7 @@ test("model cost overrides existing cost values", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -2181,7 +2181,7 @@ test("completely new provider not in database can be configured", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -2231,7 +2231,7 @@ test("disabled_providers and enabled_providers interaction", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           // enabled_providers takes precedence - only these are considered
@@ -2265,7 +2265,7 @@ test("model with tool_call false", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -2300,7 +2300,7 @@ test("model defaults tool_call to true when not specified", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -2335,7 +2335,7 @@ test("model headers are preserved", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -2378,7 +2378,7 @@ test("provider env fallback - second env var used if first missing", async () =>
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -2418,7 +2418,7 @@ test("getModel returns consistent results", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
         }),
@@ -2444,7 +2444,7 @@ test("provider name defaults to id when not in database", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -2479,7 +2479,7 @@ test("ModelNotFoundError includes suggestions for typos", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
         }),
@@ -2507,7 +2507,7 @@ test("ModelNotFoundError for provider includes suggestions", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
         }),
@@ -2535,7 +2535,7 @@ test("getProvider returns undefined for nonexistent provider", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
         }),
@@ -2555,7 +2555,7 @@ test("getProvider returns provider info", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
         }),
@@ -2579,7 +2579,7 @@ test("closest returns undefined when no partial match found", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
         }),
@@ -2602,7 +2602,7 @@ test("closest checks multiple query terms in order", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
         }),
@@ -2627,7 +2627,7 @@ test("model limits use family defaults when not specified (F41)", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -2649,8 +2649,8 @@ test("model limits use family defaults when not specified (F41)", async () => {
                   name: "GPT",
                   tool_call: true,
                 },
-                "mimo-default": {
-                  name: "MiMo",
+                "spadak-default": {
+                  name: "Spadak",
                   tool_call: true,
                 },
               },
@@ -2668,7 +2668,7 @@ test("model limits use family defaults when not specified (F41)", async () => {
       const model = providers[ProviderID.make("no-limit")].models["model"]
       expect(model.limit.context).toBe(1_000_000)
       expect(model.limit.output).toBe(0)
-      for (const id of ["claude-default", "gpt-default", "mimo-default"]) {
+      for (const id of ["claude-default", "gpt-default", "spadak-default"]) {
         expect(providers[ProviderID.make("no-limit")].models[id].limit).toEqual({
           context: 1_000_000,
           output: 128_000,
@@ -2682,7 +2682,7 @@ test("provider options are deeply merged", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -2719,7 +2719,7 @@ test("custom model inherits npm package from models.dev provider config", async 
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -2755,7 +2755,7 @@ test("custom model inherits api.url from models.dev provider", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -2898,7 +2898,7 @@ test("model variants are generated for reasoning models", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
         }),
@@ -2925,7 +2925,7 @@ test("model variants can be disabled via config", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -2963,7 +2963,7 @@ test("model variants can be customized via config", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -3004,7 +3004,7 @@ test("disabled key is stripped from variant config", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -3044,7 +3044,7 @@ test("all variants can be disabled via config", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -3081,7 +3081,7 @@ test("variant config merges with generated variants", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -3121,7 +3121,7 @@ test("variants filtered in second pass for database models", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -3159,7 +3159,7 @@ test("custom model with variants enabled and disabled", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -3216,7 +3216,7 @@ test("Google Vertex: retains baseURL for custom proxy", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -3260,7 +3260,7 @@ test("Google Vertex: supports OpenAI compatible models", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -3307,7 +3307,7 @@ test("cloudflare-ai-gateway loads with env variables", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
         }),
@@ -3332,7 +3332,7 @@ test("cloudflare-ai-gateway forwards config metadata options", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           provider: {
@@ -3367,7 +3367,7 @@ test("cloudflare-ai-gateway forwards config metadata options", async () => {
 test("plugin config providers persist after instance dispose", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
-      const root = path.join(dir, ".mimocode", "plugin")
+      const root = path.join(dir, ".spadakcode", "plugin")
       await mkdir(root, { recursive: true })
       await Bun.write(
         path.join(root, "demo-provider.ts"),
@@ -3426,7 +3426,7 @@ test("plugin config providers persist after instance dispose", async () => {
 test("plugin auth loader is skipped when provider is missing from catalog", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
-      const root = path.join(dir, ".mimocode", "plugin")
+      const root = path.join(dir, ".spadakcode", "plugin")
       await mkdir(root, { recursive: true })
       await Bun.write(
         path.join(root, "missing-catalog.ts"),
@@ -3477,7 +3477,7 @@ test("plugin auth loader is skipped when provider is missing from catalog", asyn
 test("plugin config enabled and disabled providers are honored", async () => {
   await using tmp = await tmpdir({
     init: async (dir) => {
-      const root = path.join(dir, ".mimocode", "plugin")
+      const root = path.join(dir, ".spadakcode", "plugin")
       await mkdir(root, { recursive: true })
       await Bun.write(
         path.join(root, "provider-filter.ts"),

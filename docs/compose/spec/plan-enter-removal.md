@@ -17,13 +17,13 @@ all seven locales. `plan_exit` and everything else about plan mode are untouched
 so `build` and `plan` now expose exactly the same mode tool and Tab still
 round-trips between them. The system prompt lost its plan-mode advocacy paragraph
 and gained no replacement instruction; the user-facing answer to "how do I enter
-plan mode" moved to `mimocode-docs`, which loads only when someone asks how
-MiMoCode works.
+plan mode" moved to `spadakcode-docs`, which loads only when someone asks how
+SpadakCode works.
 
 **Verification** — from `packages/opencode`: `bun typecheck` PASS.
 `bun test test/tool test/cli/tui test/agent test/permission` — 1274 pass / 1 fail
 / 11 skip, where the single failure is `test/tool/registry.test.ts > loads tools
-from .mimocode/tool (singular)` timing out at 5000ms under parallel load;
+from .spadakcode/tool (singular)` timing out at 5000ms under parallel load;
 PRE-EXISTING flake, 5 pass / 0 fail when the file runs alone.
 `bun test test/skill` — 79 pass / 0 fail. `bunx prettier --check` on the touched
 files — clean (`i18n/*.ts`, `registry.ts`, `agent.ts` are nonconformant at base
@@ -43,7 +43,7 @@ consistent.
    how to *talk about* plan mode. That is the same interruption in a new costume:
    a model told how to discuss plan mode will discuss it. The fix was deletion,
    moving the user-facing answer to an on-demand skill.
-3. `mimocode-docs` routing keys off the frontmatter `description` (BM25 over name
+3. `spadakcode-docs` routing keys off the frontmatter `description` (BM25 over name
    + aliases + description, `skill/search.ts:98`). The body can hold a perfect
    answer and still never load; the mode/keybinding vocabulary had to go into the
    description.
@@ -116,7 +116,7 @@ even deliberately. Removing it removes a model capability, not a user gesture.
 `build`/`plan` remain the free-switch group (`local.tsx:50`), so Tab still
 round-trips between them mid-session.
 
-**2. It is already dead outside the TUI.** `mimo run` denies both plan tools
+**2. It is already dead outside the TUI.** `spadak run` denies both plan tools
 unconditionally (`cli/cmd/run.ts:350-365`), so headless sessions have never had
 it. Removal aligns the TUI with the surface that already ships without it.
 
@@ -153,7 +153,7 @@ mutate the tool list (the invariant from PR #1207).
 ### Prompt correction
 
 `prompt/default.txt` is the fallback system prompt (`session/system.ts:49`) —
-i.e. the one MiMo's own models get; `anthropic.txt` / `gpt.txt` / `codex.txt` /
+i.e. the one Spadak's own models get; `anthropic.txt` / `gpt.txt` / `codex.txt` /
 `gemini.txt` / `beast.txt` / `deepseek.txt` / `glm.txt` / `minimax.txt` /
 `trinity.txt` contain no plan-mode instructions at all, and `kimi.txt:17` only
 mentions plan mode as an example of a system-reminder. So exactly one prompt
@@ -191,28 +191,28 @@ has been told how to talk about plan mode will talk about plan mode.
 
 **The user, on demand:** one genuine question survives — "how do I get into plan
 mode?" / "why don't you switch to plan any more?" That answer belongs in
-`mimocode-docs`, which is loaded exactly when a user asks how MiMoCode itself
-works (`skill_search` BM25 over name + description, or explicit `/mimocode-docs`),
+`spadakcode-docs`, which is loaded exactly when a user asks how SpadakCode itself
+works (`skill_search` BM25 over name + description, or explicit `/spadakcode-docs`),
 and costs nothing on every other turn. Users also learn the `Tab` gesture from
 the home tips, so this is a fallback for the confused case, not the primary
 teaching surface.
 
-- `mimocode-docs/SKILL.md` frontmatter `description` — add mode / keybinding
+- `spadakcode-docs/SKILL.md` frontmatter `description` — add mode / keybinding
   vocabulary ("agent modes (build / plan / compose) and how to switch between
   them", "how to enter or leave plan mode") so the routing actually fires on that
   question. Without it the skill's description never mentions modes and BM25 has
   nothing to match.
-- `mimocode-docs/SKILL.md:18` — the Agents / modes row states that only the user
+- `spadakcode-docs/SKILL.md:18` — the Agents / modes row states that only the user
   enters a mode, that no tool switches into plan, and that `plan_exit` is the
   agent's one move from inside plan.
-- `mimocode-docs/reference/commands.md:130` — under Keybindings, the concrete
+- `spadakcode-docs/reference/commands.md:130` — under Keybindings, the concrete
   answer: `Tab` or the agent dialog to enter; `Tab` or `plan_exit` to leave; and
   that the agent will not offer plan mode unasked (so the user reads the silence
   as intended behaviour, not a regression).
 
-`mimocode-docs/reference/guide.md:114` and `config.md:92` mention plan only as a
+`spadakcode-docs/reference/guide.md:114` and `config.md:92` mention plan only as a
 Compose-legacy skill name and an agent-config key; both stay accurate and are
-left alone. The localized `tui.skill.mimocode-docs.description` strings are the
+left alone. The localized `tui.skill.spadakcode-docs.description` strings are the
 dialog copy, not the routing input, so they are untouched.
 
 ## [S3] Implementation
@@ -240,7 +240,7 @@ Delete:
 Modify:
 
 - `packages/opencode/src/session/prompt/default.txt` — lines 87 and 134 per S2.
-- `packages/opencode/src/skill/builtin/.bundle/mimocode-docs/SKILL.md` and
+- `packages/opencode/src/skill/builtin/.bundle/spadakcode-docs/SKILL.md` and
   `reference/commands.md` — per S2 Documentation surfaces.
 
 Tests:
@@ -345,6 +345,6 @@ belongs in the PR that lands the permission mechanism.
 - [x] T2: remove the three `plan_enter` permission rules in `agent/agent.ts` and the deny rule in `cli/cmd/run.ts` — acceptance: no `plan_enter` string remains in `src/agent` or `src/cli/cmd/run.ts`; build and plan agents both expose exactly `plan_exit` (covers: S2, S3; depends: T1)
 - [x] T3: remove the `plan_enter` branch in `plan-switch.ts` and the `tui.question.plan_enter.*` block from all seven locales — acceptance: `rg "plan_enter" src/cli/cmd/tui` returns nothing; no locale file is left with a dangling comment header or a double blank line; `plan_exit` switch mapping still returns `"build"` (covers: S3; depends: T1)
 - [x] T4: correct `prompt/default.txt` — acceptance: no `plan-enter` in the tool list; item 5 of "Plan mode in detail" states the user switches modes, forbids unprompted suggestions to switch, and keeps `plan_exit` as the model's request path; the "Enter plan mode for non-trivial implementation work" paragraph is gone with no behavioural replacement (covers: S2)
-- [x] T5: make `mimocode-docs` answer "how do I enter/leave plan mode" — acceptance: the frontmatter description carries mode/keybinding vocabulary so the question routes to the skill; `SKILL.md` and `reference/commands.md` both state that entering is a user gesture (`Tab` / agent dialog), that no tool enters plan, that `plan_exit` is the agent's only move, and that the agent will not raise plan mode unasked (covers: S2, S3)
+- [x] T5: make `spadakcode-docs` answer "how do I enter/leave plan mode" — acceptance: the frontmatter description carries mode/keybinding vocabulary so the question routes to the skill; `SKILL.md` and `reference/commands.md` both state that entering is a user gesture (`Tab` / agent dialog), that no tool enters plan, that `plan_exit` is the agent's only move, and that the agent will not raise plan mode unasked (covers: S2, S3)
 - [x] T6: update the five affected test files and add `test/tool/plan-enter-absent.test.ts` — acceptance: no test asserts a deleted tool is available; the historical-part guard in `plan-switch.test.ts` proves a replayed `plan_enter` part no longer switches modes; the new test fails if `plan_enter` is re-registered (covers: S3; depends: T1, T2, T3)
 - [x] T7: verification band — acceptance: the S3 test bands, `bun typecheck`, and `git diff --check` all pass from `packages/opencode` (covers: S3; depends: T1-T6)

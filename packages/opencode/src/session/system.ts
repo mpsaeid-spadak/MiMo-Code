@@ -76,7 +76,7 @@ export const layer = Layer.effect(
         now: number,
         harness?: HarnessMode,
       ) {
-        if (!Flag.MIMOCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT) return []
+        if (!Flag.SPADAKCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT) return []
         const project = Instance.project
         if (provider(model, harness)[0] === PROMPT_ANTHROPIC) {
           const key = `${Instance.directory}\0${now}\0${model.providerID}\0${model.api.id}`
@@ -124,7 +124,7 @@ export const layer = Layer.effect(
         }
         const base = [
           [
-            `You are MiMo Code Agent, built by Xiaomi MiMo Team. You are an interactive agent that helps users with software engineering tasks. Use the instructions below and the tools available to you to assist the user.`,
+            `You are Spadak Code Agent, built by Spadak Spadak Team. You are an interactive agent that helps users with software engineering tasks. Use the instructions below and the tools available to you to assist the user.`,
             `You are powered by the model named ${model.api.id}. The exact model ID is ${model.providerID}/${model.api.id}`,
             `Here is some useful information about the environment you are running in:`,
             `<env>`,

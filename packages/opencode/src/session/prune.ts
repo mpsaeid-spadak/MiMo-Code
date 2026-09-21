@@ -263,7 +263,7 @@ export const layer: Layer.Layer<
       // Do not consume crossed thresholds while checkpointing is disabled.
       // If an in-process embedder re-enables the flag, the next invocation must
       // still be able to fire every threshold already crossed by the session.
-      if (Flag.MIMOCODE_DISABLE_CHECKPOINT) return
+      if (Flag.SPADAKCODE_DISABLE_CHECKPOINT) return
 
       // Lock: skip if a writer is already running for this session.
       // crossed Set is NOT incremented here — when the in-flight writer

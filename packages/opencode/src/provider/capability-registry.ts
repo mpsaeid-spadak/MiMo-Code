@@ -60,7 +60,7 @@ export const DEFAULT_MAX_TEXT_BYTES = 1 * 1024 * 1024
 const SAFE_IMAGE_MIMES = ["image/jpeg", "image/png", "image/gif", "image/webp"]
 // Mirrors OPENAI_AUDIO_MIMES in src/session/tool-attachment.ts — the set the
 // (repo-patched) OpenAI-compatible chat adapter can serialize as input_audio:
-// the MiMo audio API's MP3, WAV, FLAC, M4A and OGG.
+// the Spadak audio API's MP3, WAV, FLAC, M4A and OGG.
 const OPENAI_AUDIO_MIMES = [
   "audio/wav",
   "audio/x-wav",
@@ -74,7 +74,7 @@ const OPENAI_AUDIO_MIMES = [
   "audio/ogg",
 ]
 // Mirrors OPENAI_VIDEO_MIMES in src/session/tool-attachment.ts — the formats
-// the MiMo video API documents (MP4, MOV, AVI, WMV), as the MIMEs a mime lookup
+// the Spadak video API documents (MP4, MOV, AVI, WMV), as the MIMEs a mime lookup
 // yields for them. The repo patch serializes ANY video/* as video_url, so this
 // list is what the API accepts, not what the adapter refuses: anything else
 // (e.g. video/webm, video/x-matroska) would be sent and fail server-side.
@@ -121,7 +121,7 @@ const ADAPTERS: Record<string, AdapterDeclaration> = {
     // the repo patch extends the format map to flac/m4a/ogg. Anything outside
     // that list (e.g. audio/aac) still throws.
     evidence:
-      "@ai-sdk/openai-compatible@2 (repo-patched) serializes wav/mp3/flac/m4a/ogg as input_audio and rejects other audio; video is serialized as video_url and narrowed to the MiMo video API's mp4/mov/avi/wmv",
+      "@ai-sdk/openai-compatible@2 (repo-patched) serializes wav/mp3/flac/m4a/ogg as input_audio and rejects other audio; video is serialized as video_url and narrowed to the Spadak video API's mp4/mov/avi/wmv",
   },
   "@ai-sdk/google": {
     text: TEXT_SUPPORTED,

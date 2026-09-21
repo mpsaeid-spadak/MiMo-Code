@@ -1,5 +1,5 @@
 // Probe helper spawned as a SUBPROCESS by orchestrator.test.ts to observe the
-// orchestrator registration under a specific MIMOCODE_EXPERIMENTAL_ORCHESTRATOR
+// orchestrator registration under a specific SPADAKCODE_EXPERIMENTAL_ORCHESTRATOR
 // value. It cannot be a normal in-suite test because test/preload.ts force-sets
 // the flag ON for the whole suite (and Flag is read once at import time), so the
 // flag-OFF case is only observable in a fresh process that does NOT load the

@@ -126,7 +126,7 @@ function makeBaseUser(sessionID: SessionID, modelID: ModelID): MessageV2.User {
 // The real orchestrator Agent.Info: same prompt object the agent registry hands
 // out (src/agent/agent.ts imports the identical orchestrator.txt module), so the
 // system prompt assembly under test is the production path. Built directly here
-// because the registry entry is gated behind MIMOCODE_EXPERIMENTAL_ORCHESTRATOR,
+// because the registry entry is gated behind SPADAKCODE_EXPERIMENTAL_ORCHESTRATOR,
 // which is resolved at module load and cannot be flipped from inside the test.
 function orchestratorAgent(): Agent.Info {
   return {
@@ -278,7 +278,7 @@ describe("orchestrator fleet roster — e2e on the wire", () => {
     const fixture = await loadFixture(PROVIDER_ID, MODEL_ID)
     await using tmp = await tmpdir({
       init: async (dir) => {
-        await Bun.write(path.join(dir, "mimocode.json"), tmpConfig(`${server.url.origin}/v1`))
+        await Bun.write(path.join(dir, "spadakcode.json"), tmpConfig(`${server.url.origin}/v1`))
       },
     })
     await Instance.provide({
@@ -325,7 +325,7 @@ describe("orchestrator fleet roster — e2e on the wire", () => {
     const fixture = await loadFixture(PROVIDER_ID, MODEL_ID)
     await using tmp = await tmpdir({
       init: async (dir) => {
-        await Bun.write(path.join(dir, "mimocode.json"), tmpConfig(`${server.url.origin}/v1`))
+        await Bun.write(path.join(dir, "spadakcode.json"), tmpConfig(`${server.url.origin}/v1`))
       },
     })
     await Instance.provide({
@@ -356,7 +356,7 @@ describe("orchestrator fleet roster — e2e on the wire", () => {
     const fixture = await loadFixture(PROVIDER_ID, MODEL_ID)
     await using tmp = await tmpdir({
       init: async (dir) => {
-        await Bun.write(path.join(dir, "mimocode.json"), tmpConfig(`${server.url.origin}/v1`))
+        await Bun.write(path.join(dir, "spadakcode.json"), tmpConfig(`${server.url.origin}/v1`))
       },
     })
     await Instance.provide({
@@ -390,7 +390,7 @@ describe("orchestrator fleet roster — e2e on the wire", () => {
     const fixture = await loadFixture(PROVIDER_ID, MODEL_ID)
     await using tmp = await tmpdir({
       init: async (dir) => {
-        await Bun.write(path.join(dir, "mimocode.json"), tmpConfig(`${server.url.origin}/v1`))
+        await Bun.write(path.join(dir, "spadakcode.json"), tmpConfig(`${server.url.origin}/v1`))
       },
     })
     await Instance.provide({
@@ -422,7 +422,7 @@ describe("orchestrator fleet roster — e2e on the wire", () => {
     const fixture = await loadFixture(PROVIDER_ID, MODEL_ID)
     await using tmp = await tmpdir({
       init: async (dir) => {
-        await Bun.write(path.join(dir, "mimocode.json"), tmpConfig(`${server.url.origin}/v1`))
+        await Bun.write(path.join(dir, "spadakcode.json"), tmpConfig(`${server.url.origin}/v1`))
       },
     })
     await Instance.provide({
@@ -470,7 +470,7 @@ describe("orchestrator fleet roster — e2e on the wire", () => {
     const fixture = await loadFixture(PROVIDER_ID, MODEL_ID)
     await using tmp = await tmpdir({
       init: async (dir) => {
-        await Bun.write(path.join(dir, "mimocode.json"), tmpConfig(`${server.url.origin}/v1`))
+        await Bun.write(path.join(dir, "spadakcode.json"), tmpConfig(`${server.url.origin}/v1`))
       },
     })
     await Instance.provide({
@@ -501,7 +501,7 @@ describe("orchestrator fleet roster — e2e on the wire", () => {
     const fixture = await loadFixture(PROVIDER_ID, MODEL_ID)
     await using tmp = await tmpdir({
       init: async (dir) => {
-        await Bun.write(path.join(dir, "mimocode.json"), tmpConfig(`${server.url.origin}/v1`))
+        await Bun.write(path.join(dir, "spadakcode.json"), tmpConfig(`${server.url.origin}/v1`))
       },
     })
     await Instance.provide({
@@ -525,7 +525,7 @@ describe("orchestrator fleet roster — e2e on the wire", () => {
     const fixture = await loadFixture(PROVIDER_ID, MODEL_ID)
     await using tmp = await tmpdir({
       init: async (dir) => {
-        await Bun.write(path.join(dir, "mimocode.json"), tmpConfig(`${server.url.origin}/v1`))
+        await Bun.write(path.join(dir, "spadakcode.json"), tmpConfig(`${server.url.origin}/v1`))
       },
     })
     await Instance.provide({
@@ -549,7 +549,7 @@ describe("orchestrator fleet roster — e2e on the wire", () => {
     const fixture = await loadFixture(PROVIDER_ID, MODEL_ID)
     await using tmp = await tmpdir({
       init: async (dir) => {
-        await Bun.write(path.join(dir, "mimocode.json"), tmpConfig(`${server.url.origin}/v1`))
+        await Bun.write(path.join(dir, "spadakcode.json"), tmpConfig(`${server.url.origin}/v1`))
       },
     })
     await Instance.provide({

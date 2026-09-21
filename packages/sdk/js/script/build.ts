@@ -12,13 +12,13 @@ import { tmpdir } from "node:os"
 import { createClient } from "@hey-api/openapi-ts"
 
 // Schema generation boots the CLI and its migrations. Isolate all runtime data.
-const runtime = await mkdtemp(path.join(tmpdir(), "mimocode-sdk-"))
+const runtime = await mkdtemp(path.join(tmpdir(), "spadakcode-sdk-"))
 try {
   await $`bun dev generate > ${dir}/openapi.json`
     .cwd(path.resolve(dir, "../../opencode"))
     .env({
       ...process.env,
-      MIMOCODE_DB: ":memory:",
+      SPADAKCODE_DB: ":memory:",
       HOME: runtime,
       USERPROFILE: runtime,
       XDG_DATA_HOME: path.join(runtime, "data"),

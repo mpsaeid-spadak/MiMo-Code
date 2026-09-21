@@ -39,7 +39,7 @@ autocomplete, the deprecation touchpoints, and the i18n keys — is unchanged.
 
 **Journey log**
 
-1. CI shard 4 failed from cross-file env pollution: `skill.test.ts` sets `MIMOCODE_DISABLE_BUILTIN_SKILLS` at module top-level and never restores; the Flag getter reads env lazily. Fixed with the save/clear/restore pattern from #1850's `available-permission.test.ts`. Lesson: any test needing builtin-bundle extraction must defensively clear that flag.
+1. CI shard 4 failed from cross-file env pollution: `skill.test.ts` sets `SPADAKCODE_DISABLE_BUILTIN_SKILLS` at module top-level and never restores; the Flag getter reads env lazily. Fixed with the save/clear/restore pattern from #1850's `available-permission.test.ts`. Lesson: any test needing builtin-bundle extraction must defensively clear that flag.
 2. The skill originally referenced `<compose_docs_dir>` — a prompt block only injected for the Compose agent and `compose.js`, never in Build sessions. Dead reference removed; path hardcoded to `docs/compose/spec/`. Lesson: a skill assembled from another agent's bundle inherits that agent's prompt-injection assumptions; audit them.
 3. Workspace was dropped from the pipeline declaration during the three-skill hand-merge, letting the mechanical-change branch land on `main` by omission. Merge artifacts hide in transition sentences, not section bodies.
 4. Review-loop needed a stop gate but a hardcoded round count was rejected in favor of judgment-based non-convergence signals (repeated findings on the same area; fixes introducing new criticals).

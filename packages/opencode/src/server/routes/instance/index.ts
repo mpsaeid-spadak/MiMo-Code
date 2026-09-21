@@ -35,7 +35,7 @@ import { jsonRequest } from "./trace"
 export const InstanceRoutes = (upgrade: UpgradeWebSocket): Hono => {
   const app = new Hono()
 
-  if (Flag.MIMOCODE_EXPERIMENTAL_HTTPAPI) {
+  if (Flag.SPADAKCODE_EXPERIMENTAL_HTTPAPI) {
     const handler = ExperimentalHttpApiServer.webHandler().handler
     const context = Context.empty() as Context.Context<unknown>
     app.get("/question", (c) => handler(c.req.raw, context))

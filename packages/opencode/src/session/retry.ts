@@ -1,4 +1,4 @@
-import { NamedError } from "@mimo-ai/shared/util/error"
+import { NamedError } from "@spadak/shared/util/error"
 import { Cause, Clock, Duration, Effect, Schedule } from "effect"
 import { MessageV2 } from "./message-v2"
 import { ProviderError } from "@/provider"

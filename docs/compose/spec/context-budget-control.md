@@ -12,7 +12,7 @@ commits: 028f3178..3b15062d
 
 **What was built** — `compaction.max_context` lets a user compact earlier than the model's own window, expressed as a token count, a `"300K"` / `"1M"` / `"50%"` shorthand, or a map keyed by `"<providerID>/<modelID>"` with wildcards. `Overflow.contextWindow()` is the single place that resolves the provider cap (`limit.input || limit.context`), applies the budget as a clamp, and subtracts the reserves; `usable()` is now a thin wrapper over it, so the compaction trigger, checkpoint thresholds, and pruning all follow the budget without further plumbing. With no budget configured the arithmetic reduces to the previous expression for both model shapes.
 
-The prompt and subagent footers divide usage by the internal trigger and mark a configured budget with `↓`; the sidebar instead shows usage against the user-controlled active limit and compares that setting with the provider cap. `/status` gained a diagnostic Context block (window, budget + source, reserved, compact-at, used), and `mimocode models <provider>` prints the same underlying values without `--verbose`. `/context-limit` opens a preset picker (Model default / 200K / 300K / 500K / 1M / Custom…) that writes only the current model's key into the global config, refusing while a session is busy because a config write disposes the instance and cancels in-flight runners.
+The prompt and subagent footers divide usage by the internal trigger and mark a configured budget with `↓`; the sidebar instead shows usage against the user-controlled active limit and compares that setting with the provider cap. `/status` gained a diagnostic Context block (window, budget + source, reserved, compact-at, used), and `spadakcode models <provider>` prints the same underlying values without `--verbose`. `/context-limit` opens a preset picker (Model default / 200K / 300K / 500K / 1M / Custom…) that writes only the current model's key into the global config, refusing while a session is busy because a config write disposes the instance and cancels in-flight runners.
 
 The 2026-07-31 follow-up makes `usable()` the only automatic context-switch boundary. Checkpoint thresholds continue to keep the checkpoint fresh, but their final 80%/90% rung no longer triggers an early rebuild. The sidebar presents the user-controlled limit relative to the provider cap, so a 300K budget on a 922K model renders `limit 300K of 922K`; the reserve-adjusted trigger remains an internal detail available in `/status`.
 
@@ -26,8 +26,8 @@ Separately, the merged PR #1926 was corrected: it assigned `limit.context = 300_
 - `bun test test/session/overflow.test.ts test/plugin/codex.test.ts test/session/checkpoint-thresholds.test.ts test/session/prune.test.ts` — 96 pass / 0 fail.
 - `bun test test/config test/session/checkpoint-thresholds.test.ts` — 188 pass / 4 skip / 0 fail.
 - Full `bun test` before the review fixes — 4359 pass / 4 fail; every failure reproduced at base or passed in isolation (`test/util/ssrf.test.ts` DNS fail-closed fails at base; `test/workflow/runtime.test.ts` has 2 fails at base vs 1 here; `test/session/checkpoint-rebuild-unify.test.ts` passes in isolation in both trees). CI runs the full suite.
-- CLI: `MIMOCODE_CONFIG_CONTENT='{"compaction":{"max_context":{"openai/gpt-5*":"300K","openai/gpt-5.6":200000}}}' bun run src/index.ts models openai` → `gpt-5.6` window 922K / budget 200K / compacts at 180K; `gpt-5.6-sol` budget 300K / 280K; `gpt-5.3-codex` (272K cap) shows no budget because 300K clamps away; `gpt-4o` and `o3` unchanged.
-- Live TUI (tmux, isolated `MIMOCODE_HOME`, `xiaomi/mimo-v2.5`): picking 300K wrote `"xiaomi/mimo-v2.5": 300000` to the global `mimocode.jsonc`, footer became `33.0K/260K↓ (13%)`, and `/status` showed `window 1.05M · budget 300K · compacts at 260K`. The sidebar follow-up renders the user setting against the model limit (`limit 300K of 1.05M`) and covers it with a TUI render test. Custom `"50%"` wrote 524288 (`compacts at 484K`). "Model default" wrote `0` and restored `compacts at 1.01M`. Selecting a tier mid-stream left the config untouched and kept the dialog open; the same action once idle wrote 200000.
+- CLI: `SPADAKCODE_CONFIG_CONTENT='{"compaction":{"max_context":{"openai/gpt-5*":"300K","openai/gpt-5.6":200000}}}' bun run src/index.ts models openai` → `gpt-5.6` window 922K / budget 200K / compacts at 180K; `gpt-5.6-sol` budget 300K / 280K; `gpt-5.3-codex` (272K cap) shows no budget because 300K clamps away; `gpt-4o` and `o3` unchanged.
+- Live TUI (tmux, isolated `SPADAKCODE_HOME`, `xiaomi/spadak-v2.5`): picking 300K wrote `"xiaomi/spadak-v2.5": 300000` to the global `spadakcode.jsonc`, footer became `33.0K/260K↓ (13%)`, and `/status` showed `window 1.05M · budget 300K · compacts at 260K`. The sidebar follow-up renders the user setting against the model limit (`limit 300K of 1.05M`) and covers it with a TUI render test. Custom `"50%"` wrote 524288 (`compacts at 484K`). "Model default" wrote `0` and restored `compacts at 1.01M`. Selecting a tier mid-stream left the config untouched and kept the dialog open; the same action once idle wrote 200000.
 
 **Journey log**
 
@@ -67,7 +67,7 @@ return input.model.limit.input
   : Math.max(0, context - outputReserve - reserved)
 ```
 
-models.dev catalog (bundled at build time as `packages/opencode/src/provider/models-snapshot.js`, cached at `~/.cache/mimocode/models.json`) for the openai provider:
+models.dev catalog (bundled at build time as `packages/opencode/src/provider/models-snapshot.js`, cached at `~/.cache/spadakcode/models.json`) for the openai provider:
 
 | model | context | input | usable() before #1926 | usable() after #1926 |
 | --- | --- | --- | --- | --- |
@@ -84,7 +84,7 @@ So for every 1M-class GPT model — the exact case the PR was filed for — comp
 
 Defect 2 — **assignment instead of clamp.** `gpt-4o` (128K real) and `gpt-3.5-turbo` (16K real) are *raised* to 300K, guaranteeing provider-side overflow errors that previously could not happen. `gpt-image-*` has `limit.context: 0`, a sentinel that `overflow.ts:15,28,50` uses to disable overflow handling entirely; setting it to 300K defeats that guard.
 
-Defect 3 — **not overridable and not per-plan.** The plugin auth loader runs at `provider.ts:1310-1329`, *after* the config-driven model merge at `provider.ts:1169-1279`. A user on a plan with a different real window cannot restore or lower the value from `mimocode.json`. The value is also a bare literal with no provenance, so nothing can explain it in the UI.
+Defect 3 — **not overridable and not per-plan.** The plugin auth loader runs at `provider.ts:1310-1329`, *after* the config-driven model merge at `provider.ts:1169-1279`. A user on a plan with a different real window cannot restore or lower the value from `spadakcode.json`. The value is also a bare literal with no provenance, so nothing can explain it in the UI.
 
 Defect 4 — **wrong layer for the general need.** Even a correct provider-layer clamp only serves "the provider lies about its window". It does not serve "I want to compact at 200K on a 1M model" for cost, latency, cache-churn or answer-quality reasons — a request already filed as issue #1837 ("Context occupancy meter (% + tokens) and adjustable auto-compact threshold"), and adjacent to #1840 (switching to a smaller-window model mid-session).
 
@@ -96,7 +96,7 @@ Checkpoint percentages use `usable()` as their denominator, and the final 80%/90
 
 - `compaction.reserved` (`config.ts:254`) can be abused as an early-compact dial (`reserved = context - target`), but it is global across all models, is also consumed by `compaction.ts:49-54` and `prune.ts:274-292` as a *safety* buffer, and produces a nonsensical number for anyone reading the config.
 - `provider.<id>.models.<id>.limit.input` (`config/provider.ts:40-46`) *does* already move the trigger, but it is per-model JSON archaeology, it lies about the provider's real cap, and for the Codex case it is overwritten by the plugin (Defect 3).
-- `MIMOCODE_DISABLE_AUTOCOMPACT` is all-or-nothing.
+- `SPADAKCODE_DISABLE_AUTOCOMPACT` is all-or-nothing.
 
 ### S1.5 Requirement summary
 
@@ -215,7 +215,7 @@ Three surfaces compute `%` independently against raw `limit.context` today, and 
 | sidebar context widget `.../feature-plugins/sidebar/context.tsx:67-95` | `% used` vs raw context | `% used` vs active limit + `limit 300K of 922K` when a 300K budget is active on a 922K model |
 | subagent footer `.../routes/session/subagent-footer.tsx:54-63` | raw context | usage vs internal `usable` trigger, matching the prompt footer |
 | `/status` dialog `.../component/dialog-status.tsx` | no context info at all | new **Context** block: model, provider window, budget + its source, reserved, compact-at, current tokens + `%` |
-| CLI | `mimo models openai --verbose` dumps the whole model JSON | add a `context` column to non-verbose output, or a `--context` flag printing `hard / effective / usable` |
+| CLI | `spadak models openai --verbose` dumps the whole model JSON | add a `context` column to non-verbose output, or a `--context` flag printing `hard / effective / usable` |
 
 The TUI may import `Overflow.window` directly — TUI modules already import from `@/session/*` (`app.tsx:55`, `routes/session/index.tsx:100`) — and it already holds `sync.data.config` plus `sync.data.provider[i].models[id].limit`. No new server route is needed for display.
 
@@ -235,7 +235,7 @@ Storage location for the user's budget. All routes share S2.1–S2.2 and S2.6; t
 
 ### Route A — config only (`compaction.max_context`), no UI writer
 
-- Add schema (S2.4) + `usable()` (S2.2) + display (S2.6) + docs. Users hand-edit `mimocode.json`.
+- Add schema (S2.4) + `usable()` (S2.2) + display (S2.6) + docs. Users hand-edit `spadakcode.json`.
 - Scope: global or per-model, per project or per user. Persistent. Read by *every* `usable()` call site for free (`cfg` is already an argument at all 6 sites).
 - Cost: smallest. No SDK regeneration beyond the generated `Config` type, no migration, no new dialog.
 - Gap: does not satisfy the user's "slash option with preset tiers" ask; not discoverable.
@@ -272,7 +272,7 @@ Rejected alternatives:
 
 - Overload `provider.*.models.*.limit.context` as the user knob (what #1926 does at plugin level): destroys the distinction in S1.1, lies to the provider-cap consumers (`acp/agent.ts:76`, `prompt.ts:1359`), and cannot express "compact early" without also mis-reporting the model.
 - Overload `compaction.reserved`: global-only, and collides with its safety-buffer role in `compaction.ts` and `prune.ts`.
-- TUI KV / `model.json` as the store: the TUI runs in a separate realm from the session engine (Worker + HTTP-shaped transport, `tui/thread.ts:270-335`, `tui/worker.ts:50-68`), so server code cannot read it in memory, and it would not apply to `mimo run` / `serve` / ACP clients.
+- TUI KV / `model.json` as the store: the TUI runs in a separate realm from the session engine (Worker + HTTP-shaped transport, `tui/thread.ts:270-335`, `tui/worker.ts:50-68`), so server code cannot read it in memory, and it would not apply to `spadak run` / `serve` / ACP clients.
 - Per-request `PromptInput.maxContext`: not sticky across compaction continuations, retries, or `LoopInput` wakes (`prompt.ts:4460`), and needs threading into `Processor` anyway.
 
 ## [S4] Out of scope
@@ -308,7 +308,7 @@ Display (needed by any route):
 
 - [x] T9: Switch the prompt footer, sidebar context widget, and subagent footer to `Overflow.contextWindow()` — acceptance: prompt/subagent usage uses the internal trigger, while sidebar usage uses the active setting and compares it with the provider cap (covers: S2.6; depends: T5)
 - [x] T10: Add a Context block to the `/status` dialog showing provider window, budget + source, reserved, compact-at, current tokens and `%` — acceptance: with and without a configured budget the block renders correct numbers and the correct `source` label (covers: S2.6; depends: T5)
-- [x] T11: Surface the context window in the `models` CLI command without `--verbose` — acceptance: `mimocode models openai` prints each model's provider window and compact-at (covers: S2.6; depends: T5)
+- [x] T11: Surface the context window in the `models` CLI command without `--verbose` — acceptance: `spadakcode models openai` prints each model's provider window and compact-at (covers: S2.6; depends: T5)
 - [x] T12: Decouple the final checkpoint threshold from the prompt-loop rebuild condition — acceptance: crossing the final checkpoint threshold below `usable()` writes a checkpoint but inserts no rebuild or compaction boundary; reaching `usable()` still follows the existing rebuild path (covers: S1.3, S2.1; depends: T5)
 - [x] T13: Show the configured active limit relative to the provider hard cap in the sidebar — acceptance: a 300K budget on a 922K model renders `limit 300K of 922K`, while the reserve-adjusted trigger remains internal and available in `/status` (covers: S2.6; depends: T5)
 - [x] T14: Consume each assistant usage at most once during overflow recovery — acceptance: post-process recovery sets the current-loop skip guard; across user turns, a newer boundary prevents the recovered assistant from driving checkpoint scheduling, preflight overflow, or exit-time pruning; equivalent subagent/fork recovery paths set the same guard (covers: S1.6, S2.7; depends: T12)

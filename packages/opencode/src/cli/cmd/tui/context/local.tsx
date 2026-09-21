@@ -213,12 +213,12 @@ export const { use: useLocal, provider: LocalProvider } = createSimpleContext({
         })
         if (initial || !modelStore.ready) return initial
 
-        // No args/recent/config match: prefer the free mimo-auto channel so a
+        // No args/recent/config match: prefer the free spadak-auto channel so a
         // clean install defaults to a usable free model rather than whatever
-        // provider happens to sit first (e.g. paid xiaomi/ultraspeed).
-        const mimo = sync.data.provider.find((p) => p.id === "mimo")
-        if (mimo && "mimo-auto" in mimo.models) {
-          return { providerID: "mimo", modelID: "mimo-auto" }
+        // provider happens to sit first (e.g. paid spadak/ultraspeed).
+        const spadak = sync.data.provider.find((p) => p.id === "spadak")
+        if (spadak && "spadak-auto" in spadak.models) {
+          return { providerID: "spadak", modelID: "spadak-auto" }
         }
 
         const provider = sync.data.provider[0]
@@ -493,7 +493,7 @@ export const { use: useLocal, provider: LocalProvider } = createSimpleContext({
     // permission ask timeout: null = no timeout (wait indefinitely), positive
     // number = ms before auto-reject. Orthogonal to skipPermissions.
     // Initialized from server so the TUI reflects the actual value (e.g. one
-    // set via MIMOCODE_SKIP_ALL_FORCED_ASK_TIMEOUT_MS env var).
+    // set via SPADAKCODE_SKIP_ALL_FORCED_ASK_TIMEOUT_MS env var).
     const permissionAskTimeout = iife(() => {
       const [ms, setMs] = createSignal<number | null>(null)
       void sdk.client.permission.askTimeout().then((res) => {

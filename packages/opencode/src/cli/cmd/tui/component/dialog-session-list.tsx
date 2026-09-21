@@ -161,7 +161,7 @@ export function DialogSessionList() {
         }
 
         let footer = ""
-        if (Flag.MIMOCODE_EXPERIMENTAL_WORKSPACES) {
+        if (Flag.SPADAKCODE_EXPERIMENTAL_WORKSPACES) {
           if (x.workspaceID) {
             let desc = "unknown"
             if (workspace) {
@@ -291,7 +291,7 @@ export function DialogSessionList() {
           keybind: Keybind.parse("ctrl+w")[0],
           title: "new workspace",
           side: "right",
-          disabled: !Flag.MIMOCODE_EXPERIMENTAL_WORKSPACES,
+          disabled: !Flag.SPADAKCODE_EXPERIMENTAL_WORKSPACES,
           onTrigger: () => {
             createWorkspace()
           },

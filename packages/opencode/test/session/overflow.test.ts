@@ -162,7 +162,7 @@ describe("isOverflow", () => {
   })
 
   // The compaction trigger is a flat fraction of the window (see
-  // Flag.MIMOCODE_COMPACTION_TRIGGER_RATIO), so it reserves headroom uniformly
+  // Flag.SPADAKCODE_COMPACTION_TRIGGER_RATIO), so it reserves headroom uniformly
   // whether or not the model publishes a dedicated input cap. This removes the
   // old asymmetry where a limit.input model triggered compaction later than an
   // equivalent model without one (issues #10634, #8089, #11086, #12621).
@@ -552,28 +552,28 @@ describe("usable", () => {
   })
 })
 
-describe("MIMOCODE_COMPACTION_TRIGGER_RATIO", () => {
+describe("SPADAKCODE_COMPACTION_TRIGGER_RATIO", () => {
   afterEach(() => {
-    delete process.env["MIMOCODE_COMPACTION_TRIGGER_RATIO"]
+    delete process.env["SPADAKCODE_COMPACTION_TRIGGER_RATIO"]
   })
 
   test("a decimal moves the trigger", () => {
-    process.env["MIMOCODE_COMPACTION_TRIGGER_RATIO"] = "0.75"
+    process.env["SPADAKCODE_COMPACTION_TRIGGER_RATIO"] = "0.75"
     expect(usable({ cfg: mockCfg(), model: createModel({ context: 200_000 }) })).toBe(150_000)
   })
 
   test("a percentage is equivalent to the decimal", () => {
-    process.env["MIMOCODE_COMPACTION_TRIGGER_RATIO"] = "75%"
+    process.env["SPADAKCODE_COMPACTION_TRIGGER_RATIO"] = "75%"
     expect(usable({ cfg: mockCfg(), model: createModel({ context: 200_000 }) })).toBe(150_000)
   })
 
   test("1 lets usage fill the whole working window", () => {
-    process.env["MIMOCODE_COMPACTION_TRIGGER_RATIO"] = "1"
+    process.env["SPADAKCODE_COMPACTION_TRIGGER_RATIO"] = "1"
     expect(usable({ cfg: mockCfg(), model: createModel({ context: 200_000 }) })).toBe(200_000)
   })
 
   test("applies on top of the max_context budget rather than replacing it", () => {
-    process.env["MIMOCODE_COMPACTION_TRIGGER_RATIO"] = "0.5"
+    process.env["SPADAKCODE_COMPACTION_TRIGGER_RATIO"] = "0.5"
     const model = createModel({ context: 200_000 })
     expect(contextWindow({ cfg: mockCfg({ max_context: "100K" }), model })).toEqual({
       hard: 200_000,
@@ -584,7 +584,7 @@ describe("MIMOCODE_COMPACTION_TRIGGER_RATIO", () => {
   })
 
   test.each(["0", "-0.5", "1.5", "150%", "abc", ""])("ignores %p and keeps the 0.9 default", (value) => {
-    process.env["MIMOCODE_COMPACTION_TRIGGER_RATIO"] = value
+    process.env["SPADAKCODE_COMPACTION_TRIGGER_RATIO"] = value
     expect(usable({ cfg: mockCfg(), model: createModel({ context: 200_000 }) })).toBe(180_000)
   })
 })

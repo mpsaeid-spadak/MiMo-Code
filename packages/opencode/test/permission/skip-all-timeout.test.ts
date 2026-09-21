@@ -11,7 +11,7 @@ const { tmpdir } = await import("../fixture/fixture")
 // Scoped per test, not at module load: a top-level assignment leaks into every
 // later file in the same process (CI runs this file before sampling-e2e), and
 // Permission state initializes permissionAskTimeoutMs from this env var.
-const ASK_TIMEOUT_ENV = "MIMOCODE_SKIP_ALL_FORCED_ASK_TIMEOUT_MS"
+const ASK_TIMEOUT_ENV = "SPADAKCODE_SKIP_ALL_FORCED_ASK_TIMEOUT_MS"
 let previousAskTimeoutEnv: string | undefined
 
 beforeEach(() => {
@@ -46,7 +46,7 @@ function buildRequest(extra?: Partial<Parameters<PermissionType.Interface["ask"]
 }
 
 describe("permission ask timeout (real clock)", () => {
-  test("env var MIMOCODE_SKIP_ALL_FORCED_ASK_TIMEOUT_MS sets initial timeout", async () => {
+  test("env var SPADAKCODE_SKIP_ALL_FORCED_ASK_TIMEOUT_MS sets initial timeout", async () => {
     await using tmp = await tmpdir()
     await Instance.provide({
       directory: tmp.path,

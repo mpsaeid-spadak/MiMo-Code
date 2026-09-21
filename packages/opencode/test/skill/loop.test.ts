@@ -9,12 +9,12 @@ import { withEnv } from "../lib/env"
 // Disable compose bundle to keep the skill universe small for this test; keep
 // the builtin bundle ON so the /loop skill is discoverable.
 withEnv({
-  MIMOCODE_DISABLE_COMPOSE_SKILLS: "true",
-  MIMOCODE_DISABLE_AGENTS_SKILLS: "true",
-  MIMOCODE_ENABLE_CLAUDE_CODE_SKILLS: undefined,
-  MIMOCODE_ENABLE_CODEX_SKILLS: undefined,
-  MIMOCODE_ENABLE_OPENCODE_SKILLS: undefined,
-  MIMOCODE_DISABLE_BUILTIN_SKILLS: undefined,
+  SPADAKCODE_DISABLE_COMPOSE_SKILLS: "true",
+  SPADAKCODE_DISABLE_AGENTS_SKILLS: "true",
+  SPADAKCODE_ENABLE_CLAUDE_CODE_SKILLS: undefined,
+  SPADAKCODE_ENABLE_CODEX_SKILLS: undefined,
+  SPADAKCODE_ENABLE_OPENCODE_SKILLS: undefined,
+  SPADAKCODE_DISABLE_BUILTIN_SKILLS: undefined,
 })
 
 const it = testEffect(Layer.mergeAll(Skill.defaultLayer, CrossSpawnSpawner.defaultLayer))

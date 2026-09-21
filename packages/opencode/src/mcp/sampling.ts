@@ -107,14 +107,14 @@ export const DEFAULT_LIVENESS_INTERVAL = 15_000
  * IT USED TO BE OURS: `DEFAULT_SAMPLING_STALL_TIMEOUT = 45_000`, justified only as
  * 3x the liveness interval. The repo already had this exact concept — "no output
  * for this long means the stream is dead" — as `chunkTimeout`, wired in
- * `provider.ts:wrapSSE`, configurable per provider in `mimocode.json`, default
+ * `provider.ts:wrapSSE`, configurable per provider in `spadakcode.json`, default
  * `DEFAULT_CHUNK_TIMEOUT` = 8 minutes. Carrying a second, tighter, differently
  * named silence bound in the same repo for the same question was the defect; 45 s
  * against 480 s is not a divergence to justify but a 10x disagreement about the
  * same fact.
  *
  * AND THE REPO'S NUMBER IS THE ARGUED ONE. `DEFAULT_CHUNK_TIMEOUT`'s comment
- * records a real observation — "mimo-v2.5-pro on MiMo Router whose cold-path TTFT
+ * records a real observation — "spadak-v2.5-pro on Spadak Router whose cold-path TTFT
  * after context rebuild can dip to ~5 minutes silent" — which is the only
  * statement anywhere here about how long LEGITIMATE provider silence lasts. Our
  * 45 s was 10x tighter than a value tuned to tolerate a real 5-minute silent cold
@@ -764,7 +764,7 @@ export const handle = Effect.fn("MCP.sampling.handle")(function* (input: HandleI
         temperature: model.capabilities.temperature ? input.params.temperature : undefined,
         stopSequences: input.params.stopSequences ? [...input.params.stopSequences] : undefined,
         providerOptions: ProviderTransform.providerOptions(model, {}),
-        headers: { ...model.headers, "User-Agent": `mimocode/${InstallationVersion}` },
+        headers: { ...model.headers, "User-Agent": `spadakcode/${InstallationVersion}` },
         abortSignal: providerSignal,
         maxRetries: 1,
         // `streamText` reports provider failures as an `error` PART rather than by

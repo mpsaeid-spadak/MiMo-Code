@@ -2,7 +2,7 @@ import { Schema } from "effect"
 import { zod } from "@/util/effect-zod"
 
 /**
- * Defaults for `mimo llm-server` token lifetimes.
+ * Defaults for `spadak llm-server` token lifetimes.
  *
  * Durations are strings (`30m`, `1d`, `none`) rather than numbers because the unit
  * is the interesting part and a bare `86400000` in a config file is unreadable.

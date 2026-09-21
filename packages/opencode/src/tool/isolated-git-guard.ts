@@ -1,6 +1,6 @@
 import * as path from "path"
 import { readFileSync, realpathSync } from "node:fs"
-import { AppFileSystem } from "@mimo-ai/shared/filesystem"
+import { AppFileSystem } from "@spadak/shared/filesystem"
 import { Global } from "../global"
 
 /**

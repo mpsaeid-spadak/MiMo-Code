@@ -18,15 +18,15 @@ if (!semver.satisfies(process.versions.bun, expectedBunVersionRange)) {
 }
 
 const env = {
-  MIMOCODE_CHANNEL: process.env["MIMOCODE_CHANNEL"],
-  MIMOCODE_BUMP: process.env["MIMOCODE_BUMP"],
-  MIMOCODE_VERSION: process.env["MIMOCODE_VERSION"],
-  MIMOCODE_RELEASE: process.env["MIMOCODE_RELEASE"],
+  SPADAKCODE_CHANNEL: process.env["SPADAKCODE_CHANNEL"],
+  SPADAKCODE_BUMP: process.env["SPADAKCODE_BUMP"],
+  SPADAKCODE_VERSION: process.env["SPADAKCODE_VERSION"],
+  SPADAKCODE_RELEASE: process.env["SPADAKCODE_RELEASE"],
 }
 const CHANNEL = await (async () => {
-  if (env.MIMOCODE_CHANNEL) return env.MIMOCODE_CHANNEL
-  if (env.MIMOCODE_BUMP) return "latest"
-  if (env.MIMOCODE_VERSION && !env.MIMOCODE_VERSION.startsWith("0.0.0-")) return "latest"
+  if (env.SPADAKCODE_CHANNEL) return env.SPADAKCODE_CHANNEL
+  if (env.SPADAKCODE_BUMP) return "latest"
+  if (env.SPADAKCODE_VERSION && !env.SPADAKCODE_VERSION.startsWith("0.0.0-")) return "latest"
   return await $`git branch --show-current`.text().then((x) => x.trim()) || "latest"
 })()
 const IS_PREVIEW = CHANNEL !== "latest"
@@ -36,12 +36,12 @@ const SHORT_SHA = await (async () => {
     const sha = await $`git rev-parse --short HEAD`.text()
     return sha.trim()
   } catch {
-    return process.env["MIMOCODE_COMMIT_SHA"] ?? null
+    return process.env["SPADAKCODE_COMMIT_SHA"] ?? null
   }
 })()
 
 const VERSION = await (async () => {
-  if (env.MIMOCODE_VERSION) return env.MIMOCODE_VERSION
+  if (env.SPADAKCODE_VERSION) return env.SPADAKCODE_VERSION
   if (IS_PREVIEW) {
     if (SHORT_SHA) return `0.0.0-${CHANNEL}-${SHORT_SHA}`
     const ts = new Date().toISOString().replace(/[-:T]/g, "").slice(0, 12)
@@ -50,7 +50,7 @@ const VERSION = await (async () => {
   const version = await Bun.file(path.resolve(import.meta.dir, "../../opencode/package.json"))
     .json()
     .then((data: any) => data.version)
-  const t = env.MIMOCODE_BUMP?.toLowerCase()
+  const t = env.SPADAKCODE_BUMP?.toLowerCase()
   if (!t) return version
   const [major, minor, patch] = version.split(".").map((x: string) => Number(x) || 0)
   if (t === "major") return `${major + 1}.0.0`
@@ -69,7 +69,7 @@ export const Script = {
     return IS_PREVIEW
   },
   get release(): boolean {
-    return !!env.MIMOCODE_RELEASE
+    return !!env.SPADAKCODE_RELEASE
   },
 }
-console.log(`mimocode script`, JSON.stringify(Script, null, 2))
+console.log(`spadakcode script`, JSON.stringify(Script, null, 2))

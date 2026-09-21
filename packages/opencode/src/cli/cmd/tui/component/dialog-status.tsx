@@ -7,7 +7,7 @@ import { useLocal } from "@tui/context/local"
 import { useRoute } from "@tui/context/route"
 import * as Model from "@tui/util/model"
 import { Locale, Token } from "@/util"
-import type { AssistantMessage } from "@mimo-ai/sdk/v2"
+import type { AssistantMessage } from "@spadak/sdk/v2"
 import { For, Match, Switch, Show, createMemo } from "solid-js"
 
 export type DialogStatusProps = {}

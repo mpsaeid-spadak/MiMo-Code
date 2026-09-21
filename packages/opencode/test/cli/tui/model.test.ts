@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { Provider } from "@mimo-ai/sdk/v2"
+import type { Provider } from "@spadak/sdk/v2"
 import { initial } from "../../../src/cli/cmd/tui/util/model"
 
 const providers = [

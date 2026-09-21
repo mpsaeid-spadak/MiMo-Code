@@ -24,7 +24,7 @@ function response(output: unknown[]) {
     object: "response",
     created_at: 1_755_000_000,
     status: "completed",
-    model: "mimo-ptc",
+    model: "spadak-ptc",
     output,
     usage: { input_tokens: 1, output_tokens: 1, total_tokens: 2 },
     incomplete_details: null,
@@ -271,7 +271,7 @@ describe("Responses exec custom tool", () => {
         )) as any,
     })
 
-    const result = await provider.responses("mimo-ptc").doGenerate({ prompt: userPrompt })
+    const result = await provider.responses("spadak-ptc").doGenerate({ prompt: userPrompt })
 
     expect(result.content).toContainEqual({
       type: "tool-call",
@@ -290,7 +290,7 @@ describe("Responses exec custom tool", () => {
     const events: unknown[] = [
       {
         type: "response.created",
-        response: { id: "resp_stream", created_at: 1_755_000_000, model: "mimo-ptc", service_tier: null },
+        response: { id: "resp_stream", created_at: 1_755_000_000, model: "spadak-ptc", service_tier: null },
       },
     ]
     for (const [outputIndex, source] of sources.entries()) {
@@ -337,7 +337,7 @@ describe("Responses exec custom tool", () => {
       baseURL: "https://example.test/v1",
       fetch: (async () => sse(events)) as any,
     })
-    const result = await provider.responses("mimo-ptc").doStream({ prompt: userPrompt })
+    const result = await provider.responses("spadak-ptc").doStream({ prompt: userPrompt })
     const parts: any[] = []
     const reader = result.stream.getReader()
     while (true) {
@@ -362,7 +362,7 @@ describe("Responses exec custom tool", () => {
     const bodies: any[] = []
     let request = 0
     const provider = createOpenaiCompatible({
-      name: "xiaomi",
+      name: "spadak",
       customToolNames: ["exec"],
       baseURL: "https://example.test/v1",
       fetch: (async (_url: string, init: RequestInit) => {
@@ -393,7 +393,7 @@ describe("Responses exec custom tool", () => {
     })
 
     const result = await generateText({
-      model: provider.responses("mimo-ptc"),
+      model: provider.responses("spadak-ptc"),
       prompt: "run it",
       tools: {
         exec: tool({
@@ -402,7 +402,7 @@ describe("Responses exec custom tool", () => {
           execute: async ({ code }) => `executed:${code}`,
         }),
       },
-      providerOptions: { xiaomi: { store: false } },
+      providerOptions: { spadak: { store: false } },
       stopWhen: stepCountIs(2),
     })
 

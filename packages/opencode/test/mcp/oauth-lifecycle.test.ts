@@ -57,7 +57,7 @@ it.live("startAuth closes no-redirect probes without replacing the active MCP co
       Effect.gen(function* () {
         yield* Effect.promise(() =>
           Bun.write(
-            `${dir}/mimocode.json`,
+            `${dir}/spadakcode.json`,
             JSON.stringify({ mcp: { example: { type: "remote", url: `${server.url}mcp` } } }),
           ),
         )

@@ -75,9 +75,9 @@ export async function init(options: Options) {
   await enqueue(async () => {
     await closeCurrent()
     if (options.level) level = options.level
-    rotation = options.rotate ?? !Flag.MIMOCODE_DISABLE_LOG_ROTATION
+    rotation = options.rotate ?? !Flag.SPADAKCODE_DISABLE_LOG_ROTATION
     printing = options.print
-    const role = (process.env.MIMOCODE_PROCESS_ROLE ?? "main").replace(/[^a-zA-Z0-9._-]/g, "-")
+    const role = (process.env.SPADAKCODE_PROCESS_ROLE ?? "main").replace(/[^a-zA-Z0-9._-]/g, "-")
     await cleanup(Global.Path.log, { pid: process.pid, role })
     if (options.print) {
       logpath = ""

@@ -2,7 +2,7 @@ import { fileURLToPath } from "node:url"
 import { BusEvent } from "@/bus/bus-event"
 import { SessionID, MessageID, PartID } from "./schema"
 import z from "zod"
-import { NamedError } from "@mimo-ai/shared/util/error"
+import { NamedError } from "@spadak/shared/util/error"
 import {
   APICallError,
   convertToModelMessages,
@@ -749,7 +749,7 @@ const part = (row: typeof PartTable.$inferSelect) =>
   }) as Part
 
 /** Stable substring for the compose-agent synthetic protocol (request-order head). */
-export const COMPOSE_REMINDER_MARKER = "MiMoCode Compose Agent"
+export const COMPOSE_REMINDER_MARKER = "SpadakCode Compose Agent"
 
 /**
  * DB orders parts by `PartTable.id` (ascending). Compose protocol must sit at the

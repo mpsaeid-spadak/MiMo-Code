@@ -13,13 +13,13 @@ import {
 import { Config } from "../config"
 import { ConfigMCP } from "../config/mcp"
 import { Log } from "../util"
-import { NamedError } from "@mimo-ai/shared/util/error"
+import { NamedError } from "@spadak/shared/util/error"
 import z from "zod/v4"
 import { Installation } from "../installation"
 import { InstallationVersion } from "../installation/version"
 import { withTimeout } from "@/util/timeout"
 import { ObservingStdioTransport } from "./stdio-transport"
-import { AppFileSystem } from "@mimo-ai/shared/filesystem"
+import { AppFileSystem } from "@spadak/shared/filesystem"
 import { McpOAuthProvider } from "./oauth-provider"
 import { McpOAuthCallback } from "./oauth-callback"
 import { McpAuth } from "./auth"
@@ -86,7 +86,7 @@ export const Failed = NamedError.create(
 
 type MCPClient = ManagedClient
 
-export const TURN_LIFECYCLE_CAPABILITY = "com.xiaomi.mimo/turn-lifecycle"
+export const TURN_LIFECYCLE_CAPABILITY = "com.xiaomi.spadak/turn-lifecycle"
 export const TURN_LIFECYCLE_NOTIFICATION = `notifications/${TURN_LIFECYCLE_CAPABILITY}`
 export const TURN_LIFECYCLE_VERSION = 1
 export const TURN_LIFECYCLE_NOTIFICATION_TIMEOUT = 1_000
@@ -95,7 +95,7 @@ export const TURN_LIFECYCLE_NOTIFICATION_TIMEOUT = 1_000
 export const TURN_LIFECYCLE_STUCK_TIMEOUT = TURN_LIFECYCLE_NOTIFICATION_TIMEOUT
 
 /**
- * Capabilities MiMoCode declares in `initialize`. Exported so tests assert on the
+ * Capabilities SpadakCode declares in `initialize`. Exported so tests assert on the
  * SAME object the client is constructed with rather than a copy that could drift.
  */
 export const CLIENT_OPTIONS = {
@@ -506,7 +506,7 @@ export const layer = Layer.effect(
     const spawner = yield* ChildProcessSpawner.ChildProcessSpawner
     const auth = yield* McpAuth.Service
     const bus = yield* Bus.Service
-    const createClient = () => new ManagedClient({ name: "mimocode", version: InstallationVersion }, CLIENT_OPTIONS)
+    const createClient = () => new ManagedClient({ name: "spadakcode", version: InstallationVersion }, CLIENT_OPTIONS)
 
     type Transport = ObservingStdioTransport | StreamableHTTPClientTransport | SSEClientTransport
 

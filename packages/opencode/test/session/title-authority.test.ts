@@ -102,7 +102,7 @@ test("event insertion failure rolls back all three fields, sequence and publicat
             db.run(sql`DROP TABLE title_commit_fault`)
           })
         }
-        if (Flag.MIMOCODE_EXPERIMENTAL_WORKSPACES) {
+        if (Flag.SPADAKCODE_EXPERIMENTAL_WORKSPACES) {
           Database.use((db) =>
             db.run(
               sql`CREATE TEMP TRIGGER reject_title_log BEFORE INSERT ON event BEGIN SELECT RAISE(ABORT, 'injected event failure'); END`,

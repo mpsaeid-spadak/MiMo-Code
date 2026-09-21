@@ -22,7 +22,7 @@ async function fixture() {
       lines.on('close', () => process.exit(0));
       lines.on('line', async line => {
         const req = JSON.parse(line);
-        if (req.method === 'notifications/com.xiaomi.mimo/turn-lifecycle') {
+        if (req.method === 'notifications/com.xiaomi.spadak/turn-lifecycle') {
           fs.appendFileSync(process.env.FIXTURE_LOG, JSON.stringify({label: process.env.FIXTURE_LABEL, ...req.params}) + '\\n');
         }
         if (req.id == null) return;
@@ -33,7 +33,7 @@ async function fixture() {
           else await new Promise(resolve => setTimeout(resolve, 150));
         }
         const result = req.method === 'initialize'
-          ? { protocolVersion: '2024-11-05', capabilities: {tools: {}, resources: {}, prompts: {}, experimental: {'com.xiaomi.mimo/turn-lifecycle': {version: 1}}}, serverInfo: {name: 'fixture', version: '1'} }
+          ? { protocolVersion: '2024-11-05', capabilities: {tools: {}, resources: {}, prompts: {}, experimental: {'com.xiaomi.spadak/turn-lifecycle': {version: 1}}}, serverInfo: {name: 'fixture', version: '1'} }
           : req.method === 'tools/list'
           ? { tools: [{name: 'read', inputSchema: {type: 'object'}}] }
           : req.method === 'resources/list'
@@ -88,7 +88,7 @@ async function waitForFile(file: string) {
 test("host readiness refreshes a cached instance while other MCP calls continue", async () => {
   await using tmp = await fixture()
   const config = tmp.extra.config
-  await Bun.write(`${tmp.path}/mimocode.json`, JSON.stringify({ mcp: { other: config("other") } }))
+  await Bun.write(`${tmp.path}/spadakcode.json`, JSON.stringify({ mcp: { other: config("other") } }))
   HostMcp.set({ automation: config("first", false) })
   try {
     await Instance.provide({
@@ -341,7 +341,7 @@ test("host sampling deny overrides a user-config allow for the same server", asy
   )
   const hostEnv = { SAMPLING_LOG: samplingLog }
   await Bun.write(
-    `${tmp.path}/mimocode.json`,
+    `${tmp.path}/spadakcode.json`,
     JSON.stringify({
       mcp: {
         automation: {
@@ -442,7 +442,7 @@ test("removed override with a failed user fallback retries after cooldown withou
     enabled: true,
     environment: { FAIL_GATE: failGate },
   }
-  await Bun.write(`${tmp.path}/mimocode.json`, JSON.stringify({ mcp: { automation: userCfg } }))
+  await Bun.write(`${tmp.path}/spadakcode.json`, JSON.stringify({ mcp: { automation: userCfg } }))
   await Bun.write(failGate, "fail")
   const good = tmp.extra.config("good")
   HostMcp.set({ automation: good })
@@ -685,7 +685,7 @@ test.skipIf(process.platform === "win32")(
 test("host-owned disabled server refuses connect, add, and authenticate", async () => {
   await using tmp = await fixture()
   const config = tmp.extra.config
-  await Bun.write(`${tmp.path}/mimocode.json`, JSON.stringify({ mcp: { automation: config("user") } }))
+  await Bun.write(`${tmp.path}/spadakcode.json`, JSON.stringify({ mcp: { automation: config("user") } }))
   HostMcp.set({ automation: config("host", false) })
   try {
     await Instance.provide({

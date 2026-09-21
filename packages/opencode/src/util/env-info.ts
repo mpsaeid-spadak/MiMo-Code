@@ -2,7 +2,7 @@ import os from "os"
 import { Global } from "@/global"
 import { InstallationChannel, InstallationVersion } from "@/installation/version"
 import { getInstallationID } from "@/metrics/installation"
-import { MIMOCODE_PROCESS_ROLE, MIMOCODE_RUN_ID } from "./mimo-process"
+import { SPADAKCODE_PROCESS_ROLE, SPADAKCODE_RUN_ID } from "./spadak-process"
 
 function username() {
   if (process.env.USER) return process.env.USER
@@ -51,12 +51,12 @@ export async function getEnvInfo() {
       data: Global.Path.data,
       config: Global.Path.config,
     },
-    mimocode: {
+    spadakcode: {
       version: InstallationVersion,
       channel: InstallationChannel,
       installation_id: await getInstallationID(),
-      run_id: MIMOCODE_RUN_ID,
-      process_role: MIMOCODE_PROCESS_ROLE,
+      run_id: SPADAKCODE_RUN_ID,
+      process_role: SPADAKCODE_PROCESS_ROLE,
     },
   }
 }

@@ -119,7 +119,7 @@ import { Command } from "../command"
 import { pathToFileURL, fileURLToPath } from "url"
 import { ConfigMarkdown, ConfigCompose } from "../config"
 import { SessionSummary } from "./summary"
-import { NamedError } from "@mimo-ai/shared/util/error"
+import { NamedError } from "@spadak/shared/util/error"
 import { SessionProcessor } from "./processor"
 import { buildLLMRequestPrefix } from "./llm-request-prefix"
 import {
@@ -140,7 +140,7 @@ import { SessionStatus } from "./status"
 import { LLM } from "./llm"
 import { MaxMode } from "./max-mode"
 import { Shell } from "@/shell/shell"
-import { AppFileSystem } from "@mimo-ai/shared/filesystem"
+import { AppFileSystem } from "@spadak/shared/filesystem"
 import { Truncate } from "@/tool"
 import { decodeDataUrl } from "@/util/data-url"
 import { Process } from "@/util"
@@ -252,7 +252,7 @@ export function stableRootTitle(input: { agent: string | undefined; parentID: st
  * Cap on goal-driven main-loop re-entries per turn — the safety valve against
  * a never-satisfiable condition burning tokens forever. Higher than spawned
  * actors' MAX_PRE_REACT (=3) because main-session goals are usually larger.
- * TODO: lift to mimocode.json config (e.g. session.maxGoalReact).
+ * TODO: lift to spadakcode.json config (e.g. session.maxGoalReact).
  */
 const MAX_GOAL_REACT = 12
 
@@ -544,9 +544,9 @@ export function predictContext(history: readonly MessageV2.WithParts[]) {
   }
 }
 
-const OUTPUT_LENGTH_CONTINUATION_LIMIT = Flag.MIMOCODE_OUTPUT_LENGTH_CONTINUATION_LIMIT
-const INVALID_OUTPUT_CONTINUATION_LIMIT = Flag.MIMOCODE_INVALID_OUTPUT_CONTINUATION_LIMIT
-const TEXT_TOOL_CALL_RETRY_LIMIT = Flag.MIMOCODE_TEXT_TOOL_CALL_RETRY_LIMIT
+const OUTPUT_LENGTH_CONTINUATION_LIMIT = Flag.SPADAKCODE_OUTPUT_LENGTH_CONTINUATION_LIMIT
+const INVALID_OUTPUT_CONTINUATION_LIMIT = Flag.SPADAKCODE_INVALID_OUTPUT_CONTINUATION_LIMIT
+const TEXT_TOOL_CALL_RETRY_LIMIT = Flag.SPADAKCODE_TEXT_TOOL_CALL_RETRY_LIMIT
 
 const log = Log.create({ service: "session.prompt" })
 
@@ -554,7 +554,7 @@ const log = Log.create({ service: "session.prompt" })
 // itself via mtime staleness checks (covers external editors too), so only
 // tools and skills need the write/edit-triggered registry reload.
 function isExtensionPath(filePath: string): boolean {
-  return /\/\.mimocode\/(tools?|skills?)\//.test(filePath)
+  return /\/\.spadakcode\/(tools?|skills?)\//.test(filePath)
 }
 const elog = EffectLogger.create({ service: "session.prompt" })
 
@@ -699,7 +699,7 @@ export const layer = Layer.effect(
           ? []
           : yield* Effect.gen(function* () {
               const [env, skills, instructions] = yield* Effect.all([
-                Flag.MIMOCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT
+                Flag.SPADAKCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT
                   ? sys.environment(model, captureSession.time.created, capturePrompt.harness)
                   : Effect.succeed([]),
                 sys.skills({ ...ag, permission: runtimePermission }),
@@ -708,7 +708,7 @@ export const layer = Layer.effect(
               return [
                 ...env,
                 ...(skills ? [skills] : []),
-                ...(Flag.MIMOCODE_DISABLE_INSTRUCTIONS ? [] : instructions.content),
+                ...(Flag.SPADAKCODE_DISABLE_INSTRUCTIONS ? [] : instructions.content),
               ]
             })
         // Prefix capture is best-effort. Adapter loading can die (including SDK
@@ -958,7 +958,7 @@ export const layer = Layer.effect(
       /** Run once, immediately before the wait begins, to explain the stall. */
       onWaitingForWriter?: Effect.Effect<void>
     }) {
-      if (Flag.MIMOCODE_DISABLE_CHECKPOINT) return "checkpoint-off" as const
+      if (Flag.SPADAKCODE_DISABLE_CHECKPOINT) return "checkpoint-off" as const
 
       // 0. Memory writing off → there is nothing to try. Bail out BEFORE any of
       //    the work below, because with the switch on every step of it is
@@ -1093,7 +1093,7 @@ export const layer = Layer.effect(
       "Checkpointing is off, so the context was compacted instead of rebuilt from a checkpoint. Earlier turns " +
       "leave the model's view without a checkpoint summary, which can weaken continuity on long-running work. " +
       "Nothing is broken — to enable checkpoint writers and checkpoint rebuilds again, unset " +
-      "`MIMOCODE_DISABLE_CHECKPOINT` or set it to false."
+      "`SPADAKCODE_DISABLE_CHECKPOINT` or set it to false."
 
     // Sessions that have already been told once, this process.
     //
@@ -1381,7 +1381,7 @@ export const layer = Layer.effect(
           providerOptions: ProviderTransform.providerOptions(mdl, ProviderTransform.smallOptions(mdl)),
           headers: {
             ...mdl.headers,
-            "User-Agent": `mimocode/${InstallationVersion}`,
+            "User-Agent": `spadakcode/${InstallationVersion}`,
           },
           maxRetries: 1,
         }),
@@ -1486,7 +1486,7 @@ export const layer = Layer.effect(
       }
 
       const assistantMessage = input.messages.findLast((msg) => msg.info.role === "assistant")
-      if (!Flag.MIMOCODE_DISABLE_BUILTIN_SKILLS && !Flag.MIMOCODE_DISABLE_OFFICIAL_SKILLS) {
+      if (!Flag.SPADAKCODE_DISABLE_BUILTIN_SKILLS && !Flag.SPADAKCODE_DISABLE_OFFICIAL_SKILLS) {
         const fileCandidates = userMessage.parts.flatMap((p) => {
           if (p.type !== "file") return []
           const filenameFromSource =
@@ -1758,7 +1758,7 @@ NOTE: At any point in time through this workflow you should feel free to ask the
       // global; see toolWhitelist/mcpToolSearch precedent).
       const execMcp: { current: Record<string, AITool> } = { current: {} }
       const useMcpToolSearch = isMcpToolSearchEnabled(
-        Flag.MIMOCODE_EXPERIMENTAL_MCP_TOOL_SEARCH,
+        Flag.SPADAKCODE_EXPERIMENTAL_MCP_TOOL_SEARCH,
         input.harness,
         input.model.id,
         input.model.api.id,
@@ -1809,7 +1809,7 @@ NOTE: At any point in time through this workflow you should feel free to ask the
         sessionParentID: input.session.parentID,
         sessionID: input.session.id,
         agentName: input.agent.name,
-        orchestratorEnabled: Flag.MIMOCODE_EXPERIMENTAL_ORCHESTRATOR,
+        orchestratorEnabled: Flag.SPADAKCODE_EXPERIMENTAL_ORCHESTRATOR,
       })
       const askInteractive = askRouting.interactive
       const askForward = askRouting.forward
@@ -3775,7 +3775,7 @@ NOTE: At any point in time through this workflow you should feel free to ask the
             )
             // experimental.uncommitted_hint (default off): completed MAIN + explicit USER source
             // + dirty git → soft commit reminder. Fail-closed: non-user sources never inject.
-            // Live MIMOCODE_CONFIG_CONTENT wins over cached config so lab toggles apply next turn.
+            // Live SPADAKCODE_CONFIG_CONTENT wins over cached config so lab toggles apply next turn.
             if (outcome === "completed" && resolvedAgentID === "main") {
               // Optional test seam BEFORE begin (late-register window); default unset.
               if (turnSource === "user" && (hintFirePostBarrier.onReached || hintFirePostBarrier.wait)) {
@@ -3788,7 +3788,7 @@ NOTE: At any point in time through this workflow you should feel free to ask the
                   : beginPendingHint(sessionID, { cancelled: true })
               yield* Effect.gen(function* () {
                 try {
-                  const liveContent = process.env.MIMOCODE_CONFIG_CONTENT
+                  const liveContent = process.env.SPADAKCODE_CONFIG_CONTENT
                   const cachedCfg = (yield* config.get()).experimental?.uncommitted_hint
                   const stopCfg = resolveUncommittedHintConfig({ liveContent, cached: cachedCfg })
                   const enabled = uncommittedHintEnabledFromConfig(stopCfg)
@@ -3889,7 +3889,7 @@ NOTE: At any point in time through this workflow you should feel free to ask the
                     return
                   }
                   const liveAfter = resolveUncommittedHintConfig({
-                    liveContent: process.env.MIMOCODE_CONFIG_CONTENT,
+                    liveContent: process.env.SPADAKCODE_CONFIG_CONTENT,
                     cached: cachedCfg,
                   })
                   if (!uncommittedHintEnabledFromConfig(liveAfter)) {
@@ -4029,7 +4029,7 @@ NOTE: At any point in time through this workflow you should feel free to ask the
               sessionID,
               phase,
               task_type: taskType,
-              surface: Flag.MIMOCODE_CLIENT,
+              surface: Flag.SPADAKCODE_CLIENT,
               total_tokens_in: agentMetrics.tokens_in,
               total_tokens_out: agentMetrics.tokens_out,
               files_changed: agentMetrics.files_changed,
@@ -4497,7 +4497,7 @@ NOTE: At any point in time through this workflow you should feel free to ask the
 
           // F37: filter by agentID so subagent slices stay isolated from the
           // main agent's slice within the same session. Without this, an actor
-          // (explore/general/etc) spawned via mimocode's shared-sessionID
+          // (explore/general/etc) spawned via spadakcode's shared-sessionID
           // design would see the parent's full conversation here and drift
           // off-task. agentID === "main" => main agent slice (agent_id = 'main'
           // in DB), agentID === "explore-1" => only explore-1's slice.
@@ -4668,7 +4668,7 @@ NOTE: At any point in time through this workflow you should feel free to ask the
             // the session layer out of the app-runtime module-init cycle
             // (prompt → app-runtime → AppLayer → SessionPrompt). Only loaded when a
             // trigger actually fires. Detached fire-and-forget on the full runtime.
-            const needAppRuntime = dreamTrigger || distillTrigger || Flag.MIMOCODE_EXPERIMENTAL_CRON
+            const needAppRuntime = dreamTrigger || distillTrigger || Flag.SPADAKCODE_EXPERIMENTAL_CRON
             if (needAppRuntime) {
               const { AppRuntime } = yield* Effect.promise(() => import("@/effect/app-runtime"))
               if (dreamTrigger) {
@@ -4695,12 +4695,12 @@ NOTE: At any point in time through this workflow you should feel free to ask the
               }
               // T18-bridge mount: fire CronBridge.start(sessionID, workspaceRoot)
               // once per new top-level session boot. The bridge itself no-ops when
-              // MIMOCODE_EXPERIMENTAL_CRON is unset; the outer gate just skips the
+              // SPADAKCODE_EXPERIMENTAL_CRON is unset; the outer gate just skips the
               // resolve cost in the common case. Mirrors auto-dream's detached
               // dynamic-import pattern so prompt.ts stays out of the app-runtime
               // module-init cycle. Bridge.start is idempotent via its `started`
               // guard, and its Layer finalizer handles teardown on scope close.
-              if (Flag.MIMOCODE_EXPERIMENTAL_CRON) {
+              if (Flag.SPADAKCODE_EXPERIMENTAL_CRON) {
                 const workspaceRoot = (yield* InstanceState.context).worktree
                 const { CronBridge } = yield* Effect.promise(() => import("@/session/cron-bridge"))
                 AppRuntime.runPromise(
@@ -5319,7 +5319,7 @@ NOTE: At any point in time through this workflow you should feel free to ask the
             const frozen = yield* SessionPrefixSnapshot.get(sessionID, prefixProfileKey)
             const currentAdditions = Effect.fnUntraced(function* () {
               const [env, skills, instructions] = yield* Effect.all([
-                Flag.MIMOCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT
+                Flag.SPADAKCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT
                   ? sys.environment(model, session.time.created, sessionPrompt.harness)
                   : Effect.succeed([]),
                 sys.skills({ ...agent, permission: runtimePermission }),
@@ -5337,7 +5337,7 @@ NOTE: At any point in time through this workflow you should feel free to ask the
                 ...env,
                 ...(format.type === "json_schema" ? [STRUCTURED_OUTPUT_SYSTEM_PROMPT] : []),
                 ...(skills ? [skills] : []),
-                ...(Flag.MIMOCODE_DISABLE_INSTRUCTIONS ? [] : instructions.content),
+                ...(Flag.SPADAKCODE_DISABLE_INSTRUCTIONS ? [] : instructions.content),
               ]
             })
             // Note: `buildLLMRequestPrefix` also returns a `tools` field, but we
@@ -6986,7 +6986,7 @@ export const PromptInput = z.object({
     .enum(["auto", "codex", "default"])
     .optional()
     .describe(
-      "Harness mode selected by the session's first user query. Later values are ignored. Auto preserves model/process inference and explicit default forces the native tool schema for non-GPT models. MIMOCODE_CODEX_MODE=false forces the default harness for every model, including GPT.",
+      "Harness mode selected by the session's first user query. Later values are ignored. Auto preserves model/process inference and explicit default forces the native tool schema for non-GPT models. SPADAKCODE_CODEX_MODE=false forces the default harness for every model, including GPT.",
     ),
   variant: z.string().optional(),
   parts: z.array(
@@ -7095,7 +7095,7 @@ export const CommandInput = z.object({
     .enum(["auto", "codex", "default"])
     .optional()
     .describe(
-      "Harness mode selected by the session's first user command. Later values are ignored. Auto preserves model/process inference and explicit default forces the native tool schema for non-GPT models. MIMOCODE_CODEX_MODE=false forces the default harness for every model, including GPT.",
+      "Harness mode selected by the session's first user command. Later values are ignored. Auto preserves model/process inference and explicit default forces the native tool schema for non-GPT models. SPADAKCODE_CODEX_MODE=false forces the default harness for every model, including GPT.",
     ),
   parts: z
     .array(
@@ -7154,7 +7154,7 @@ const quoteTrimRegex = /^["']|["']$/g
  *
  * Funnels a cron/loop fire through the SAME entry point typed user prompts use:
  * `SessionPrompt.Service.prompt`. The synthetic part carries `synthetic: true`
- * (mimocode convention for `isMeta`) so transcript-preview surfaces can hide it,
+ * (spadakcode convention for `isMeta`) so transcript-preview surfaces can hide it,
  * and `metadata.origin = { kind: "cron", taskId, kindOfTask }` so the TUI can
  * render a clock icon. Sentinel expansion is intentionally NOT done here — T19
  * will wrap `value` before this call.

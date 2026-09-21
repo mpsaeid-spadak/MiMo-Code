@@ -2,13 +2,13 @@ import { describe, expect, test } from "bun:test"
 
 function read(value?: string) {
   const env = { ...process.env }
-  if (value === undefined) delete env.MIMOCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT
-  else env.MIMOCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT = value
+  if (value === undefined) delete env.SPADAKCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT
+  else env.SPADAKCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT = value
   const result = Bun.spawnSync({
     cmd: [
       process.execPath,
       "-e",
-      'import { Flag } from "./src/flag/flag.ts"; process.stdout.write(String(Flag.MIMOCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT))',
+      'import { Flag } from "./src/flag/flag.ts"; process.stdout.write(String(Flag.SPADAKCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT))',
     ],
     cwd: process.cwd(),
     env,
@@ -17,7 +17,7 @@ function read(value?: string) {
   return result.stdout.toString()
 }
 
-describe("MIMOCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT", () => {
+describe("SPADAKCODE_ENABLE_DYNAMIC_SYSTEM_PROMPT", () => {
   test("is disabled by default and accepts explicit truthy values", () => {
     expect(read()).toBe("false")
     expect(read("true")).toBe("true")

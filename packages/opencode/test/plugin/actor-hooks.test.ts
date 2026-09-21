@@ -110,7 +110,7 @@ async function pluginProject(source: string) {
       const file = path.join(dir, "plugin.ts")
       await Bun.write(file, source)
       await Bun.write(
-        path.join(dir, "mimocode.json"),
+        path.join(dir, "spadakcode.json"),
         JSON.stringify(
           {
             $schema: "https://opencode.ai/config.json",
@@ -230,7 +230,7 @@ describe("triggerActorPreStop", () => {
           ].join("\n"),
         )
         await Bun.write(
-          path.join(dir, "mimocode.json"),
+          path.join(dir, "spadakcode.json"),
           JSON.stringify({
             $schema: "https://opencode.ai/config.json",
             plugin: [pathToFileURL(a).href, pathToFileURL(b).href],
@@ -309,7 +309,7 @@ describe("actor.preStop ReAct loop", () => {
             ].join("\n"),
           )
           await Bun.write(
-            path.join(dir, "mimocode.json"),
+            path.join(dir, "spadakcode.json"),
             JSON.stringify({
               $schema: "https://opencode.ai/config.json",
               plugin: [pathToFileURL(file).href],
@@ -390,7 +390,7 @@ describe("actor.preStop ReAct loop", () => {
             ].join("\n"),
           )
           await Bun.write(
-            path.join(dir, "mimocode.json"),
+            path.join(dir, "spadakcode.json"),
             JSON.stringify({
               $schema: "https://opencode.ai/config.json",
               plugin: [pathToFileURL(file).href],
@@ -479,7 +479,7 @@ describe("actor.postStop ReAct loop", () => {
             ].join("\n"),
           )
           await Bun.write(
-            path.join(dir, "mimocode.json"),
+            path.join(dir, "spadakcode.json"),
             JSON.stringify({
               $schema: "https://opencode.ai/config.json",
               plugin: [pathToFileURL(file).href],
@@ -562,7 +562,7 @@ describe("actor.postStop ReAct loop", () => {
             ].join("\n"),
           )
           await Bun.write(
-            path.join(dir, "mimocode.json"),
+            path.join(dir, "spadakcode.json"),
             JSON.stringify({
               $schema: "https://opencode.ai/config.json",
               plugin: [pathToFileURL(file).href],
@@ -641,7 +641,7 @@ describe("actor.postStop ReAct loop", () => {
             ].join("\n"),
           )
           await Bun.write(
-            path.join(dir, "mimocode.json"),
+            path.join(dir, "spadakcode.json"),
             JSON.stringify({
               $schema: "https://opencode.ai/config.json",
               plugin: [pathToFileURL(file).href],
@@ -727,7 +727,7 @@ describe("actor.preStop matcher behaviour (integration)", () => {
             ].join("\n"),
           )
           await Bun.write(
-            path.join(dir, "mimocode.json"),
+            path.join(dir, "spadakcode.json"),
             JSON.stringify({
               $schema: "https://opencode.ai/config.json",
               plugin: [pathToFileURL(file).href],
@@ -806,7 +806,7 @@ describe("actor.preStop matcher behaviour (integration)", () => {
             ].join("\n"),
           )
           await Bun.write(
-            path.join(dir, "mimocode.json"),
+            path.join(dir, "spadakcode.json"),
             JSON.stringify({
               $schema: "https://opencode.ai/config.json",
               plugin: [pathToFileURL(file).href],
@@ -886,7 +886,7 @@ describe("actor.preStop matcher behaviour (integration)", () => {
             ].join("\n"),
           )
           await Bun.write(
-            path.join(dir, "mimocode.json"),
+            path.join(dir, "spadakcode.json"),
             JSON.stringify({
               $schema: "https://opencode.ai/config.json",
               plugin: [pathToFileURL(file).href],
@@ -986,7 +986,7 @@ describe("actor.preStop matcher behaviour (integration)", () => {
             ].join("\n"),
           )
           await Bun.write(
-            path.join(dir, "mimocode.json"),
+            path.join(dir, "spadakcode.json"),
             JSON.stringify({
               $schema: "https://opencode.ai/config.json",
               plugin: [pathToFileURL(file).href],
@@ -1089,7 +1089,7 @@ describe("actor.postStop spawning child actors", () => {
             ].join("\n"),
           )
           await Bun.write(
-            path.join(dir, "mimocode.json"),
+            path.join(dir, "spadakcode.json"),
             JSON.stringify({
               $schema: "https://opencode.ai/config.json",
               plugin: [pathToFileURL(file).href],
@@ -1199,7 +1199,7 @@ describe("hook observability events", () => {
             ].join("\n"),
           )
           await Bun.write(
-            path.join(dir, "mimocode.json"),
+            path.join(dir, "spadakcode.json"),
             JSON.stringify({
               $schema: "https://opencode.ai/config.json",
               plugin: [pathToFileURL(file).href],
@@ -1293,7 +1293,7 @@ describe("hook observability events", () => {
             ].join("\n"),
           )
           await Bun.write(
-            path.join(dir, "mimocode.json"),
+            path.join(dir, "spadakcode.json"),
             JSON.stringify({
               $schema: "https://opencode.ai/config.json",
               plugin: [pathToFileURL(file).href],
@@ -1384,7 +1384,7 @@ describe("hook observability events", () => {
             ].join("\n"),
           )
           await Bun.write(
-            path.join(dir, "mimocode.json"),
+            path.join(dir, "spadakcode.json"),
             JSON.stringify({
               $schema: "https://opencode.ai/config.json",
               plugin: [pathToFileURL(file).href],
